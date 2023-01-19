@@ -1,4 +1,5 @@
 const express = require('express');
+const Piece = require('../models/pieceModel');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -9,8 +10,15 @@ router.get('/:id', (req, res) => {
     res.json({mssg: 'Get one piece'})
 })
 
-router.post('/', (req, res) => {
-    res.json({mssg: 'Create a new piece'})
+router.post('/', async (req, res) => {
+    const { title, composer, instruments } = req.body;
+
+    try {
+        const piece = await Piece.create({title, composer, instruments});
+        res.status(200).json(piece);
+    } catch (e) {
+        res.status(400).json({error: e.message});
+    }
 })
 
 router.patch('/:id', (req, res) => {
