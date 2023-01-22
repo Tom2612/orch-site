@@ -1,25 +1,12 @@
 const express = require('express');
-const Piece = require('../models/pieceModel');
+const { createPiece, getPieces, getPiece } = require('../controllers/pieceController');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.json({mssg: 'Get all pieces'})
-})
+router.get('/', getPieces)
 
-router.get('/:id', (req, res) => {
-    res.json({mssg: 'Get one piece'})
-})
+router.get('/:id', getPiece)
 
-router.post('/', async (req, res) => {
-    const { title, composer, instruments } = req.body;
-
-    try {
-        const piece = await Piece.create({title, composer, instruments});
-        res.status(200).json(piece);
-    } catch (e) {
-        res.status(400).json({error: e.message});
-    }
-})
+router.post('/', createPiece)
 
 router.patch('/:id', (req, res) => {
     res.json({mssg: 'Update a piece'})
