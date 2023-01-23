@@ -1,4 +1,7 @@
 {
+  "options": {
+    "proxy": "http://localhost:4000/api/"
+  },
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
