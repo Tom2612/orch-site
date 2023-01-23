@@ -6,10 +6,8 @@ export default function Concerts() {
 
     useEffect(() => {
         const fetchConcerts = async () => {
-            const response = await fetch('http://localhost:4000/api/pieces');
-            console.log(response);
+            const response = await fetch('http://localhost:4000/api/concerts');
             const json = await response.json();
-            console.log(json);
 
             if (response.ok) {
                 setConcerts(json);
@@ -23,8 +21,8 @@ export default function Concerts() {
     <div className='concerts-container'>
         <h2>Concerts</h2>
         <div className='concerts'>
-            {concerts && concerts.map((piece) => (
-                <ConcertDetails key={piece._id} concert={piece} />
+            {concerts && concerts.map((concert) => (
+                <ConcertDetails key={concert._id} concert={concert} />
             ))}
         </div>
     </div>
