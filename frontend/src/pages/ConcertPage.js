@@ -18,7 +18,7 @@ export default function ConcertPage() {
         }
 
         fetchConcert();
-    }, [])
+    }, [id])
 
   return (
     <div className='concert-page'>

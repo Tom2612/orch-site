@@ -19,12 +19,14 @@ const concertSchema = new Schema({
         type: Boolean,
         required: true
     },
-    pieces: {
-        type: Array,
-        required: false
-    },
+    pieces: [
+        {
+            composer: String,
+            piece: String
+        }
+    ],
     instruments: {
-        type: Array,
+        type: [String],
         required: true
     }
 }, { timestamps: true });
