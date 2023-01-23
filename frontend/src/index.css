@@ -48,6 +48,7 @@ header a, header h1 {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(5 1fr);
+  cursor: pointer;
 }
 .orchestra {
   grid-column: 1 / 6;
@@ -66,7 +67,6 @@ header a, header h1 {
   width: 70px;
   grid-column: 8 / 9;
   grid-row: 1 / 2;
-
   border-radius: 3px;
   text-transform: uppercase;
   text-align: center;
