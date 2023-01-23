@@ -29,6 +29,17 @@ header a, header h1 {
   padding: 20px;
   margin: 0 auto;
 }
+.home {
+  display: grid;
+}
+
+/* concerts */
 .concert-details {
-  border: 1px solid black;
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  /* border: 1px solid black; */
 }
