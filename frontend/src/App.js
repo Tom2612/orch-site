@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Concerts from './pages/Concerts';
 import ConcertPage from './pages/ConcertPage';
 import ConcertForm from './pages/ConcertForm';
+import GroupForm from './pages/GroupForm';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/concerts' element={<Concerts />} />
           <Route path='/concerts/:id' element={<ConcertPage />} />
           <Route path='/new-concert' element={<ConcertForm />} />
+          <Route path='/new-group' element={<GroupForm />} />
         </Routes>
       </div>
      </BrowserRouter>

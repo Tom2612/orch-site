@@ -7,7 +7,7 @@ const groupSchema = new Schema({
         type: String,
         required: true
     },
-    city: {
+    location: {
         type: String,
         required: true
     },
