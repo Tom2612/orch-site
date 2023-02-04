@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 
 const concertSchema = new Schema({
     orchestra: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId, ref: 'Orchestra',
     },
     date: {
         type: String,
@@ -28,6 +27,11 @@ const concertSchema = new Schema({
     instruments: {
         type: [String],
         required: true
+    },
+    active: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 }, { timestamps: true });
 

@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Concerts from './pages/Concerts';
 import ConcertPage from './pages/ConcertPage';
+import ConcertForm from './pages/ConcertForm';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/concerts' element={<Concerts />} />
           <Route path='/concerts/:id' element={<ConcertPage />} />
+          <Route path='/new-concert' element={<ConcertForm />} />
         </Routes>
       </div>
      </BrowserRouter>
