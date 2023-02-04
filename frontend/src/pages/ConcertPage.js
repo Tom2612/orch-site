@@ -23,7 +23,7 @@ export default function ConcertPage() {
   return (
     <div className='concert-page'>
         {!loading && 
-            <h2>{concert.orchestra}</h2>
+            <h2>{concert.orchestra.location}</h2>
         }
     </div>
   )
