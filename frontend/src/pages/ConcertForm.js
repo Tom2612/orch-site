@@ -5,6 +5,7 @@ export default function ConcertForm() {
     const [location, setLocation] = useState('');
     const [payStatus, setPayStatus] = useState(false);
     const [pieces, setPieces] = useState([]);
+    const [instrument, setInstrument] = useState('');
     const [instruments, setInstruments] = useState([]);
 
     const handleSubmit = async (e) => {
@@ -22,7 +23,17 @@ export default function ConcertForm() {
       const json = await response.json();
 
       console.log(json);
+    }
 
+    const handleAddInstrument = (e) => {
+      e.preventDefault();
+      setInstruments(instruments.concat(instrument));
+      setInstrument('');
+      console.log(instruments);
+    }
+
+    const handleRemoveInstrument = (instrument) => {
+      setInstruments(instruments.filter(a => a !== instrument));
     }
 
   return (
@@ -74,14 +85,23 @@ export default function ConcertForm() {
         value={pieces}
       />
 
-      <label>Instruments</label>
+      <label>Add Instruments</label>
       <input 
         type='text' 
         name='concert-instr'
-        onChange={(e) => setInstruments(e.target.value)}
-        value={instruments}
+        onChange={(e) => setInstrument(e.target.value)}
+        value={instrument}
+        placeholder='Keep adding'
       />
-
+      <button onClick={handleAddInstrument}>Add</button>
+      <div>
+        {instruments.length > 0 && instruments.map((instrument) => (
+          <>
+            <p>{instrument}</p>
+            <button onClick={() => handleRemoveInstrument(instrument)}>Remove</button>
+          </>
+        ))}
+      </div>
       <button>Create Concert</button>
 
     </form>
