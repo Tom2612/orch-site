@@ -4,6 +4,7 @@ export default function ConcertForm() {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
     const [payStatus, setPayStatus] = useState(false);
+    const [piece, setPiece] = useState([]);
     const [pieces, setPieces] = useState([]);
     const [instrument, setInstrument] = useState('');
     const [instruments, setInstruments] = useState([]);
@@ -77,12 +78,13 @@ export default function ConcertForm() {
         />
       </div>
 
+      {/* {Change this to a selection?} */}
       <label>Pieces</label>
       <input 
         type='text' 
         name='concert-pieces'
-        onChange={(e) => setPieces(e.target.value)}
-        value={pieces}
+        onChange={(e) => setPiece(e.target.value)}
+        value={piece}
       />
 
       <label>Add Instruments</label>
@@ -96,10 +98,10 @@ export default function ConcertForm() {
       <button onClick={handleAddInstrument}>Add</button>
       <div>
         {instruments.length > 0 && instruments.map((instrument) => (
-          <>
+          <div key={instrument}>
             <p>{instrument}</p>
             <button onClick={() => handleRemoveInstrument(instrument)}>Remove</button>
-          </>
+          </div>
         ))}
       </div>
       <button>Create Concert</button>
