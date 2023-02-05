@@ -2,6 +2,7 @@ const Group = require('../models/groupModel');
 const mongoose = require('mongoose');
 
 const getGroups = async (req, res) => {
+    // const allGroups = await Group.find({}).populate('concert');
     const allGroups = await Group.find({});
 
     res.status(200).json(allGroups);

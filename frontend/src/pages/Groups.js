@@ -6,16 +6,17 @@ export default function Groups() {
     useEffect(() => {
         const getAllGroups = async() => {
             const response = await fetch('http://localhost:4000/api/groups/');
-            const json = await response.json()
+            const json = await response.json();
 
             setGroups(json);
         }
-        getAllGroups()
+        getAllGroups();
+
     }, []);
 
   return (
     <div>{groups.map(group => (
-        <p>{group._id} {group.name} {group.location}</p>
+        <p>{group._id} {group.name} {group.location} {group.concert}</p>
     ))}</div>
   )
 }
