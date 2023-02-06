@@ -4,6 +4,7 @@ export default function GroupForm() {
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [contact, setContact] = useState('');
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -18,7 +19,16 @@ export default function GroupForm() {
       })
 
       const json = await response.json();
+      
+      if (!response.ok) {
+        setError(json.error)
+      }
 
+      if (response.ok) {
+        setName('');
+        setLocation('');
+        setContact('');
+      }
       console.log(json);
     }
 
@@ -49,7 +59,7 @@ export default function GroupForm() {
     />
 
       <button>Create Group</button>
-
+      {error && <p>{error}</p>}
     </form>
   )
 }
