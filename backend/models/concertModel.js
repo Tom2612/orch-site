@@ -19,16 +19,14 @@ const concertSchema = new Schema({
         required: true
     },
     // Rechange this back to array and input data from form
-    // pieces: [
-    //     {
-    //         composer: String,
-    //         piece: String
-    //     }
-    // ],
-    pieces: String,
+    pieces: [
+        {
+            composer: String,
+            piece: String
+        }
+    ],
     instruments: {
-        type: [String],
-        required: true
+        type: Array,
     },
     active: {
         type: Boolean,

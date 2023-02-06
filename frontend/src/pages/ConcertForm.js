@@ -3,55 +3,69 @@ import React, { useState } from 'react'
 export default function ConcertForm() {
     
   const [date, setDate] = useState('');
-    const [location, setLocation] = useState('');
-    const [payStatus, setPayStatus] = useState(false);
+  const [location, setLocation] = useState('');
+  const [payStatus, setPayStatus] = useState(false);
 
-    const [composer, setComposer] = useState('');
-    const [title, setTitle] = useState('');
-    const [pieces, setPieces] = useState([]);
+  const [composer, setComposer] = useState('');
+  const [title, setTitle] = useState('');
+  const [pieces, setPieces] = useState([]);
 
-    const [instrument, setInstrument] = useState('');
-    const [instruments, setInstruments] = useState([]);
+  const [instrument, setInstrument] = useState('');
+  const [instruments, setInstruments] = useState([]);
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const concert = { date, location, payStatus, pieces, instruments }
+  const [error, setError] = useState('');
 
-      const response = await fetch('http://localhost:4000/api/concerts', {
-        method: 'POST',
-        body: JSON.stringify(concert),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-      })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const concert = { date, location, payStatus, pieces, instruments }
+    console.log(concert);
 
-      const json = await response.json();
+    const response = await fetch('http://localhost:4000/api/concerts', {
+      method: 'POST',
+      body: JSON.stringify(concert),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    })
 
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
+    }
+    if (response.ok) {
       console.log(json);
+      setDate('');
+      setLocation('');
+      setPayStatus(false);
+      setPieces([]);
+      setInstruments([]);
     }
+    
+  }
 
-    const handleAddInstrument = (e) => {
-      e.preventDefault();
-      setInstruments(instruments.concat(instrument));
-      setInstrument('');
-    }
+  const handleAddInstrument = (e) => {
+    e.preventDefault();
+    setInstruments(instruments.concat(instrument));
+    setInstrument('');
+  }
 
-    const handleRemoveInstrument = (e, instrument) => {
-      e.preventDefault();
-      setInstruments(instruments.filter(a => a !== instrument));
-    }
+  const handleRemoveInstrument = (e, instrument) => {
+    e.preventDefault();
+    setInstruments(instruments.filter(a => a !== instrument));
+  }
 
-    const handleAddPiece = (e) => {
-      e.preventDefault()
-      setPieces(pieces.concat({composer: composer, title: title}));
-      setTitle('');
-      setComposer('');
-    }
+  const handleAddPiece = (e) => {
+    e.preventDefault()
+    setPieces(pieces.concat({composer: composer, title: title}));
+    setTitle('');
+    setComposer('');
+  }
 
-    const handleRemovePiece = (e, piece) => {
-      e.preventDefault();
-      setPieces(pieces.filter(a => a !== piece));
-    }
+  const handleRemovePiece = (e, piece) => {
+    e.preventDefault();
+    setPieces(pieces.filter(a => a !== piece));
+  }
 
   return (
     <form className='concert-form' onSubmit={handleSubmit}>
@@ -117,7 +131,6 @@ export default function ConcertForm() {
         ))}
       </div>
 
-      <h4>Add Instruments</h4>
       <label>Add Instruments</label>
       <input 
         type='text' 
@@ -136,6 +149,7 @@ export default function ConcertForm() {
         ))}
       </div>
       <button>Create Concert</button>
+      {error && <p>Error: {error}</p>}
     </form>
   )
 }
