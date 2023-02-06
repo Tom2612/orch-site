@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const getGroups = async (req, res) => {
     // const allGroups = await Group.find({}).populate('concert');
-    const allGroups = await Group.find({});
+    const allGroups = await Group.find({}).populate({ path: 'concerts'});
 
     res.status(200).json(allGroups);
 }

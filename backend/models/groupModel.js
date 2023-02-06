@@ -15,9 +15,18 @@ const groupSchema = new Schema({
         type: String,
         required: true
     },
-    concerts: [{
-        type: Schema.Types.ObjectId, ref: 'Concert'
-    }]
+    // concerts: [{
+    //     type: Schema.Types.ObjectId, ref: 'Concert'
+    // }]
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+})
+
+groupSchema.virtual('concerts', {
+    ref: 'Concert',
+    localField: '_id',
+    foreignField: 'group'
 })
 
 module.exports = mongoose.model('Group', groupSchema);

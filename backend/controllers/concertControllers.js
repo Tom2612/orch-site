@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 // get all concerts
 const getConcerts = async (req, res) => {
-    const concerts = await Concert.find({}).populate('orchestra').sort({createdAt: -1});
+    const concerts = await Concert.find({}).populate('group').sort({createdAt: -1});
 
     res.status(200).json(concerts);
 }
@@ -15,7 +15,7 @@ const getConcert = async (req, res) => {
         return res.status(404).json({error: 'No such concert'});
     }
 
-    const concert = await Concert.findById(id).populate('orchestra');
+    const concert = await Concert.findById(id).populate('group');
 
     if (!concert) {
         return res.status(404).json({error: 'No such concert'});
@@ -30,7 +30,7 @@ const createConcert = async (req, res) => {
 
     try {
         // Change this to be a dynamic id when group logged in!
-        const concert = await Concert.create({ orchestra: '63ddfb34530f16621b17cdb1', date, location, payStatus, pieces, instruments });
+        const concert = await Concert.create({ group: '63e088c703b4f87a27244077', date, location, payStatus, pieces, instruments });
         res.status(200).json(concert);
     } catch (e) {
         res.status(400).json({error: e.message});

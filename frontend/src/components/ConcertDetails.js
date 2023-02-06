@@ -6,7 +6,7 @@ export default function ConcertDetails({ concert }) {
 
   return (
     <div className='concert-details' onClick={() => {navigate(`/concerts/${concert._id}`)}}>
-        <h4 className='orchestra'>{concert.orchestra.name}</h4>
+        <h4 className='orchestra'>{concert.group.name}</h4>
         <p className='location'>{concert.location}</p>
         <p className='date'>{concert.date.split('-').reverse().join('/')}</p>
         {concert.payStatus ? 

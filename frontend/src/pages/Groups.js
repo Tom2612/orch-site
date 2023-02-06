@@ -11,12 +11,15 @@ export default function Groups() {
             setGroups(json);
         }
         getAllGroups();
+        console.log(groups);
 
     }, []);
 
   return (
-    <div>{groups.map(group => (
-        <p>{group._id} {group.name} {group.location} {group.concert}</p>
-    ))}</div>
+    <div>
+      {groups.map(group => (
+        <p>{group._id} {group.name}a {group.location} {group.concerts[0].location}</p>
+      ))}
+    </div>
   )
 }
