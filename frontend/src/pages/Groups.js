@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 export default function Groups() {
 
     const [groups, setGroups] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getAllGroups = async() => {
@@ -10,6 +11,7 @@ export default function Groups() {
             const json = await response.json();
 
             setGroups(json);
+            setLoading(false);
         }
         getAllGroups();
 
@@ -17,10 +19,10 @@ export default function Groups() {
 
   return (
     <div>
-      {groups.map(group => (
+      {!loading && groups.map(group => (
         <p>{group._id}a {group.name} {group.location} {group.concerts[0].location}</p>
       ))}
-      {groups && groups[0].concerts.map(concert => {
+      {!loading && groups[0].concerts.map(concert => {
         return <p>{concert.location}</p>
       })}
     </div>
