@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 
 export default function ConcertForm() {
-    const [date, setDate] = useState('');
+    
+  const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
     const [payStatus, setPayStatus] = useState(false);
-    const [piece, setPiece] = useState([]);
+
+    const [composer, setComposer] = useState('');
+    const [title, setTitle] = useState('');
     const [pieces, setPieces] = useState([]);
+
     const [instrument, setInstrument] = useState('');
     const [instruments, setInstruments] = useState([]);
 
@@ -30,21 +34,28 @@ export default function ConcertForm() {
       e.preventDefault();
       setInstruments(instruments.concat(instrument));
       setInstrument('');
-      console.log(instruments);
     }
 
-    const handleRemoveInstrument = (instrument) => {
+    const handleRemoveInstrument = (e, instrument) => {
+      e.preventDefault();
       setInstruments(instruments.filter(a => a !== instrument));
+    }
+
+    const handleAddPiece = (e) => {
+      e.preventDefault()
+      setPieces(pieces.concat({composer: composer, title: title}));
+      setTitle('');
+      setComposer('');
+    }
+
+    const handleRemovePiece = (e, piece) => {
+      e.preventDefault();
+      setPieces(pieces.filter(a => a !== piece));
     }
 
   return (
     <form className='concert-form' onSubmit={handleSubmit}>
-      <label>Id</label>
-      <input 
-        type='text' 
-        name='orchestra-id'
-      />
-
+      
       <label>Date</label>
       <input 
         type='date' 
@@ -78,15 +89,35 @@ export default function ConcertForm() {
         />
       </div>
 
-      {/* {Change this to a selection?} */}
-      <label>Pieces</label>
-      <input 
-        type='text' 
-        name='concert-pieces'
-        onChange={(e) => setPiece(e.target.value)}
-        value={piece}
-      />
+      <div>
+        <h4>Add pieces</h4>
+        <label>Composer: </label>
+        <input 
+          type='text' 
+          name='composer'
+          onChange={(e) => setComposer(e.target.value)}
+          value={composer}
+        />
 
+        <label>Title: </label>
+        <input 
+          type='text' 
+          name='piece-title' 
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+        />
+        <button onClick={handleAddPiece}>Add</button>
+      </div>
+      <div>
+        {pieces.length > 0 && pieces.map((piece) => (
+          <div key={piece.title}>
+            <p>{piece.composer} - {piece.title}</p>
+            <button onClick={(e) => handleRemovePiece(e, piece)}>Remove</button>
+          </div>
+        ))}
+      </div>
+
+      <h4>Add Instruments</h4>
       <label>Add Instruments</label>
       <input 
         type='text' 
@@ -100,12 +131,11 @@ export default function ConcertForm() {
         {instruments.length > 0 && instruments.map((instrument) => (
           <div key={instrument}>
             <p>{instrument}</p>
-            <button onClick={() => handleRemoveInstrument(instrument)}>Remove</button>
+            <button onClick={(e) => handleRemoveInstrument(e, instrument)}>Remove</button>
           </div>
         ))}
       </div>
       <button>Create Concert</button>
-
     </form>
   )
 }
