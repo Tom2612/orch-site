@@ -1,13 +1,14 @@
 const Group = require('../models/groupModel');
 const mongoose = require('mongoose');
 
+// Mainly for admin view of all groups
 const getGroups = async (req, res) => {
-    // const allGroups = await Group.find({}).populate('concert');
     const allGroups = await Group.find({}).populate({ path: 'concerts'});
 
     res.status(200).json(allGroups);
 }
 
+// Need to display specific group info here
 const getGroup = async (req, res) => {
     const { id } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) {

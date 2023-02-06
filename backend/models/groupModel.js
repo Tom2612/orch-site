@@ -14,10 +14,7 @@ const groupSchema = new Schema({
     contact: {
         type: String,
         required: true
-    },
-    // concerts: [{
-    //     type: Schema.Types.ObjectId, ref: 'Concert'
-    // }]
+    }
 }, {
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
