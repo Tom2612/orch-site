@@ -41,7 +41,6 @@ export default function ConcertForm() {
       setPieces([]);
       setInstruments([]);
     }
-    
   }
 
   const handleAddInstrument = (e) => {
@@ -57,7 +56,7 @@ export default function ConcertForm() {
 
   const handleAddPiece = (e) => {
     e.preventDefault()
-    setPieces(pieces.concat({composer: composer, title: title}));
+    setPieces(pieces.concat({composer: composer.trim(), title: title.trim()}));
     setTitle('');
     setComposer('');
   }
