@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ConcertDetails from '../components/ConcertDetails';
 
 export default function GroupProfile() {
+  const navigate = useNavigate();
   const [group, setGroup] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -22,7 +24,7 @@ export default function GroupProfile() {
 
     getGroupInfo();
 
-  }, [])
+  }, []);
 
   return (
     <>
@@ -35,13 +37,17 @@ export default function GroupProfile() {
           {!loading && 
             <div className='concert-container'>
               <h3>Your concerts:</h3>
-              {group.concerts.map((concert) => {
-                return <ConcertDetails key={concert._id} concert={concert} />
-              })}
+              {group.concerts.map((concert) => (
+                <>
+                  <ConcertDetails key={concert._id} concert={concert} />
+                  <button>Update / Remove</button>
+                </>
+              ))}
             </div>
           }
         </div>
       }
+      <button>Delete group</button>
     </>
   )
 }

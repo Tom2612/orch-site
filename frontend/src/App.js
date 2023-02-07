@@ -9,6 +9,7 @@ import ConcertForm from './pages/ConcertForm';
 import GroupForm from './pages/GroupForm';
 import Groups from './pages/Groups';
 import GroupProfile from './pages/GroupProfile';
+import ConcertUpdateForm from './pages/ConcertUpdateForm';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/new-group' element={<GroupForm />} />
           <Route path='/all-groups' element={<Groups />} />
           <Route path='/profile' element={<GroupProfile />} />
+          <Route path='/concertUpdateForm' element={<ConcertUpdateForm />} />
         </Routes>
       </div>
      </BrowserRouter>
