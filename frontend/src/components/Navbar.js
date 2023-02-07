@@ -9,6 +9,7 @@ const Navbar = () => {
                 <Link to='/new-concert'>New Concert</Link>
                 <Link to='/new-group'>New group</Link>
                 <Link to='/all-groups'>All groups</Link>
+                <Link to='/profile'>Profile</Link>
             </div>
         </header>
     )

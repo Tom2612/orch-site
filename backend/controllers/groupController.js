@@ -10,7 +10,7 @@ const getGroups = async (req, res) => {
 
 // Need to display specific group info here
 const getGroup = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such group'});
     }
