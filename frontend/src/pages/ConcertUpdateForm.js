@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function ConcertUpdateForm() {
@@ -17,16 +17,6 @@ export default function ConcertUpdateForm() {
   const [instruments, setInstruments] = useState(state.instruments);
 
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    console.log(state)
-  }, [])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    
-  }
 
   const handleAddInstrument = (e) => {
     e.preventDefault();
@@ -53,8 +43,27 @@ export default function ConcertUpdateForm() {
 
   const handleUpdateConcert = async (e, id) => {
     e.preventDefault();
-    console.log('updated form!');
 
+    const updatedConcert = { date, location, payStatus, pieces, instruments }
+
+    const response = await fetch(`http://localhost:4000/api/concerts/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updatedConcert),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
+    } 
+
+    if (response.ok) {
+      setError('');
+      navigate('/profile', { replace: true })
+    }
   }
 
   const handleDeleteConcert = async (e, id) => {
@@ -77,7 +86,7 @@ export default function ConcertUpdateForm() {
   }
 
   return (
-    <form className='concert-form' onSubmit={handleSubmit}>
+    <form className='concert-form'>
       
       <label>Date</label>
       <input 
