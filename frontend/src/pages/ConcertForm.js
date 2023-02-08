@@ -90,7 +90,7 @@ export default function ConcertForm() {
 
   return (
     <form className='concert-form' onSubmit={handleSubmit}>
-      <h1>Input your concert details here</h1>
+      <h1>Create your concert here</h1>
       <label>Date</label>
       <input 
         type='date' 
@@ -109,24 +109,28 @@ export default function ConcertForm() {
 
       <div className='pay-container'>
         <h3>Are you offering financial help to players?</h3>
-        <label>Paid</label>
-        <input 
-          type='radio' 
-          value='true' 
-          name='concert-pay'
-          onChange={() => setPayStatus(true)}
-        />
-        <label>Unpaid</label>
-        <input 
-          type='radio' 
-          value='false' 
-          name='concert-pay'
-          onChange={() => setPayStatus(false)}
-        />
+        <div className='radio-container'>
+          <input 
+            type='radio' 
+            value='true' 
+            name='concert-pay'
+            onChange={() => setPayStatus(true)}
+          />
+          <label>Paid</label>
+
+          <input 
+            type='radio' 
+            value='false' 
+            name='concert-pay'
+            onChange={() => setPayStatus(false)}
+          />
+          <label>Unpaid</label>
+        </div>
       </div>
 
       <div className='pieces'>
-        <h4>Add pieces</h4>
+        <h3>What pieces are being performed?</h3>
+        
         <label>Composer: </label>
         <input 
           type='text' 

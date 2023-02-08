@@ -159,6 +159,7 @@ header a, header h1 {
 .concert-form label {
   font-size: 1.2rem;
   display: block;
+  font-weight: 700;
 }
 .concert-form input[type='text'], input[type='date'] {
   font-family: inherit;
@@ -171,7 +172,19 @@ header a, header h1 {
 .pay-container {
   display: grid;
   grid-template-rows: 1fr 3fr;
+  margin-bottom: 20px;
 }
 .pay-container h2 {
   grid-row: 1 / 2;
+}
+.pay-container label, input {
+  display: inline;
+  font-weight: 400;
+}
+.radio-container {
+  width: 100px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  align-items: center;
+  justify-items: start;
 }

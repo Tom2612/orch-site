@@ -109,7 +109,7 @@ export default function ConcertUpdateForm() {
 
   return (
     <form className='concert-form'>
-      
+      <h1>Update your concert here</h1>
       <label>Date</label>
       <input 
         type='date' 
@@ -128,26 +128,32 @@ export default function ConcertUpdateForm() {
 
       <div className='pay-container'>
         <h3>Are you offering financial help to players?</h3>
-        <label>Paid</label>
-        <input 
-          type='radio' 
-          value='true' 
-          name='concert-pay'
-          onChange={() => setPayStatus(true)}
-          checked={payStatus ? true : false}
-        />
-        <label>Unpaid</label>
-        <input 
-          type='radio' 
-          value='false' 
-          name='concert-pay'
-          onChange={() => setPayStatus(false)}
-          checked={!payStatus ? true : false}
-        />
+        
+        <div className='radio-container'>
+          
+          <input 
+            type='radio' 
+            value='true' 
+            name='concert-pay'
+            onChange={() => setPayStatus(true)}
+            checked={payStatus ? true : false}
+          />
+          <label>Paid</label>
+
+          <input 
+            type='radio' 
+            value='false' 
+            name='concert-pay'
+            onChange={() => setPayStatus(false)}
+            checked={!payStatus ? true : false}
+          />
+          <label>Unpaid</label>
+        </div>
       </div>
 
       <div className='pieces'>
-        <h4>Add pieces</h4>
+        <h3>What pieces are being performed?</h3>
+        
         <label>Composer: </label>
         <input 
           type='text' 
