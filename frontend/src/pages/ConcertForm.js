@@ -14,6 +14,7 @@ export default function ConcertForm() {
   const [instruments, setInstruments] = useState([]);
 
   const [error, setError] = useState('');
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,8 +46,15 @@ export default function ConcertForm() {
 
   const handleAddInstrument = (e) => {
     e.preventDefault();
+    if (!instrument) {
+      setError('Please add an instrument');
+      setEmptyFields(emptyFields.concat('instrument'));
+      return 
+    }
     setInstruments(instruments.concat(instrument));
     setInstrument('');
+    setError('');
+    setEmptyFields([]);
   }
 
   const handleRemoveInstrument = (e, instrument) => {
@@ -56,9 +64,23 @@ export default function ConcertForm() {
 
   const handleAddPiece = (e) => {
     e.preventDefault()
+    if (!composer) {
+      setError(`Please add a composer`);
+      setEmptyFields(emptyFields.concat('composer'));
+      return;
+    }
+
+    if(!title) {
+      setError('Please add a title');
+      setEmptyFields(emptyFields.concat('title'));
+      return;
+    }
+
     setPieces(pieces.concat({composer: composer.trim(), title: title.trim()}));
     setTitle('');
     setComposer('');
+    setError('');
+    setEmptyFields([]);
   }
 
   const handleRemovePiece = (e, piece) => {
@@ -110,6 +132,7 @@ export default function ConcertForm() {
           name='composer'
           onChange={(e) => setComposer(e.target.value)}
           value={composer}
+          className={emptyFields.includes('composer') ? 'error' : ''}
         />
 
         <label>Title: </label>
@@ -118,12 +141,13 @@ export default function ConcertForm() {
           name='piece-title' 
           onChange={(e) => setTitle(e.target.value)}
           value={title}
+          className={emptyFields.includes('title') ? 'error' : ''}
         />
         <button onClick={handleAddPiece}>Add</button>
       </div>
       <div>
-        {pieces.length > 0 && pieces.map((piece) => (
-          <div key={piece.title}>
+        {pieces.length > 0 && pieces.map((piece, index) => (
+          <div key={index}>
             <p>{piece.composer} - {piece.title}</p>
             <button onClick={(e) => handleRemovePiece(e, piece)}>Remove</button>
           </div>
@@ -137,6 +161,7 @@ export default function ConcertForm() {
         onChange={(e) => setInstrument(e.target.value)}
         value={instrument}
         placeholder='Keep adding'
+        className={emptyFields.includes('instrument') ? 'error' : ''}
       />
       <button onClick={handleAddInstrument}>Add</button>
       <div>
