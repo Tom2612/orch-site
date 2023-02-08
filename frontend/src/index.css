@@ -6,8 +6,10 @@
 :root{
   --green-primary: #198754;
   --green-secondary: #a3cfbb;
-  --red-primary: #dc3545;
+  --red-primary: #e7195a;
   --red-secondary: #f1aeb5;
+  --blue: #0d6efd;
+  --cyan: #0dcaf0;
 }
 body {
   background: #f1f1f1;;
@@ -34,6 +36,36 @@ header a, header h1 {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
+}
+.error {
+  border: 2px solid var(--red-primary);
+}
+.error-message {
+  display: block;
+  border: 1px solid var(--red-primary);
+  color: var(--red-primary);
+  background-color: #ffefef;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 300px;
+}
+
+/* Homepage styling */
+.home button {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.home button:nth-of-type(1) {
+  background: var(--blue);
+}
+.home button:nth-of-type(2) {
+  background: var(--cyan);
 }
 
 /* concertDetails */
@@ -111,4 +143,35 @@ header a, header h1 {
   font-style: italic;
   margin-right: 2rem;
   color: rgb(0,0,0,0.7);
+}
+
+/* concert form styling */
+.concert-form {
+  width: 90%;
+  padding: 20px;
+  background: white;
+  border: 1px solid black;
+}
+.concert-form h1 {
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.concert-form label {
+  font-size: 1.2rem;
+  display: block;
+}
+.concert-form input[type='text'], input[type='date'] {
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+.pay-container {
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+}
+.pay-container h2 {
+  grid-row: 1 / 2;
 }

@@ -118,7 +118,7 @@ export default function ConcertUpdateForm() {
         value={date}
       />
 
-      <label>Location</label>
+      <label>Venue Name</label>
       <input 
         type='text' 
         name='concert-location'
@@ -126,8 +126,9 @@ export default function ConcertUpdateForm() {
         value={location}
       />
 
-      <div>
-        <label>paid</label>
+      <div className='pay-container'>
+        <h3>Are you offering financial help to players?</h3>
+        <label>Paid</label>
         <input 
           type='radio' 
           value='true' 
@@ -135,7 +136,7 @@ export default function ConcertUpdateForm() {
           onChange={() => setPayStatus(true)}
           checked={payStatus ? true : false}
         />
-        <label>unpaid</label>
+        <label>Unpaid</label>
         <input 
           type='radio' 
           value='false' 
@@ -145,7 +146,7 @@ export default function ConcertUpdateForm() {
         />
       </div>
 
-      <div>
+      <div className='pieces'>
         <h4>Add pieces</h4>
         <label>Composer: </label>
         <input 
@@ -194,7 +195,7 @@ export default function ConcertUpdateForm() {
       <button onClick={(e) => handleUpdateConcert(e, state._id)} type='button'>Update Concert</button>
       <button onClick={(e) => handleDeleteConcert(e, state._id)} type='button'>Delete Concert</button>
 
-      {error && <p>Error: {error}</p>}
+      {error && <span className='error-message'>Error: {error}</span>}
     </form>
   )
 }
