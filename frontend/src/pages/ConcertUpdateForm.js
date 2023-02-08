@@ -17,11 +17,19 @@ export default function ConcertUpdateForm() {
   const [instruments, setInstruments] = useState(state.instruments);
 
   const [error, setError] = useState('');
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleAddInstrument = (e) => {
     e.preventDefault();
+    if (!instrument) {
+      setError('Please add an instrument');
+      setEmptyFields(emptyFields.concat('instrument'));
+      return 
+    }
     setInstruments(instruments.concat(instrument));
     setInstrument('');
+    setError('');
+    setEmptyFields([]);
   }
 
   const handleRemoveInstrument = (e, instrument) => {
@@ -31,9 +39,23 @@ export default function ConcertUpdateForm() {
 
   const handleAddPiece = (e) => {
     e.preventDefault()
+    if (!composer) {
+      setError(`Please add a composer`);
+      setEmptyFields(emptyFields.concat('composer'));
+      return;
+    }
+
+    if(!title) {
+      setError('Please add a title');
+      setEmptyFields(emptyFields.concat('title'));
+      return;
+    }
+
     setPieces(pieces.concat({composer: composer.trim(), title: title.trim()}));
     setTitle('');
     setComposer('');
+    setError('');
+    setEmptyFields([]);
   }
 
   const handleRemovePiece = (e, piece) => {
