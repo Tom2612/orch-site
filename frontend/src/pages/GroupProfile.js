@@ -40,7 +40,7 @@ export default function GroupProfile() {
               {group.concerts.map((concert) => (
                 <>
                   <ConcertDetails key={concert._id} concert={concert} />
-                  <button onClick={() => navigate(`/${concert._id}/edit`, {replace: true})}>Update / Remove</button>
+                  <button onClick={() => navigate(`/${concert._id}/edit`, {replace: true, state: {...concert} })}>Update / Remove</button>
                 </>
               ))}
             </div>

@@ -1,45 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function ConcertUpdateForm(props) {
-  const [date, setDate] = useState(props.date);
-  const [location, setLocation] = useState(props.location);
-  const [payStatus, setPayStatus] = useState(false);
+export default function ConcertUpdateForm() {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const [date, setDate] = useState(state.date);
+  const [location, setLocation] = useState(state.location);
+  const [payStatus, setPayStatus] = useState(state.payStatus);
 
   const [composer, setComposer] = useState('');
   const [title, setTitle] = useState('');
-  const [pieces, setPieces] = useState([]);
+  const [pieces, setPieces] = useState(state.pieces);
 
   const [instrument, setInstrument] = useState('');
-  const [instruments, setInstruments] = useState([]);
+  const [instruments, setInstruments] = useState(state.instruments);
 
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    console.log(state)
+  }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const concert = { date, location, payStatus, pieces, instruments }
-    console.log(concert);
 
-    const response = await fetch('http://localhost:4000/api/concerts', {
-      method: 'POST',
-      body: JSON.stringify(concert),
-      headers: {
-          'Content-Type': 'application/json'
-      }
-    })
-
-    const json = await response.json();
-
-    if (!response.ok) {
-      setError(json.error);
-    }
-    if (response.ok) {
-      console.log(json);
-      setDate('');
-      setLocation('');
-      setPayStatus(false);
-      setPieces([]);
-      setInstruments([]);
-    }
+    
   }
 
   const handleAddInstrument = (e) => {
@@ -63,6 +49,31 @@ export default function ConcertUpdateForm(props) {
   const handleRemovePiece = (e, piece) => {
     e.preventDefault();
     setPieces(pieces.filter(a => a !== piece));
+  }
+
+  const handleUpdateConcert = async (e, id) => {
+    e.preventDefault();
+    console.log('updated form!');
+
+  }
+
+  const handleDeleteConcert = async (e, id) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:4000/api/concerts/${id}`, {
+        method: 'DELETE'
+      })
+
+      const json = await response.json();
+
+      if (!response.ok){
+        setError(json.error);
+      }
+      navigate('/profile', {replace: true});
+    } catch(e) {
+      setError(e)
+    }
   }
 
   return (
@@ -91,6 +102,7 @@ export default function ConcertUpdateForm(props) {
           value='true' 
           name='concert-pay'
           onChange={() => setPayStatus(true)}
+          checked={payStatus ? true : false}
         />
         <label>unpaid</label>
         <input 
@@ -98,6 +110,7 @@ export default function ConcertUpdateForm(props) {
           value='false' 
           name='concert-pay'
           onChange={() => setPayStatus(false)}
+          checked={!payStatus ? true : false}
         />
       </div>
 
@@ -146,7 +159,10 @@ export default function ConcertUpdateForm(props) {
           </div>
         ))}
       </div>
-      <button>Create Concert</button>
+
+      <button onClick={(e) => handleUpdateConcert(e, state._id)} type='button'>Update Concert</button>
+      <button onClick={(e) => handleDeleteConcert(e, state._id)} type='button'>Delete Concert</button>
+
       {error && <p>Error: {error}</p>}
     </form>
   )
