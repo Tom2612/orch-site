@@ -169,37 +169,41 @@ export default function ConcertUpdateForm() {
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         />
-        <button onClick={handleAddPiece}>Add</button>
+        <button className='add-btn' onClick={handleAddPiece}>Add</button>
       </div>
-      <div>
-        {pieces.length > 0 && pieces.map((piece) => (
-          <div key={piece.title}>
-            <p>{piece.composer} - {piece.title}</p>
-            <button onClick={(e) => handleRemovePiece(e, piece)}>Remove</button>
+      <div className='pieces-container'>
+        {pieces.length > 0 && pieces.map((piece, index) => (
+          <div key={index} className='piece'>
+            <p><span className='composer'>{piece.composer}</span> - {piece.title}</p>
+            <span 
+              className='material-symbols-outlined' 
+              onClick={(e) => handleRemovePiece(e, piece)}>
+                Close
+              </span>
           </div>
         ))}
       </div>
 
-      <label>Add Instruments</label>
+      <label>What instruments are required?</label>
       <input 
         type='text' 
         name='concert-instr'
         onChange={(e) => setInstrument(e.target.value)}
         value={instrument}
-        placeholder='Keep adding'
+        placeholder='Instrument'
       />
-      <button onClick={handleAddInstrument}>Add</button>
-      <div>
+      <button className='add-btn' onClick={handleAddInstrument}>Add</button>
+      <div className='instruments-container'>
         {instruments.length > 0 && instruments.map((instrument) => (
-          <div key={instrument}>
+          <div className='instrument' key={instrument}>
             <p>{instrument}</p>
-            <button onClick={(e) => handleRemoveInstrument(e, instrument)}>Remove</button>
+            <span className='material-symbols-outlined' onClick={(e) => handleRemoveInstrument(e, instrument)}>Close</span>
           </div>
         ))}
       </div>
 
-      <button onClick={(e) => handleUpdateConcert(e, state._id)} type='button'>Update Concert</button>
-      <button onClick={(e) => handleDeleteConcert(e, state._id)} type='button'>Delete Concert</button>
+      <button className='update-btn' onClick={(e) => handleUpdateConcert(e, state._id)} type='button'>Update Concert</button>
+      <button className='delete-btn' onClick={(e) => handleDeleteConcert(e, state._id)} type='button'>Delete Concert</button>
 
       {error && <span className='error-message'>Error: {error}</span>}
     </form>
