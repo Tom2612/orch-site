@@ -4,7 +4,8 @@ export default function GroupForm() {
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [contact, setContact] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
+    const [emptyFields, setEmptyFields] = useState([]);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -21,15 +22,16 @@ export default function GroupForm() {
       const json = await response.json();
       
       if (!response.ok) {
-        setError(json.error)
+        setError(json.error);
+        setEmptyFields(json.emptyFields);
       }
 
       if (response.ok) {
+        setError(null);
         setName('');
         setLocation('');
         setContact('');
       }
-      console.log(json);
     }
 
   return (
@@ -38,24 +40,36 @@ export default function GroupForm() {
       <input 
         type='text' 
         name='group-name'
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => {
+          setName(e.target.value)
+          return setEmptyFields(emptyFields.filter(field => field !== 'name'))
+        }}
         value={name}
+        className={emptyFields.includes('name') ? 'error' : ''}
     />
 
       <label>location</label>
       <input 
         type='text' 
         name='group-location'
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={(e) => {
+          setLocation(e.target.value)
+           return setEmptyFields(emptyFields.filter(field => field !== 'location'))
+        }}
         value={location}
+        className={emptyFields.includes('location') ? 'error' : ''}
     />
 
       <label>Contact</label>
       <input 
         type='text' 
         name='group-contact'
-        onChange={(e) => setContact(e.target.value)}
+        onChange={(e) => {
+          setContact(e.target.value)
+           return setEmptyFields(emptyFields.filter(field => field !== 'contact'))
+        }}
         value={contact}
+        className={emptyFields.includes('contact') ? 'error' : ''}
     />
 
       <button>Create Group</button>
