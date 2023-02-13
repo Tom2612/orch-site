@@ -3,7 +3,7 @@ const router = express.Router();
 const { getConcert, getConcerts, updateConcert, createConcert, deleteConcert } = require('../controllers/concertControllers');
 
 // get all concerts
-router.get('/', getConcerts)
+router.get('/', getConcerts);
 
 // get a single concert
 router.get('/:id', getConcert)

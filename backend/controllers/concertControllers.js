@@ -28,6 +28,25 @@ const getConcert = async (req, res) => {
 const createConcert = async (req, res) => {
     const { date, location, payStatus, pieces, instruments } = req.body;
 
+    // Backend validators
+    let emptyFields = [];
+
+    if (!date) {
+        emptyFields.push('date');
+    }
+    if (!location) {
+        emptyFields.push('location');
+    }
+    if (pieces.length === 0) {
+        emptyFields.push('pieces');
+    }
+    if (instruments.length === 0) {
+        emptyFields.push('instruments');
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
+    }
+
     try {
         // Change this to be a dynamic id when group logged in!
         const concert = await Concert.create({ group: '63e088c703b4f87a27244077', date, location, payStatus, pieces, instruments });

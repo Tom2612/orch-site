@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ConcertForm() {
+  const navigate = useNavigate();
     
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
@@ -13,13 +15,29 @@ export default function ConcertForm() {
   const [instrument, setInstrument] = useState('');
   const [instruments, setInstruments] = useState([]);
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Concert validtors frontend
+    if (!date) {
+      setEmptyFields(emptyFields.concat('date'));
+    }
+    if (!location) {
+      setEmptyFields(emptyFields.concat('location'));
+    }
+    if (pieces.length === 0) {
+      setEmptyFields(emptyFields.concat('pieces'));
+    }
+    if (instruments.length === 0) {
+      setEmptyFields(emptyFields.concat('instruments'));
+    }
+    if (emptyFields.length > 1) {
+      return setError('Please fill in the required fields');
+    }
+
     const concert = { date, location, payStatus, pieces, instruments }
-    console.log(concert);
 
     const response = await fetch('http://localhost:4000/api/concerts', {
       method: 'POST',
@@ -32,15 +50,19 @@ export default function ConcertForm() {
     const json = await response.json();
 
     if (!response.ok) {
+      console.log(json);
       setError(json.error);
+      setEmptyFields(json.emptyFields);
     }
     if (response.ok) {
-      console.log(json);
+      setEmptyFields([]);
+      setError(null);
       setDate('');
       setLocation('');
       setPayStatus(false);
       setPieces([]);
       setInstruments([]);
+      navigate('/concerts');
     }
   }
 
@@ -54,7 +76,9 @@ export default function ConcertForm() {
     setInstruments(instruments.concat(instrument));
     setInstrument('');
     setError('');
-    setEmptyFields([]);
+    setEmptyFields(emptyFields.filter(field => {
+      return field !== 'instruments' && field !== 'instrument';
+    }));
   }
 
   const handleRemoveInstrument = (e, instrument) => {
@@ -80,7 +104,9 @@ export default function ConcertForm() {
     setTitle('');
     setComposer('');
     setError('');
-    setEmptyFields([]);
+    setEmptyFields(emptyFields.filter(field => {
+      return field !== 'pieces';
+    }));
   }
 
   const handleRemovePiece = (e, piece) => {
@@ -95,16 +121,24 @@ export default function ConcertForm() {
       <input 
         type='date' 
         name='concert-date'
-        onChange={(e) => setDate(e.target.value)}
+        onChange={(e) => {
+          setDate(e.target.value)
+          return setEmptyFields(emptyFields.filter(field => field !== 'date'))
+        }}
         value={date}
+        className={emptyFields.includes('date') ? 'error' : 'input'}
       />
 
       <label>Venue Name</label>
       <input 
         type='text' 
         name='concert-location'
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={(e) => {
+          setLocation(e.target.value)
+          return setEmptyFields(emptyFields.filter(field => field !== 'location'))
+        }}
         value={location}
+        className={emptyFields.includes('location') ? 'error' : 'input'}
       />
 
       <div className='pay-container'>
@@ -137,7 +171,7 @@ export default function ConcertForm() {
           name='composer'
           onChange={(e) => setComposer(e.target.value)}
           value={composer}
-          className={emptyFields.includes('composer') ? 'error' : ''}
+          className={emptyFields.includes('composer') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
 
         <label>Title: </label>
@@ -146,7 +180,7 @@ export default function ConcertForm() {
           name='piece-title' 
           onChange={(e) => setTitle(e.target.value)}
           value={title}
-          className={emptyFields.includes('title') ? 'error' : ''}
+          className={emptyFields.includes('title') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
         <button className='add-btn' onClick={handleAddPiece}>Add</button>
       </div>
@@ -170,7 +204,7 @@ export default function ConcertForm() {
         onChange={(e) => setInstrument(e.target.value)}
         value={instrument}
         placeholder='Instrument'
-        className={emptyFields.includes('instrument') ? 'error' : ''}
+        className={emptyFields.includes('instrument') || emptyFields.includes('instruments') ? 'error' : 'input'}
       />
       <button className='add-btn' onClick={handleAddInstrument}>Add</button>
       <div className='instruments-container'>

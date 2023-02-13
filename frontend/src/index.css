@@ -167,7 +167,7 @@ header a, header h1 {
 .concert-form input[type='text'], input[type='date'] {
   font-family: inherit;
   font-size: inherit;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 3px;
   padding: 5px;
   margin-bottom: 20px;
@@ -280,6 +280,9 @@ header a, header h1 {
   color: #fff;
   border: none;
   cursor: pointer;
+}
+.input {
+  border: 1px solid black;
 }
 
 /* Profile Page */
