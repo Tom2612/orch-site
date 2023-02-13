@@ -58,6 +58,27 @@ const createConcert = async (req, res) => {
 
 // update a concert
 const updateConcert = async (req, res) => {
+    const { date, location, pieces, instruments } = req.body;
+
+    // Backend validators
+    let emptyFields = [];
+
+    if (!date) {
+        emptyFields.push('date');
+    }
+    if (!location) {
+        emptyFields.push('location');
+    }
+    if (pieces.length === 0) {
+        emptyFields.push('pieces');
+    }
+    if (instruments.length === 0) {
+        emptyFields.push('instruments');
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
+    }
+
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such concert'})

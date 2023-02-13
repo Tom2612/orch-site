@@ -20,6 +20,7 @@ export default function ConcertForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Concert validtors frontend
     if (!date) {
       setEmptyFields(emptyFields.concat('date'));
@@ -50,7 +51,6 @@ export default function ConcertForm() {
     const json = await response.json();
 
     if (!response.ok) {
-      console.log(json);
       setError(json.error);
       setEmptyFields(json.emptyFields);
     }
@@ -75,7 +75,7 @@ export default function ConcertForm() {
     }
     setInstruments(instruments.concat(instrument));
     setInstrument('');
-    setError('');
+    setError(null);
     setEmptyFields(emptyFields.filter(field => {
       return field !== 'instruments' && field !== 'instrument';
     }));
@@ -103,7 +103,7 @@ export default function ConcertForm() {
     setPieces(pieces.concat({composer: composer.trim(), title: title.trim()}));
     setTitle('');
     setComposer('');
-    setError('');
+    setError(null);
     setEmptyFields(emptyFields.filter(field => {
       return field !== 'pieces';
     }));

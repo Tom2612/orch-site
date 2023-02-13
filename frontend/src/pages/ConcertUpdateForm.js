@@ -16,7 +16,7 @@ export default function ConcertUpdateForm() {
   const [instrument, setInstrument] = useState('');
   const [instruments, setInstruments] = useState(state.instruments);
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
   const handleAddInstrument = (e) => {
@@ -28,8 +28,10 @@ export default function ConcertUpdateForm() {
     }
     setInstruments(instruments.concat(instrument));
     setInstrument('');
-    setError('');
-    setEmptyFields([]);
+    setError(null);
+    setEmptyFields(emptyFields.filter(field => {
+      return field !== 'instruments' && field !== 'instrument';
+    }));
   }
 
   const handleRemoveInstrument = (e, instrument) => {
@@ -54,8 +56,10 @@ export default function ConcertUpdateForm() {
     setPieces(pieces.concat({composer: composer.trim(), title: title.trim()}));
     setTitle('');
     setComposer('');
-    setError('');
-    setEmptyFields([]);
+    setError(null);
+    setEmptyFields(emptyFields.filter(field => {
+      return field !== 'pieces';
+    }));
   }
 
   const handleRemovePiece = (e, piece) => {
@@ -65,6 +69,23 @@ export default function ConcertUpdateForm() {
 
   const handleUpdateConcert = async (e, id) => {
     e.preventDefault();
+
+    // Concert validtors frontend
+    if (!date) {
+      setEmptyFields(emptyFields.concat('date'));
+    }
+    if (!location) {
+      setEmptyFields(emptyFields.concat('location'));
+    }
+    if (pieces.length === 0) {
+      setEmptyFields(emptyFields.concat('pieces'));
+    }
+    if (instruments.length === 0) {
+      setEmptyFields(emptyFields.concat('instruments'));
+    }
+    if (emptyFields.length > 1) {
+      return setError('Please fill in the required fields');
+    }
 
     const updatedConcert = { date, location, payStatus, pieces, instruments }
 
@@ -80,10 +101,12 @@ export default function ConcertUpdateForm() {
 
     if (!response.ok) {
       setError(json.error);
+      setEmptyFields(json.emptyFields);
     } 
 
     if (response.ok) {
-      setError('');
+      setError(null);
+      setEmptyFields([]);
       navigate('/profile', { replace: true })
     }
   }
@@ -103,7 +126,7 @@ export default function ConcertUpdateForm() {
       }
       navigate('/profile', {replace: true});
     } catch(e) {
-      setError(e)
+      setError(e);
     }
   }
 
@@ -114,16 +137,24 @@ export default function ConcertUpdateForm() {
       <input 
         type='date' 
         name='concert-date'
-        onChange={(e) => setDate(e.target.value)}
+        onChange={(e) => {
+          setDate(e.target.value)
+          return setEmptyFields(emptyFields.filter(field => field !== 'date'))
+        }}
         value={date}
+        className={emptyFields.includes('date') ? 'error' : 'input'}
       />
 
       <label>Venue Name</label>
       <input 
         type='text' 
         name='concert-location'
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={(e) => {
+          setLocation(e.target.value)
+          return setEmptyFields(emptyFields.filter(field => field !== 'location'))
+        }}
         value={location}
+        className={emptyFields.includes('location') ? 'error' : 'input'}
       />
 
       <div className='pay-container'>
@@ -160,6 +191,7 @@ export default function ConcertUpdateForm() {
           name='composer'
           onChange={(e) => setComposer(e.target.value)}
           value={composer}
+          className={emptyFields.includes('composer') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
 
         <label>Title: </label>
@@ -168,6 +200,7 @@ export default function ConcertUpdateForm() {
           name='piece-title' 
           onChange={(e) => setTitle(e.target.value)}
           value={title}
+          className={emptyFields.includes('title') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
         <button className='add-btn' onClick={handleAddPiece}>Add</button>
       </div>
@@ -191,6 +224,7 @@ export default function ConcertUpdateForm() {
         onChange={(e) => setInstrument(e.target.value)}
         value={instrument}
         placeholder='Instrument'
+        className={emptyFields.includes('instrument') || emptyFields.includes('instruments') ? 'error' : 'input'}
       />
       <button className='add-btn' onClick={handleAddInstrument}>Add</button>
       <div className='instruments-container'>
