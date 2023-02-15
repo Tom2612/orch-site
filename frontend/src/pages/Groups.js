@@ -20,7 +20,7 @@ export default function Groups() {
   return (
     <div>
       {!loading && groups.map(group => (
-        <p>{group._id}a {group.name} {group.location} {group.concerts[0].location}</p>
+        <p>{group._id} {group.name} {group.location}</p>
       ))}
       {!loading && groups[0].concerts.map(concert => {
         return <p>{concert.location}</p>

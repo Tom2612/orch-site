@@ -254,8 +254,8 @@ header a, header h1 {
   cursor: pointer;
 }
 .create-btn {
-  font-size: 1.3rem;
-  padding: 5px 10px;
+  font-size: inherit;
+  padding: 10px;
   border-radius: 5px;
   background-color: var(--green-primary);
   color: #fff;
@@ -329,4 +329,39 @@ header a, header h1 {
 .group-del {
   margin-top: 20px;
   margin-left: 20px;
+}
+
+/* GroupForm style */
+.group-form {
+  width: 90%;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.group-form label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.group-form input{
+  width: 300px;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 3px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+.group-form button {
+  width: 150px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  border-radius: 5px;
+  background: var(--green-primary);
+  color: white;
+  cursor: pointer;
 }

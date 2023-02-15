@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ConcertDetails from '../components/ConcertDetails';
 
 export default function GroupProfile() {
+  const { id } = useParams();
   const navigate = useNavigate();
+
   const [group, setGroup] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getGroupInfo = async () => {
-      const response = await fetch('http://localhost:4000/api/groups/63e088c703b4f87a27244077');
+      const response = await fetch(`http://localhost:4000/api/groups/${id}`);
       const json = await response.json();
 
       if (!response.ok) {
         console.log('error getting group');
+        console.log(json.error);
       }
 
       if (response.ok) {
@@ -24,7 +27,7 @@ export default function GroupProfile() {
 
     getGroupInfo();
 
-  }, []);
+  }, [id]);
 
   return (
     <>

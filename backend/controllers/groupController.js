@@ -25,7 +25,7 @@ const getGroup = async (req, res) => {
 }
 
 const createGroup = async (req, res) => {
-    const { name, location, contact } = req.body;
+    const { name, location, email, phone = null } = req.body;
 
     let emptyFields = [];
 
@@ -35,15 +35,15 @@ const createGroup = async (req, res) => {
     if (!location) {
         emptyFields.push('location');
     }
-    if (!contact) {
-        emptyFields.push('contact');
+    if (!email) {
+        emptyFields.push('email');
     }
     if (emptyFields.length > 0) {
         return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
     }
 
     try {
-        const group = await Group.create({ name, location, contact });
+        const group = await Group.create({ name, location, email, phone });
         res.status(200).json(group);
     } catch (e) {
         res.status(400).json({error: e.message});

@@ -11,9 +11,12 @@ const groupSchema = new Schema({
         type: String,
         required: true
     },
-    contact: {
+    email: {
         type: String,
         required: true
+    },
+    phone: {
+        type: String
     }
 }, {
     toJSON: { virtuals: true },
