@@ -14,9 +14,9 @@ export default function ConcertDetails({ concert }) {
           <div className='status unpaid'>unpaid</div>
         }
         <ul className='composers'>
-          {/* {concert.pieces.map((piece, index) => (
+          {concert.pieces.map((piece, index) => (
             <li key={index}>{piece.composer}</li>
-          ))} */}
+          ))}
         </ul>
         <ul className='instruments'>
             {concert.instruments.map((instrument, index) => (
