@@ -37,21 +37,26 @@ export default function GroupProfile() {
           <h1>Profile</h1>
           <h2>Name: <span>{group.name}</span></h2>
           <h2>Location: <span>{group.location}</span></h2>
-          <h2>Contact: <span>{group.contact}</span></h2>
+          <h2>Email: <span>{group.contact}</span></h2>
+          {group.phone && <h2>Phone: <span>{group.phone}</span></h2>}
           <button className='update-btn' disabled>Update your information</button>
         </div>
 
-          {!loading && 
-            <div className='group-concert-container'>
-              <h3 className='group-concert-title'>View and update your concerts:</h3>
-              {group.concerts.map((concert) => (
-                <>
-                  <ConcertDetails key={concert._id} concert={concert} />
-                  <button onClick={() => navigate(`/${concert._id}/edit`, {replace: true, state: {...concert} })}>Edit</button>
-                </>
-              ))}
-            </div>
-          }
+        {!loading && 
+          <div className='group-concert-container'>
+            <h3 className='group-concert-title'>View and update your concerts:</h3>
+            <button 
+              className='create-btn'
+              onClick={() => navigate('/new-concert')}
+            >Add a concert</button>
+            {group.concerts.map((concert) => (
+              <>
+                <ConcertDetails key={concert._id} concert={concert} />
+                <span onClick={() => navigate(`/${concert._id}/edit`, {replace: true, state: {...concert} })}>Edit</span>
+              </>
+            ))}
+          </div>
+        }
 
       </>}
       <button className='delete-btn group-del'>Delete group</button>

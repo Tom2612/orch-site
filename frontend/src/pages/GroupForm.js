@@ -8,7 +8,7 @@ export default function GroupForm() {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState('');
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
