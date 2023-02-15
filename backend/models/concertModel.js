@@ -18,7 +18,6 @@ const concertSchema = new Schema({
         type: Boolean,
         required: true
     },
-    // Rechange this back to array and input data from form
     pieces: [
         {
             composer: String,

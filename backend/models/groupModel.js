@@ -17,6 +17,9 @@ const groupSchema = new Schema({
     },
     phone: {
         type: String
+    },
+    description: {
+        type: String
     }
 }, {
     toJSON: { virtuals: true },

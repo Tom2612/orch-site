@@ -365,3 +365,10 @@ header a, header h1 {
   color: white;
   cursor: pointer;
 }
+.group-form textarea {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  font-family: inherit;
+  font-size: inherit;
+}

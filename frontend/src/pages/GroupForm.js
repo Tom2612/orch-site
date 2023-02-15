@@ -9,6 +9,7 @@ export default function GroupForm() {
   const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [description, setDescription] = useState('');
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -28,7 +29,7 @@ export default function GroupForm() {
       return setError('Please fill in the required fields');
     }
 
-    const group = { name, location, email, phone };
+    const group = { name, location, email, phone, description };
     
     const response = await fetch('http://localhost:4000/api/groups', {
       method: 'POST',
@@ -59,7 +60,7 @@ export default function GroupForm() {
   return (
     <form className='group-form' onSubmit={handleSubmit}>
       <div>
-        <label>Name</label>
+        <label>What is your group's name?</label>
         <input 
           type='text' 
           name='group-name'
@@ -74,7 +75,7 @@ export default function GroupForm() {
       </div>
 
       <div>
-        <label>location</label>
+        <label>Where are you based?</label>
         <input 
           type='text' 
           name='group-location'
@@ -113,6 +114,19 @@ export default function GroupForm() {
           }}
           value={phone}
           className='input'
+        />
+      </div>
+
+      <div>
+        <label>Provide a description of your group!</label>
+        <textarea 
+          name='group-description'
+          cols={70}
+          rows={5}
+          onChange={(e) => {
+            setDescription(e.target.value)
+          }}
+          value={description}
         />
       </div>
 
