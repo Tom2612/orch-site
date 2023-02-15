@@ -27,7 +27,6 @@ const getConcert = async (req, res) => {
 // create a concert
 const createConcert = async (req, res) => {
     const { date, location, payStatus, pieces, instruments } = req.body;
-
     // Backend validators
     let emptyFields = [];
 
@@ -40,9 +39,15 @@ const createConcert = async (req, res) => {
     if (pieces.length === 0) {
         emptyFields.push('pieces');
     }
+    if(pieces.map(piece => {
+        !piece.composer || !piece.title ? emptyFields.push('pieces') : piece
+    }))
     if (instruments.length === 0) {
         emptyFields.push('instruments');
     }
+    if(instruments.map(instrument => {
+        !instrument ? emptyFields.push('instruments') : instrument
+    }))
     if (emptyFields.length > 0) {
         return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
     }
