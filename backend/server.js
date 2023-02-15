@@ -4,6 +4,7 @@ const express = require('express');
 const pieceRoutes = require('./routes/pieces');
 const concertRoutes = require('./routes/concerts');
 const groupRoutes = require('./routes/groups');
+const userRouters = require('./routes/user');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 app.use('/api/pieces', pieceRoutes);
 app.use('/api/concerts', concertRoutes);
 app.use('/api/groups', groupRoutes);
+app.use('/api/user', userRouters);
 
 // connect to db and start listening
 mongoose.connect(process.env.MONGO_URI)
