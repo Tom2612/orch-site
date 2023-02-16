@@ -5,13 +5,19 @@ const Schema = mongoose.Schema;
 const groupSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     location: {
         type: String,
         required: true
     },
     email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
         type: String,
         required: true
     },
