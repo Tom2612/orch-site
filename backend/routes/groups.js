@@ -8,5 +8,6 @@ const router = express.Router();
 router.get('/', getGroups);
 router.get('/:id', getGroup);
 router.post('/', createGroup);
+router.post('/signup', createGroup);
 
 module.exports = router;
