@@ -22,7 +22,8 @@ As of early Feb, the 'group' side of things is almost fully working in terms of 
 Added some extra validation on signup routes for groups. Fixed the mongoose error to set as String and not object. Added signup static method to group model. All fields on group form working but not displaying on Group profile page - need to put description on there too.
 
 Next steps:
--Set up JWT on signup method
--Start AuthContext in React for frontend and reducer functions
--Create updateGroupDetails page and patch requests for that.
--Create general login form (question here: how to handle different types of authorization? e.g., player v group and what is seen on the front end. Players shouldn't be able to make concerts).
+
+- Set up JWT on signup method
+- Start AuthContext in React for frontend and reducer functions
+- Create updateGroupDetails page and patch requests for that.
+- Create general login form (question here: how to handle different types of authorization? e.g., player v group and what is seen on the front end. Players shouldn't be able to make concerts).
