@@ -25,7 +25,7 @@ const getGroup = async (req, res) => {
 }
 
 const createGroup = async (req, res) => {
-    const { name, location, email, password, phone = null, description = null } = req.body;
+    const { email, password, name, location, phone = null, description = null } = req.body;
 
     let emptyFields = [];
 
@@ -43,7 +43,7 @@ const createGroup = async (req, res) => {
     }
 
     try {
-        const group = await Group.signup({ email, password, name, location, phone, description });
+        const group = await Group.signup(email, password, name, location, phone, description);
         res.status(200).json(group);
     } catch (e) {
         res.status(400).json({error: e.message});
