@@ -38,6 +38,9 @@ const createGroup = async (req, res) => {
     if (!email) {
         emptyFields.push('email');
     }
+    if (!password) {
+        emptyFields.push('password');
+    }
     if (emptyFields.length > 0) {
         return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
     }

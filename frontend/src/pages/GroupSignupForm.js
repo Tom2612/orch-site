@@ -44,7 +44,6 @@ export default function GroupForm() {
     })
 
     const json = await response.json();
-    console.log(json);
     
     if (!response.ok) {
       setError(json.error);
@@ -75,7 +74,7 @@ export default function GroupForm() {
             return setEmptyFields(emptyFields.filter(field => field !== 'email'))
           }}
           value={email}
-          // className={emptyFields.includes('email') ? 'error' : 'input'}
+          className={emptyFields.includes('email') ? 'error' : 'input'}
           required
         />
       </div>
@@ -90,7 +89,7 @@ export default function GroupForm() {
             return setEmptyFields(emptyFields.filter(field => field !== 'password'))
           }}
           value={password}
-          // className={emptyFields.includes('password') ? 'error' : 'input'}
+          className={emptyFields.includes('password') ? 'error' : 'input'}
           required
         />
       </div>
@@ -105,7 +104,7 @@ export default function GroupForm() {
             return setEmptyFields(emptyFields.filter(field => field !== 'name'))
           }}
           value={name}
-          // className={emptyFields.includes('name') ? 'error' : 'input'}
+          className={emptyFields.includes('name') ? 'error' : 'input'}
           required
         />
       </div>
@@ -120,7 +119,7 @@ export default function GroupForm() {
             return setEmptyFields(emptyFields.filter(field => field !== 'location'))
           }}
           value={location}
-          // className={emptyFields.includes('location') ? 'error' : 'input'}
+          className={emptyFields.includes('location') ? 'error' : 'input'}
           required
         />
       </div>
