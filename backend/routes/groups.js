@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const { getGroup, getGroups, signupGroup, loginGroup } = require('../controllers/groupController');
 
 const router = express.Router();
