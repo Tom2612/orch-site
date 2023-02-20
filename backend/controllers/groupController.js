@@ -63,7 +63,17 @@ const signupGroup = async (req, res) => {
 }
 
 const loginGroup = async (req, res) => {
-    res.json({mssg: 'Logging in'});
+    const { email, password } = req.body;
+
+    try {
+        const group = await Group.login(email, password);
+
+        const token = createToken(group._id);
+
+        res.status(200).json({group, token});
+    } catch(error) {
+        res.status(400).json({error: error.message});
+    }
 }
 
 module.exports = {

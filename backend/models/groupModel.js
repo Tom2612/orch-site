@@ -59,6 +59,26 @@ groupSchema.statics.signup = async function(email, password, name, location, pho
     return group;
 }
 
+groupSchema.statics.login = async function(email, password) {
+    if (!email || !password) {
+        throw Error('All fields must be filled');
+    }
+
+    const group = await this.findOne({ email });
+
+    if (!group) {
+        throw Error('Email not found');
+    }
+
+    const match = await bcrypt.compare(password, group.password);
+
+    if (!match) {
+        throw Error('Incorrect login details');
+    }
+
+    return group;
+}
+
 groupSchema.virtual('concerts', {
     ref: 'Concert',
     localField: '_id',
