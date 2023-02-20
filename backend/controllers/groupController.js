@@ -1,5 +1,10 @@
 const Group = require('../models/groupModel');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
+const createToken = (_id) => {
+    return jwt.sign({_id, }, process.env.SECRET, {expiresIn: '3d'})
+}
 
 // Mainly for admin view of all groups
 const getGroups = async (req, res) => {
@@ -47,7 +52,11 @@ const createGroup = async (req, res) => {
 
     try {
         const group = await Group.signup(email, password, name, location, phone, description);
-        res.status(200).json(group);
+
+        // create token
+        const token = createToken(group._id);
+
+        res.status(200).json({group, token});
     } catch (e) {
         res.status(400).json({error: e.message});
     }
