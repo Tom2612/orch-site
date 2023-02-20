@@ -29,7 +29,7 @@ const getGroup = async (req, res) => {
     res.status(200).json(group);
 }
 
-const createGroup = async (req, res) => {
+const signupGroup = async (req, res) => {
     const { email, password, name, location, phone = null, description = null } = req.body;
 
     let emptyFields = [];
@@ -62,8 +62,13 @@ const createGroup = async (req, res) => {
     }
 }
 
+const loginGroup = async (req, res) => {
+    res.json({mssg: 'Logging in'});
+}
+
 module.exports = {
     getGroups,
     getGroup,
-    createGroup
+    signupGroup,
+    loginGroup
 }

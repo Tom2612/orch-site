@@ -1,12 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { getGroup, getGroups, createGroup } = require('../controllers/groupController');
+const { getGroup, getGroups, signupGroup, loginGroup } = require('../controllers/groupController');
 
 const router = express.Router();
 
 // group routes
 router.get('/', getGroups);
 router.get('/:id', getGroup);
-router.post('/signup', createGroup);
+router.post('/signup', signupGroup);
+router.post('/login', loginGroup);
 
 module.exports = router;
