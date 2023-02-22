@@ -56,7 +56,7 @@ const signupGroup = async (req, res) => {
         // create token
         const token = createToken(group._id);
 
-        res.status(200).json({group, token});
+        res.status(200).json({email, token});
     } catch (e) {
         res.status(400).json({error: e.message});
     }

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGroupSignup } from '../hooks/useGroupSignup';
 
 export default function GroupForm() {
 
   const navigate = useNavigate();
+  const { groupSignup, loading, error } = useGroupSignup();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,55 +13,57 @@ export default function GroupForm() {
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(!name) {
-      setEmptyFields(emptyFields.concat('name'));
-    }
-    if(!location) {
-      setEmptyFields(emptyFields.concat('location'));
-    }
-    if(!email) {
-      setEmptyFields(emptyFields.concat('email'));
-    }
-    if(!password) {
-      setEmptyFields(emptyFields.concat('password'));
-    }
-    if (emptyFields.length > 1) {
-      return setError('Please fill in the required fields');
-    }
-
-    const group = { email, password, name, location, phone, description };
+    // if(!name) {
+    //   setEmptyFields(emptyFields.concat('name'));
+    // }
+    // if(!location) {
+    //   setEmptyFields(emptyFields.concat('location'));
+    // }
+    // if(!email) {
+    //   setEmptyFields(emptyFields.concat('email'));
+    // }
+    // if(!password) {
+    //   setEmptyFields(emptyFields.concat('password'));
+    // }
+    // if (emptyFields.length > 1) {
+    //   return setError('Please fill in the required fields');
+    // }
     
-    const response = await fetch('http://localhost:4000/api/groups/signup', {
-      method: 'POST',
-      body: JSON.stringify(group),
-      headers: {
-          'Content-Type': 'application/json'
-      }
-    })
+    await groupSignup(email, password, name, location, phone, description);
 
-    const json = await response.json();
+    // const group = { email, password, name, location, phone, description };
     
-    if (!response.ok) {
-      setError(json.error);
-      setEmptyFields(json.emptyFields);
-    }
+    // const response = await fetch('http://localhost:4000/api/groups/signup', {
+    //   method: 'POST',
+    //   body: JSON.stringify(group),
+    //   headers: {
+    //       'Content-Type': 'application/json'
+    //   }
+    // })
 
-    if (response.ok) {
-      setEmptyFields([]);
-      setError(null);
-      setName('');
-      setLocation('');
-      setEmail('');
-      setPassword('');
-      setPhone('');
-      navigate(`/groups/${json._id}`);
-    }
+    // const json = await response.json();
+    
+    // if (!response.ok) {
+    //   setError(json.error);
+    //   setEmptyFields(json.emptyFields);
+    // }
+
+    // if (response.ok) {
+    //   setEmptyFields([]);
+    //   setError(null);
+    //   setName('');
+    //   setLocation('');
+    //   setEmail('');
+    //   setPassword('');
+    //   setPhone('');
+      // navigate(`/groups/${json._id}`);
+    // }
   }
 
   return (
@@ -150,7 +154,7 @@ export default function GroupForm() {
         />
       </div>
 
-      <button className='create-btn'>Create Group</button>
+      <button disabled={loading} className='create-btn'>Create Group</button>
       {error && <p className="error-message">{error}</p>}
     </form>
   )
