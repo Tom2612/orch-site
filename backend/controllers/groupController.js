@@ -70,7 +70,7 @@ const loginGroup = async (req, res) => {
 
         const token = createToken(group._id);
 
-        res.status(200).json({group, token});
+        res.status(200).json({email, token});
     } catch(error) {
         res.status(400).json({error: error.message});
     }
