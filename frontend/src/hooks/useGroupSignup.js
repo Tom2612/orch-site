@@ -4,11 +4,14 @@ import { useAuth } from '../contexts/AuthContext';
 export const useGroupSignup = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(null);
+    const [emptyFields, setEmptyFields] = useState([]);
     const { dispatch } = useAuth();
 
     const groupSignup = async (email, password, name, location, phone, description) => {
         setLoading(true);
         setError(null);
+        setEmptyFields([]);
+        
     
         const response = await fetch('http://localhost:4000/api/groups/signup', {
             method: 'POST',
@@ -23,6 +26,7 @@ export const useGroupSignup = () => {
         if (!response.ok) {
             setLoading(false);
             setError(json.error);
+            setEmptyFields(json.emptyFields);
         }
 
         if (response.ok) {
@@ -31,5 +35,5 @@ export const useGroupSignup = () => {
             setLoading(false);
         }
     }
-    return { groupSignup, loading, error };
+    return { groupSignup, loading, error, emptyFields };
 }

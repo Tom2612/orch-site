@@ -18,52 +18,17 @@ export default function GroupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // if(!name) {
-    //   setEmptyFields(emptyFields.concat('name'));
-    // }
-    // if(!location) {
-    //   setEmptyFields(emptyFields.concat('location'));
-    // }
-    // if(!email) {
-    //   setEmptyFields(emptyFields.concat('email'));
-    // }
-    // if(!password) {
-    //   setEmptyFields(emptyFields.concat('password'));
-    // }
-    // if (emptyFields.length > 1) {
-    //   return setError('Please fill in the required fields');
-    // }
     
     await groupSignup(email, password, name, location, phone, description);
 
-    // const group = { email, password, name, location, phone, description };
-    
-    // const response = await fetch('http://localhost:4000/api/groups/signup', {
-    //   method: 'POST',
-    //   body: JSON.stringify(group),
-    //   headers: {
-    //       'Content-Type': 'application/json'
-    //   }
-    // })
+    setEmptyFields([]);
+    setName('');
+    setLocation('');
+    setEmail('');
+    setPassword('');
+    setPhone('');
+    // navigate(`/groups/${json._id}`);
 
-    // const json = await response.json();
-    
-    // if (!response.ok) {
-    //   setError(json.error);
-    //   setEmptyFields(json.emptyFields);
-    // }
-
-    // if (response.ok) {
-    //   setEmptyFields([]);
-    //   setError(null);
-    //   setName('');
-    //   setLocation('');
-    //   setEmail('');
-    //   setPassword('');
-    //   setPhone('');
-      // navigate(`/groups/${json._id}`);
-    // }
   }
 
   return (
@@ -125,8 +90,6 @@ export default function GroupForm() {
           required
         />
       </div>
-
-      
 
       <div>
         <label>Contact Number (optional)</label>
