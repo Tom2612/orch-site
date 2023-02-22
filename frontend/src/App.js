@@ -10,6 +10,7 @@ import GroupSignupForm from './pages/GroupSignupForm';
 import Groups from './pages/Groups';
 import GroupProfile from './pages/GroupProfile';
 import ConcertUpdateForm from './pages/ConcertUpdateForm';
+import GroupLogin from './pages/GroupLogin';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path='/concerts/:id' element={<ConcertPage />} />
           <Route path='/new-concert' element={<ConcertForm />} />
           <Route path='/new-group' element={<GroupSignupForm />} />
+          <Route path='/login-group' element={<GroupLogin />} />
           <Route path='/all-groups' element={<Groups />} />
           <Route path='/groups/:id' element={<GroupProfile />} />
           <Route path={'/:id/edit'} element={<ConcertUpdateForm />} />
