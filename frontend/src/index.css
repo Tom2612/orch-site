@@ -340,6 +340,17 @@ header a, header h1 {
   display: flex;
   flex-direction: column;
 }
+.group-form-email-password {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.group-form-email-password label {
+  grid-row: 1 / 2;
+}
+.group-form-email-password input {
+  grid-row: 2 / 3;
+}
 .group-form label {
   display: block;
   font-size: 1.2rem;

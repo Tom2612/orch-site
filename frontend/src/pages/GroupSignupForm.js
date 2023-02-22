@@ -64,7 +64,7 @@ export default function GroupForm() {
 
   return (
     <form className='group-form' onSubmit={handleSubmit}>
-      <div>
+      <div className='group-form-email-password'>
         <label>Contact Email</label>
         <input 
           type='email' 
@@ -77,9 +77,7 @@ export default function GroupForm() {
           className={emptyFields.includes('email') ? 'error' : 'input'}
           required
         />
-      </div>
-
-      <div>
+      
         <label>Create Password</label>
         <input 
           type='password' 
