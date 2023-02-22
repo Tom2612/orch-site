@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
 
 const Navbar = () => {
+    const { logout } = useLogout();
+
+    const handleClick = () => {
+        logout();
+    }
+    
     return (
         <header>
             <div className="container">
@@ -11,6 +18,7 @@ const Navbar = () => {
                 <Link to='/all-groups'>All groups</Link>
                 <Link to='/groups/63ec8e28883c248182c8fe6a'>Profile</Link>
                 <Link to='/login-group'>Log in</Link>
+                <button onClick={handleClick}>Log out</button>
             </div>
         </header>
     )

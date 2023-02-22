@@ -11,7 +11,6 @@ export const useGroupSignup = () => {
         setLoading(true);
         setError(null);
         setEmptyFields([]);
-        
     
         const response = await fetch('http://localhost:4000/api/groups/signup', {
             method: 'POST',
