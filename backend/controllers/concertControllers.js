@@ -52,9 +52,10 @@ const createConcert = async (req, res) => {
         return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
     }
 
+    const user_id = req.user._id;
+
     try {
-        // Change this to be a dynamic id when group logged in!
-        const concert = await Concert.create({ group: '63e088c703b4f87a27244077', date, location, payStatus, pieces, instruments });
+        const concert = await Concert.create({ group: user_id, date, location, payStatus, pieces, instruments });
         res.status(200).json(concert);
     } catch (e) {
         res.status(400).json({error: e.message});
@@ -89,8 +90,14 @@ const updateConcert = async (req, res) => {
         return res.status(404).json({error: 'No such concert'})
     }
 
-    const concert = await Concert.findOneAndUpdate({_id : id}, {...req.body});
+    const user_id = req.user._id;
 
+    
+    const concert = await Concert.findOneAndUpdate({_id : id}, {...req.body});
+    // Find concert and check id's match here BEFORE updating!
+    // if (user_id === )
+
+    
     if (!concert) {
         return res.status(404).json({error: 'No such concert'});
     }
