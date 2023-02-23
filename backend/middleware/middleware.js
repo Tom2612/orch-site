@@ -3,6 +3,7 @@ const Group = require('../models/groupModel');
 
 const isValid = async (req, res, next) => {
     const { authorization } = req.headers;
+    
     if (!authorization) {
         return res.status(401).json({error: 'Authorization required'});
     }

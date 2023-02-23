@@ -32,7 +32,7 @@ export default function GroupProfile() {
 
     getGroupInfo();
 
-  }, []);
+  }, [user.token]);
 
   return (
     <>
