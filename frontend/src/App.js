@@ -26,7 +26,7 @@ function App() {
           <Route path='/new-group' element={<GroupSignupForm />} />
           <Route path='/login-group' element={<GroupLogin />} />
           <Route path='/all-groups' element={<Groups />} />
-          <Route path='/groups/:id' element={<GroupProfile />} />
+          <Route path='/groups/profile' element={<GroupProfile />} />
           <Route path={'/:id/edit'} element={<ConcertUpdateForm />} />
         </Routes>
       </div>

@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ConcertDetails from '../components/ConcertDetails';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function GroupProfile() {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [group, setGroup] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getGroupInfo = async () => {
-      const response = await fetch(`http://localhost:4000/api/groups/${id}`);
+      const response = await fetch(`http://localhost:4000/api/groups/profile`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
       const json = await response.json();
 
       if (!response.ok) {
@@ -27,7 +32,7 @@ export default function GroupProfile() {
 
     getGroupInfo();
 
-  }, [id]);
+  }, []);
 
   return (
     <>
@@ -49,7 +54,7 @@ export default function GroupProfile() {
               className='create-btn'
               onClick={() => navigate('/new-concert')}
             >Add a concert</button>
-            {group.concerts.map((concert) => (
+            {group.concerts && group.concerts.map((concert) => (
               <>
                 <ConcertDetails key={concert._id} concert={concert} />
                 <span onClick={() => navigate(`/${concert._id}/edit`, {replace: true, state: {...concert} })}>Edit</span>

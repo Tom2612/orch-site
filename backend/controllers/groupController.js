@@ -15,12 +15,14 @@ const getGroups = async (req, res) => {
 
 // Need to display specific group info here
 const getGroup = async (req, res) => {
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+
+    const user_id = req.user._id;
+
+    if (!mongoose.Types.ObjectId.isValid(user_id)) {
         return res.status(404).json({error: 'No such group'});
     }
 
-    const group = await Group.findById(id).populate('concerts');
+    const group = await Group.findById(user_id).populate('concerts');
 
     if (!group) {
         return res.status(400).json({error: 'No such group'});
