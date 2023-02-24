@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function ConcertForm() {
   const navigate = useNavigate();
+  const { user } = useAuth();
     
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
@@ -44,7 +46,8 @@ export default function ConcertForm() {
       method: 'POST',
       body: JSON.stringify(concert),
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
       }
     })
 

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { getConcert, getConcerts, updateConcert, createConcert, deleteConcert } = require('../controllers/concertControllers');
-const isValid = require('../middleware/middleware');
+const { isValid, isAuthor } = require('../middleware/middleware');
+// const isAuthor = require('../middleware/middleware');
 
 // get all concerts
 router.get('/', getConcerts);
@@ -13,7 +14,7 @@ router.get('/:id', getConcert);
 router.post('/', isValid, createConcert);
 
 // update a concert
-router.patch('/:id', isValid, updateConcert);
+router.patch('/:id', isValid, isAuthor, updateConcert);
 
 // delete a concert
 router.delete('/:id', isValid, deleteConcert);

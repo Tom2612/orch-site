@@ -89,9 +89,6 @@ const updateConcert = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such concert'})
     }
-
-    const user_id = req.user._id;
-
     
     const concert = await Concert.findOneAndUpdate({_id : id}, {...req.body});
     // Find concert and check id's match here BEFORE updating!
