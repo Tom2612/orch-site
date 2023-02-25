@@ -23,6 +23,11 @@ export default function ConcertForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      setError('You must be logged in to do that');
+      return
+    }
+
     // Concert validtors frontend
     if (!date) {
       setEmptyFields(emptyFields.concat('date'));

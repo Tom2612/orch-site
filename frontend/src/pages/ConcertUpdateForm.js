@@ -130,7 +130,7 @@ export default function ConcertUpdateForm() {
       if (!response.ok){
         setError(json.error);
       }
-      navigate('/profile', {replace: true});
+      navigate('/groups/profile', {replace: true});
     } catch(e) {
       setError(e.message);
     }
