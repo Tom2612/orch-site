@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
 
 // pages and components
 import Home from './pages/Home';
@@ -14,6 +15,7 @@ import GroupLogin from './pages/GroupLogin';
 import PrivateRoute from './hooks/useProtect';
 
 function App() {
+  const { user } = useAuth();
   return (
     <div className="App">
      <BrowserRouter>
@@ -23,12 +25,12 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/concerts' element={<Concerts />} />
           <Route path='/concerts/:id' element={<ConcertPage />} />
-          <Route path='/new-concert' element={<ConcertForm />} />
-          <Route path='/new-group' element={<GroupSignupForm />} />
-          <Route path='/login-group' element={<GroupLogin />} />
+          <Route path='/new-concert' element={<PrivateRoute><ConcertForm /></PrivateRoute>} />
+          <Route path='/new-group' element={!user ? <GroupSignupForm /> : <Navigate to='/groups/profile' />} />
+          <Route path='/login-group' element={!user ? <GroupLogin /> : <Navigate to='/groups/profile' />} />
           <Route path='/all-groups' element={<Groups />} />
           <Route path='/groups/profile' element={<PrivateRoute><GroupProfile /></PrivateRoute>} />
-          <Route path={'/:id/edit'} element={<ConcertUpdateForm />} />
+          <Route path={'/:id/edit'} element={<PrivateRoute><ConcertUpdateForm /></PrivateRoute>} />
         </Routes>
       </div>
      </BrowserRouter>
