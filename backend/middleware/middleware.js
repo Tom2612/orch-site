@@ -34,18 +34,21 @@ const isAuthor = async (req, res, next) => {
         const { _id } = jwt.verify(token, process.env.SECRET);
 
         const { id } = req.params;
-        const concert = await Concert.findById(id);
-        if (!concert.group === _id) {
-            console.log('Not Authorized!', concert, _id);
-            return res.redirect('/');
+        const concert = await Concert.findById(id).populate('group');
+        console.log('id check', _id, concert.group.id);
+        console.log(_id === concert.group.id ? 'true' : 'false');
+
+        if (!concert.group.equals(_id)) {
+            return res.status(401).json({error: 'Not authorized'});
         }
-        console.log('Authorized!', concert, _id);
+        console.log('Authorized!');
         next();
     } catch (error) {
         console.log(error);
         res.status(400).json({error: 'You are not authorized to do that.'});
     }
 }
+
 module.exports = { 
     isValid, 
     isAuthor 

@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getConcert, getConcerts, updateConcert, createConcert, deleteConcert } = require('../controllers/concertControllers');
-const { isValid, isAuthor } = require('../middleware/middleware');
-// const isAuthor = require('../middleware/middleware');
+const { isAuthor, isValid } = require('../middleware/middleware.js'); 
 
 // get all concerts
 router.get('/', getConcerts);

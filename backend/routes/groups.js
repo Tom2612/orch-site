@@ -1,10 +1,8 @@
 const express = require('express');
 const { getGroup, getGroups, signupGroup, loginGroup } = require('../controllers/groupController');
-const isValid = require('../middleware/middleware');
+const { isAuthor, isValid } = require('../middleware/middleware.js'); 
 
 const router = express.Router();
-
-// router.use(isValid);
 
 // group routes
 router.get('/', getGroups);

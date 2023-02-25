@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function ConcertUpdateForm() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { user } = useAuth();
 
   const [date, setDate] = useState(state.date);
   const [location, setLocation] = useState(state.location);
@@ -93,7 +95,8 @@ export default function ConcertUpdateForm() {
       method: 'PATCH',
       body: JSON.stringify(updatedConcert),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearuer ${user.token}`
       }
     });
 
@@ -107,7 +110,7 @@ export default function ConcertUpdateForm() {
     if (response.ok) {
       setError(null);
       setEmptyFields([]);
-      navigate('/profile', { replace: true })
+      navigate('/groups/profile', { replace: true })
     }
   }
 
