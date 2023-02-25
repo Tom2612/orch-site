@@ -27,7 +27,7 @@ export default function GroupForm() {
     setEmail('');
     setPassword('');
     setPhone('');
-    // navigate(`/groups/${json._id}`);
+    navigate(`/groups/profile`);
 
   }
 

@@ -110,7 +110,7 @@ export default function ConcertUpdateForm() {
     if (response.ok) {
       setError(null);
       setEmptyFields([]);
-      navigate('/groups/profile', { replace: true })
+      navigate('/groups/profile', { replace: true });
     }
   }
 
@@ -132,7 +132,7 @@ export default function ConcertUpdateForm() {
       }
       navigate('/profile', {replace: true});
     } catch(e) {
-      setError(e);
+      setError(e.message);
     }
   }
 
