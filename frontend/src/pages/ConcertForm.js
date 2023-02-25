@@ -125,29 +125,32 @@ export default function ConcertForm() {
   return (
     <form className='concert-form' onSubmit={handleSubmit}>
       <h1>Create your concert here</h1>
-      <label>Date</label>
-      <input 
-        type='date' 
-        name='concert-date'
-        onChange={(e) => {
-          setDate(e.target.value)
-          return setEmptyFields(emptyFields.filter(field => field !== 'date'))
-        }}
-        value={date}
-        className={emptyFields.includes('date') ? 'error' : 'input'}
-      />
 
-      <label>Venue Name</label>
-      <input 
-        type='text' 
-        name='concert-location'
-        onChange={(e) => {
-          setLocation(e.target.value)
-          return setEmptyFields(emptyFields.filter(field => field !== 'location'))
-        }}
-        value={location}
-        className={emptyFields.includes('location') ? 'error' : 'input'}
-      />
+      <div className='form-info-one'>
+        <label>Date</label>
+        <input 
+          type='date' 
+          name='concert-date'
+          onChange={(e) => {
+            setDate(e.target.value)
+            return setEmptyFields(emptyFields.filter(field => field !== 'date'))
+          }}
+          value={date}
+          className={emptyFields.includes('date') ? 'error' : 'input'}
+        />
+
+        <label>Venue Name</label>
+        <input 
+          type='text' 
+          name='concert-location'
+          onChange={(e) => {
+            setLocation(e.target.value)
+            return setEmptyFields(emptyFields.filter(field => field !== 'location'))
+          }}
+          value={location}
+          className={emptyFields.includes('location') ? 'error' : 'input'}
+        />
+      </div>
 
       <div className='pay-container'>
         <h3>Are you offering financial help to players?</h3>

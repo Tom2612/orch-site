@@ -157,6 +157,7 @@ header a, header h1 {
 .concert-form h1 {
   margin-bottom: 20px;
   font-weight: 400;
+  grid-column: 1 / 3;
 }
 .concert-form label {
   font-size: 1.2rem;
