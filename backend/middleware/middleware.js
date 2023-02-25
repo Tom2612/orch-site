@@ -35,13 +35,11 @@ const isAuthor = async (req, res, next) => {
 
         const { id } = req.params;
         const concert = await Concert.findById(id).populate('group');
-        console.log('id check', _id, concert.group.id);
-        console.log(_id === concert.group.id ? 'true' : 'false');
 
         if (!concert.group.equals(_id)) {
             return res.status(401).json({error: 'Not authorized'});
         }
-        console.log('Authorized!');
+
         next();
     } catch (error) {
         console.log(error);

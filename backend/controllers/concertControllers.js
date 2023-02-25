@@ -91,10 +91,7 @@ const updateConcert = async (req, res) => {
     }
     
     const concert = await Concert.findOneAndUpdate({_id : id}, {...req.body});
-    // Find concert and check id's match here BEFORE updating!
-    // if (user_id === )
 
-    
     if (!concert) {
         return res.status(404).json({error: 'No such concert'});
     }

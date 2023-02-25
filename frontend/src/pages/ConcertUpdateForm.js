@@ -119,7 +119,10 @@ export default function ConcertUpdateForm() {
 
     try {
       const response = await fetch(`http://localhost:4000/api/concerts/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
       })
 
       const json = await response.json();

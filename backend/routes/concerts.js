@@ -16,6 +16,6 @@ router.post('/', isValid, createConcert);
 router.patch('/:id', isValid, isAuthor, updateConcert);
 
 // delete a concert
-router.delete('/:id', isValid, deleteConcert);
+router.delete('/:id', isValid, isAuthor, deleteConcert);
 
 module.exports = router;
