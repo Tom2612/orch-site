@@ -11,6 +11,7 @@ import Groups from './pages/Groups';
 import GroupProfile from './pages/GroupProfile';
 import ConcertUpdateForm from './pages/ConcertUpdateForm';
 import GroupLogin from './pages/GroupLogin';
+import PrivateRoute from './hooks/useProtect';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Route path='/new-group' element={<GroupSignupForm />} />
           <Route path='/login-group' element={<GroupLogin />} />
           <Route path='/all-groups' element={<Groups />} />
-          <Route path='/groups/profile' element={<GroupProfile />} />
+          <Route path='/groups/profile' element={<PrivateRoute><GroupProfile /></PrivateRoute>} />
           <Route path={'/:id/edit'} element={<ConcertUpdateForm />} />
         </Routes>
       </div>
