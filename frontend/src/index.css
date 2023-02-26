@@ -337,10 +337,13 @@ form button {
   display: flex;
   flex-direction: column;
 }
+.group-form h1 {
+  font-weight: 400;
+  margin-bottom: 20px;
+}
 .group-form-email-password {
   display: flex;
   align-items: start;
-  
 }
 .group-form-email-password label {
   margin-right: 10px;
@@ -357,13 +360,17 @@ form button {
   font-weight: 700;
   margin-bottom: 5px;
 }
-.group-form input{
+.group-form input, select{
   width: 300px;
   font-family: inherit;
   font-size: inherit;
   border-radius: 3px;
   padding: 5px;
   margin-bottom: 20px;
+}
+.group-form select {
+  margin-right: 20px;
+  /* border: 1px solid black; */
 }
 .group-form button {
   margin-top: 20px;

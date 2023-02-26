@@ -5,7 +5,7 @@ import { useGroupSignup } from '../hooks/useGroupSignup';
 export default function GroupForm() {
 
   const navigate = useNavigate();
-  const { groupSignup, loading, error } = useGroupSignup();
+  const { groupSignup, loading, error, emptyFields } = useGroupSignup();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,51 +14,46 @@ export default function GroupForm() {
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
-  // const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     await groupSignup(email, password, name, location, phone, description);
-
-    setEmptyFields([]);
-    setName('');
-    setLocation('');
-    setEmail('');
-    setPassword('');
-    setPhone('');
-    navigate(`/groups/profile`);
-
+    
+    if (error) {
+      setName('');
+      setLocation('');
+      setEmail('');
+      setPassword('');
+      setPhone('');
+      navigate(`/groups/profile`);
+    }
+   
+   
   }
 
   return (
     <form className='group-form' onSubmit={handleSubmit}>
+      <h1>Sign up your group here</h1>
       <div className='group-form-email-password'>
-        <label>Contact Email</label>
+        <label>Email</label>
         <input 
           type='email' 
           name='group-contact-email'
-          onChange={(e) => {
-            setEmail(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'email'))
-          }}
+          onChange={(e) => setEmail(e.target.value)}
           value={email}
           className={emptyFields.includes('email') ? 'error' : 'input'}
-          required
+          // required
         />
       
-        <label>Create Password</label>
+        <label>Password</label>
         <input 
           type='password' 
           name='group-contact-password'
-          onChange={(e) => {
-            setPassword(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'password'))
-          }}
+          onChange={(e) => setPassword(e.target.value)}
           value={password}
           className={emptyFields.includes('password') ? 'error' : 'input'}
-          required
+          // required
         />
       </div>
 
@@ -67,24 +62,18 @@ export default function GroupForm() {
         <input 
           type='text' 
           name='group-name'
-          onChange={(e) => {
-            setName(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'name'))
-          }}
+          onChange={(e) => setName(e.target.value)}
           value={name}
           className={emptyFields.includes('name') ? 'error' : 'input'}
-          required
         />
       </div>
 
       <div>
         <label>Where are you based?</label>
         <select name='region' 
-          onChange={(e) => {
-            setRegion(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'region'))
-          }}
+          onChange={(e) => setRegion(e.target.value)}
           value={!region ? '' : region}
+          className={emptyFields.includes('location') ? 'error' : 'input'}
         >
           <option value={''}>-- Select Region --</option>
           <option value={'East Midlands'}>East Midlands</option>
@@ -103,14 +92,10 @@ export default function GroupForm() {
         <input 
           type='text' 
           name='group-location'
-          onChange={(e) => {
-            setLocation(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'location'))
-          }}
+          onChange={(e) => setLocation(e.target.value)}
           value={location}
           className={emptyFields.includes('location') ? 'error' : 'input'}
           placeholder='City'
-          required
         />
       </div>
 
@@ -119,9 +104,7 @@ export default function GroupForm() {
         <input 
           type='text' 
           name='group-contact-phone'
-          onChange={(e) => {
-            setPhone(e.target.value)
-          }}
+          onChange={(e) => setPhone(e.target.value)}
           value={phone}
           className='input'
         />
@@ -133,9 +116,7 @@ export default function GroupForm() {
           name='group-description'
           cols={70}
           rows={5}
-          onChange={(e) => {
-            setDescription(e.target.value)
-          }}
+          onChange={(e) => setDescription(e.target.value)}
           value={description}
         />
       </div>
