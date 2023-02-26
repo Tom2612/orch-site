@@ -338,15 +338,18 @@ form button {
   flex-direction: column;
 }
 .group-form-email-password {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  display: flex;
+  align-items: start;
+  
 }
 .group-form-email-password label {
-  grid-row: 1 / 2;
+  margin-right: 10px;
+}
+.group-form-email-password label:nth-of-type(2) {
+  margin-left: 10px;
 }
 .group-form-email-password input {
-  grid-row: 2 / 3;
+  width: 200px;
 }
 .group-form label {
   display: block;
@@ -363,16 +366,8 @@ form button {
   margin-bottom: 20px;
 }
 .group-form button {
-  width: 150px;
-  padding: 10px;
-  font-family: inherit;
-  font-size: inherit;
-  border: none;
-  border-radius: 5px;
-  background: var(--green-primary);
-  color: white;
-  cursor: pointer;
-}
+  margin-top: 20px;
+  }
 .group-form textarea {
   border: 1px solid black;
   border-radius: 3px;

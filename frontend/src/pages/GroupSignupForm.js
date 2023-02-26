@@ -10,6 +10,7 @@ export default function GroupForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [region, setRegion] = useState('');
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
@@ -78,6 +79,27 @@ export default function GroupForm() {
 
       <div>
         <label>Where are you based?</label>
+        <select name='region' 
+          onChange={(e) => {
+            setRegion(e.target.value)
+            return setEmptyFields(emptyFields.filter(field => field !== 'region'))
+          }}
+          value={!region ? '' : region}
+        >
+          <option value={''}>-- Select Region --</option>
+          <option value={'East Midlands'}>East Midlands</option>
+          <option value={'East of England'}>East of England</option>
+          <option value={'London'}>London</option>
+          <option value={'North East'}>North East</option>
+          <option value={'North West'}>North West</option>
+          <option value={'Northern Ireland'}>Northern Ireland</option>
+          <option value={'Scotland'}>Scotland</option>
+          <option value={'South East'}>South East</option>
+          <option value={'South West'}>South West</option>
+          <option value={'Wales'}>Wales</option>
+          <option value={'West Midlands'}>West Midlands</option>
+          <option value={'Yorkshire and The Humber'}>Yorkshire and The Humber</option>
+        </select>
         <input 
           type='text' 
           name='group-location'
@@ -87,6 +109,7 @@ export default function GroupForm() {
           }}
           value={location}
           className={emptyFields.includes('location') ? 'error' : 'input'}
+          placeholder='City'
           required
         />
       </div>
