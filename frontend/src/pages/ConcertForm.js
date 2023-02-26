@@ -180,7 +180,10 @@ export default function ConcertForm() {
         <input 
           type='text' 
           name='composer'
-          onChange={(e) => setComposer(e.target.value)}
+          onChange={(e) => {
+            setComposer(e.target.value)
+            return setEmptyFields(emptyFields.filter(field => field !== 'composer'))
+          }}
           value={composer}
           className={emptyFields.includes('composer') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
@@ -189,7 +192,10 @@ export default function ConcertForm() {
         <input 
           type='text' 
           name='piece-title' 
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            setTitle(e.target.value)
+            return setEmptyFields(emptyFields.filter(field => field !== 'title'))
+          }}
           value={title}
           className={emptyFields.includes('title') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
@@ -212,9 +218,11 @@ export default function ConcertForm() {
       <input 
         type='text' 
         name='concert-instr'
-        onChange={(e) => setInstrument(e.target.value)}
+        onChange={(e) => {
+          setInstrument(e.target.value)
+          return setEmptyFields(emptyFields.filter(field => field !== 'instruments'))
+        }}
         value={instrument}
-        placeholder='Instrument'
         className={emptyFields.includes('instrument') || emptyFields.includes('instruments') ? 'error' : 'input'}
       />
       <button className='add-btn' onClick={handleAddInstrument}>Add</button>
