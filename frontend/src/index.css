@@ -162,7 +162,6 @@ header a, header h1 {
 .concert-form label {
   font-size: 1.2rem;
   margin-bottom: 5px;
-  display: block;
   font-weight: 700;
 }
 .concert-form input[type='text'], input[type='date'] {
@@ -171,6 +170,16 @@ header a, header h1 {
   border-radius: 3px;
   padding: 5px;
   margin-bottom: 20px;
+}
+.form-top label{
+  margin-right: 10px;
+}
+.form-top label:nth-of-type(2){
+  margin-right: 10px;
+  margin-left: 50px;
+}
+.concert-location {
+  width: 300px;
 }
 .pay-container {
   display: grid;
@@ -204,6 +213,7 @@ header a, header h1 {
 .pieces-container{
   display: grid;
   grid-template-rows: auto;
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
   margin-bottom: 20px;
 }
@@ -226,6 +236,7 @@ header a, header h1 {
 .instruments-container {
   display: grid;
   grid-template-rows: auto;
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 10px;
   margin-bottom: 20px;
 }
@@ -243,45 +254,30 @@ header a, header h1 {
   font-size: 1.1rem;
   margin-right: 10px;
 }
+form button {
+  font-size: inherit;
+  padding: 10px;
+  width: 150px;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
 .add-btn {
   margin-left: 10px;
-  font-size: inherit;
+  max-width: 50px;
   padding: 5px 8px;
-  border-radius: 5px;
   background-color: var(--green-primary);
-  color: #fff;
-  border: none;
-  cursor: pointer;
 }
 .create-btn {
-  font-size: inherit;
-  width: 150px;
-  padding: 10px;
-  border-radius: 5px;
   background-color: var(--green-primary);
-  color: #fff;
-  border: none;
-  cursor: pointer;
 }
 .update-btn {
-  font-size: inherit;
-  padding: 10px;
-  border-radius: 5px;
   background-color: var(--cyan);
-  color: #fff;
-  border: none;
-  cursor: pointer;
   margin-right: 20px;
 }
 .delete-btn {
-  width: 150px;
-  font-size: inherit;
-  padding: 10px;
-  border-radius: 5px;
   background-color: var(--red-primary);
-  color: #fff;
-  border: none;
-  cursor: pointer;
 }
 .input {
   border: 1px solid black;

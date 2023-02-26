@@ -139,29 +139,32 @@ export default function ConcertUpdateForm() {
   return (
     <form className='concert-form'>
       <h1>Update your concert here</h1>
-      <label>Date</label>
-      <input 
-        type='date' 
-        name='concert-date'
-        onChange={(e) => {
-          setDate(e.target.value)
-          return setEmptyFields(emptyFields.filter(field => field !== 'date'))
-        }}
-        value={date}
-        className={emptyFields.includes('date') ? 'error' : 'input'}
-      />
 
-      <label>Venue Name</label>
-      <input 
-        type='text' 
-        name='concert-location'
-        onChange={(e) => {
-          setLocation(e.target.value)
-          return setEmptyFields(emptyFields.filter(field => field !== 'location'))
-        }}
-        value={location}
-        className={emptyFields.includes('location') ? 'error' : 'input'}
-      />
+      <div className='form-top'>
+        <label>Date</label>
+        <input 
+          type='date' 
+          name='concert-date'
+          onChange={(e) => {
+            setDate(e.target.value)
+            return setEmptyFields(emptyFields.filter(field => field !== 'date'))
+          }}
+          value={date}
+          className={emptyFields.includes('date') ? 'error' : 'input'}
+        />
+
+        <label>Venue Name</label>
+        <input 
+          type='text' 
+          name='concert-location'
+          onChange={(e) => {
+            setLocation(e.target.value)
+            return setEmptyFields(emptyFields.filter(field => field !== 'location'))
+          }}
+          value={location}
+          className={emptyFields.includes('location') ? 'error concert-location' : 'input concert-location'}
+        />
+      </div>
 
       <div className='pay-container'>
         <h3>Are you offering financial help to players?</h3>

@@ -126,7 +126,7 @@ export default function ConcertForm() {
     <form className='concert-form' onSubmit={handleSubmit}>
       <h1>Create your concert here</h1>
 
-      <div className='form-info-one'>
+      <div className='form-top'>
         <label>Date</label>
         <input 
           type='date' 
@@ -148,7 +148,7 @@ export default function ConcertForm() {
             return setEmptyFields(emptyFields.filter(field => field !== 'location'))
           }}
           value={location}
-          className={emptyFields.includes('location') ? 'error' : 'input'}
+          className={emptyFields.includes('location') ? 'error concert-location' : 'input concert-location'}
         />
       </div>
 
@@ -201,6 +201,7 @@ export default function ConcertForm() {
         />
         <button className='add-btn' onClick={handleAddPiece}>Add</button>
       </div>
+      
       <div className='pieces-container'>
         {pieces.length > 0 && pieces.map((piece, index) => (
           <div key={index} className='piece'>
