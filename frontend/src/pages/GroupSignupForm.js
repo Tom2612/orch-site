@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useGroupSignup } from '../hooks/useGroupSignup';
 
 export default function GroupForm() {
 
-  const navigate = useNavigate();
   const { groupSignup, loading, error, emptyFields } = useGroupSignup();
 
   const [email, setEmail] = useState('');
@@ -19,17 +17,6 @@ export default function GroupForm() {
     e.preventDefault();
 
     await groupSignup(email, password, name, location, phone, description);
-    
-    if (error) {
-      setName('');
-      setLocation('');
-      setEmail('');
-      setPassword('');
-      setPhone('');
-      navigate(`/groups/profile`);
-    }
-   
-   
   }
 
   return (
@@ -43,7 +30,6 @@ export default function GroupForm() {
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           className={emptyFields.includes('email') ? 'error' : 'input'}
-          // required
         />
       
         <label>Password</label>
@@ -53,7 +39,6 @@ export default function GroupForm() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           className={emptyFields.includes('password') ? 'error' : 'input'}
-          // required
         />
       </div>
 
