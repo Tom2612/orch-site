@@ -32,7 +32,7 @@ const getGroup = async (req, res) => {
 }
 
 const signupGroup = async (req, res) => {
-    const { email, password, name, location, phone = null, description = null } = req.body;
+    const { email, password, name, region, location, phone = null, description = null } = req.body;
 
     let emptyFields = [];
 
@@ -41,6 +41,9 @@ const signupGroup = async (req, res) => {
     }
     if (!location) {
         emptyFields.push('location');
+    }
+    if (!region) {
+        emptyFields.push('region');
     }
     if (!email) {
         emptyFields.push('email');
@@ -53,7 +56,7 @@ const signupGroup = async (req, res) => {
     }
 
     try {
-        const group = await Group.signup(email, password, name, location, phone, description);
+        const group = await Group.signup(email, password, name, region, location, phone, description);
 
         // create token
         const token = createToken(group._id);

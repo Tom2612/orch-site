@@ -10,6 +10,11 @@ const groupSchema = new Schema({
         required: true,
         unique: true
     },
+    region : {
+        type: String,
+        enum: ['East Midlands', 'East of England', 'London', 'North East', 'North West', 'Northern Ireland', 'Scotland', 'South East', 'South West', 'Wales', 'West Midlands', 'Yorkshire and The Humber'],
+        required: true
+    },
     location: {
         type: String,
         required: true
@@ -35,7 +40,7 @@ const groupSchema = new Schema({
 })
 
 // Statis signup method
-groupSchema.statics.signup = async function(email, password, name, location, phone, description) {
+groupSchema.statics.signup = async function(email, password, name, region, location, phone, description) {
 
     if (!email || !password) {
         throw Error('All fields must be filled');
@@ -54,7 +59,7 @@ groupSchema.statics.signup = async function(email, password, name, location, pho
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const group = await this.create({ email, password: hash, name, location, phone, description });
+    const group = await this.create({ email, password: hash, name, region, location, phone, description });
 
     return group;
 }

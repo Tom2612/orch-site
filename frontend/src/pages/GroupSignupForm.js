@@ -16,7 +16,7 @@ export default function GroupForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await groupSignup(email, password, name, location, phone, description);
+    await groupSignup(email, password, name, region, location, phone, description);
   }
 
   return (
