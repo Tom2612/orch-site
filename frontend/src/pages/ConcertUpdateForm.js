@@ -211,7 +211,7 @@ export default function ConcertUpdateForm() {
           value={title}
           className={emptyFields.includes('title') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
-        <button className='add-btn' onClick={handleAddPiece}>Add</button>
+        <button className='btn add-btn' onClick={handleAddPiece}>Add</button>
       </div>
       <div className='pieces-container'>
         {pieces.length > 0 && pieces.map((piece, index) => (
@@ -235,7 +235,7 @@ export default function ConcertUpdateForm() {
         placeholder='Instrument'
         className={emptyFields.includes('instrument') || emptyFields.includes('instruments') ? 'error' : 'input'}
       />
-      <button className='add-btn' onClick={handleAddInstrument}>Add</button>
+      <button className='btn add-btn' onClick={handleAddInstrument}>Add</button>
       <div className='instruments-container'>
         {instruments.length > 0 && instruments.map((instrument) => (
           <div className='instrument' key={instrument}>
@@ -245,8 +245,8 @@ export default function ConcertUpdateForm() {
         ))}
       </div>
 
-      <button className='update-btn' onClick={(e) => handleUpdateConcert(e, state._id)} type='button'>Update Concert</button>
-      <button className='delete-btn' onClick={(e) => handleDeleteConcert(e, state._id)} type='button'>Delete Concert</button>
+      <button className='btn update-btn' onClick={(e) => handleUpdateConcert(e, state._id)} type='button'>Update Concert</button>
+      <button className='btn delete-btn' onClick={(e) => handleDeleteConcert(e, state._id)} type='button'>Delete Concert</button>
 
       {error && <span className='error-message'>Error: {error}</span>}
     </form>

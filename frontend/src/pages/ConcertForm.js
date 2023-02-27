@@ -199,7 +199,7 @@ export default function ConcertForm() {
           value={title}
           className={emptyFields.includes('title') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
-        <button className='add-btn' onClick={handleAddPiece}>Add</button>
+        <button className='btn add-btn' onClick={handleAddPiece}>Add</button>
       </div>
       
       <div className='pieces-container'>
@@ -226,7 +226,8 @@ export default function ConcertForm() {
         value={instrument}
         className={emptyFields.includes('instrument') || emptyFields.includes('instruments') ? 'error' : 'input'}
       />
-      <button className='add-btn' onClick={handleAddInstrument}>Add</button>
+      <button className='btn add-btn' onClick={handleAddInstrument}>Add</button>
+      
       <div className='instruments-container'>
         {instruments.length > 0 && instruments.map((instrument) => (
           <div className='instrument' key={instrument}>
@@ -235,7 +236,7 @@ export default function ConcertForm() {
           </div>
         ))}
       </div>
-      <button className='create-btn'>Create Concert</button>
+      <button className='btn create-btn'>Create Concert</button>
       {error && <span className='error-message'>Error: {error}</span>}
     </form>
   )

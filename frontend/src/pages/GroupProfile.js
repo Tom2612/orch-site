@@ -39,19 +39,28 @@ export default function GroupProfile() {
       {!loading && 
       <>
         <div className='profile-info'>
-          <h1>Profile</h1>
-          <h2>Name: <span>{group.name}</span></h2>
-          <h2>Location: <span>{group.location}</span></h2>
-          <h2>Email: <span>{group.contact}</span></h2>
-          {group.phone && <h2>Phone: <span>{group.phone}</span></h2>}
-          <button className='update-btn' disabled>Update your information</button>
+          <div className='container-left'>
+            <h1>Profile</h1>
+            <h2>Name: <span>{group.name}</span></h2>
+            <h2>Location: <span>{group.location + ' (' + group.region + ')'}</span></h2>
+            <h2>Email: <span>{group.email}</span></h2>
+            {group.phone && <h2>Phone: <span>{group.phone}</span></h2>}
+          </div>
+          <div className='container-right'>
+            {group.desciption && <>
+                <h2>Description</h2>
+                <p>{group.description}</p>
+              </>
+            }
+          </div>
+          <button className='btn update-btn' disabled>Update your information</button>
         </div>
 
         {!loading && 
           <div className='group-concert-container'>
             <h3 className='group-concert-title'>View and update your concerts:</h3>
             <button 
-              className='create-btn'
+              className='btn create-btn'
               onClick={() => navigate('/new-concert')}
             >Add a concert</button>
             {group.concerts && group.concerts.map((concert) => (
@@ -64,7 +73,7 @@ export default function GroupProfile() {
         }
 
       </>}
-      <button className='delete-btn group-del'>Delete group</button>
+      <button className='btn delete-btn group-del'>Delete group</button>
     </>
   )
 }

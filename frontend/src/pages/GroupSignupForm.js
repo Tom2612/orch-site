@@ -74,14 +74,17 @@ export default function GroupForm() {
           <option value={'West Midlands'}>West Midlands</option>
           <option value={'Yorkshire and The Humber'}>Yorkshire and The Humber</option>
         </select>
-        <input 
-          type='text' 
-          name='group-location'
-          onChange={(e) => setLocation(e.target.value)}
-          value={location}
-          className={emptyFields.includes('location') ? 'error' : 'input'}
-          placeholder='City'
-        />
+        {region && 
+          <input 
+            type='text' 
+            name='group-location'
+            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+            className={emptyFields.includes('location') ? 'error' : 'input'}
+            placeholder='City'
+          />
+        }
+        
       </div>
 
       <div>
@@ -106,7 +109,7 @@ export default function GroupForm() {
         />
       </div>
 
-      <button disabled={loading} className='create-btn'>Create Group</button>
+      <button disabled={loading} className='btn create-btn'>Create Group</button>
       {error && <p className="error-message">{error}</p>}
     </form>
   )
