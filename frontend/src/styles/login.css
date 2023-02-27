@@ -1,0 +1,37 @@
+.login {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.login h1 {
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.login label {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+.login input {
+    font-family: inherit;
+    font-size: inherit;
+    border-radius: 3px;
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+.login button {
+    width: 100px;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    font-size: inherit;
+    font-family: inherit;
+    color: #fff;
+    background-color: var(--blue);
+    cursor: pointer;
+    margin-bottom: 10px;
+}

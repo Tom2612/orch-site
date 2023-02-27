@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
+import '../styles/login.css';
 
 export default function GroupLogin() {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ export default function GroupLogin() {
   return (
     <>
       <form className='login' onSubmit={handleSubmit}>
-          <h2>Log in</h2>
+          <h1>Log in</h1>
 
           <label>Email:</label>
           <input 
