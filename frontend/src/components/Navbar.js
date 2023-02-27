@@ -15,13 +15,14 @@ const Navbar = () => {
             <div className="container">
                 <Link to='/'><h1>Orchestra Site</h1></Link>
                 <Link to='/concerts'>Concerts</Link>
-                <Link to='/new-concert'>New Concert</Link>
-                <Link to='/new-group'>New group</Link>
                 <Link to='/all-groups'>All groups</Link>
-                <Link to='/groups/profile'>Profile</Link>
-                <Link to='/login-group'>Log in</Link>
-                <button onClick={handleClick}>Log out</button>
+                {user && <Link to='/new-concert'>New Concert</Link>}
+                {user && <Link to='/groups/profile'>Profile</Link>}
                 {user && <p>{user.email}</p>}
+                {user && <button onClick={handleClick}>Log out</button>}
+                {!user && <Link to='/new-group'>Sign up</Link>}
+                {!user && <Link to='/login-group'>Log in</Link>}
+                
             </div>
         </header>
     )
