@@ -46,7 +46,7 @@ h1 {
   background-color: var(--green-primary);
 }
 .update-btn {
-  background-color: var(--cyan);
+  background-color: var(--blue);
   margin-right: 20px;
 }
 .delete-btn {
