@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import '../styles/concertPage.css';
 
 export default function ConcertPage() {
     const [concert, setConcert] = useState(null);
@@ -21,7 +22,7 @@ export default function ConcertPage() {
     }, [id])
 
   return (
-    <div className='concert-page'>
+    <div className='container'>
         {!loading && 
             <>
                 <h2>Name: {concert.group.name}</h2>

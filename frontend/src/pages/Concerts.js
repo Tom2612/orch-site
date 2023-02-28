@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ConcertDetails from '../components/ConcertDetails';
 
 export default function Concerts() {
+    const navigate = useNavigate();
     const [concerts, setConcerts] = useState(null);
 
     useEffect(() => {
@@ -20,11 +22,12 @@ export default function Concerts() {
   return (
     <div className='concerts-container'>
         <h2>Concerts</h2>
-        <div className='concerts'>
+        
             {concerts && concerts.map((concert) => (
-                <ConcertDetails key={concert._id} concert={concert} />
+                <div className='concerts' onClick={() => {navigate(`/concerts/${concert._id}`)}}>
+                    <ConcertDetails key={concert._id} concert={concert} />
+                </div>
             ))}
-        </div>
     </div>
   )
 }
