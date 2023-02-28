@@ -22,15 +22,15 @@ function App() {
      <Navbar />
       <div className='pages'>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route index path='/' element={<Home />} />
           <Route path='/concerts' element={<Concerts />} />
           <Route path='/concerts/:id' element={<ConcertPage />} />
+          <Route path='/concerts/edit/:id' element={<PrivateRoute><ConcertUpdateForm /></PrivateRoute>} />
           <Route path='/new-concert' element={<PrivateRoute><ConcertForm /></PrivateRoute>} />
           <Route path='/new-group' element={!user ? <GroupSignupForm /> : <Navigate to='/groups/profile' />} />
           <Route path='/login-group' element={!user ? <GroupLogin /> : <Navigate to='/groups/profile' />} />
           <Route path='/all-groups' element={<Groups />} />
           <Route path='/groups/profile' element={<PrivateRoute><GroupProfile /></PrivateRoute>} />
-          <Route path={'/:id/edit'} element={<PrivateRoute><ConcertUpdateForm /></PrivateRoute>} />
         </Routes>
       </div>
      </BrowserRouter>
