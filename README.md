@@ -43,7 +43,7 @@ Next steps:
 - Create updateGroupDetails page and patch requests for that. This ties in with the above as validation required.
 - Login form made but goes to /api/groups end point - will I need a separate one for players later or can I solve it all with one form now? Still researching this.
 
-## 27-Feb
+#### 27-Feb
 
 Frontend is protected with route redirection and navbar conditional rendering. CSS has started to be broken up into smaller modules. Backend validation checks are in place and fully tested. Still have not created updateGroupForm so that will be coming soon. Auth v1 is done for now.
 
