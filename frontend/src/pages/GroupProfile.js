@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConcertDetails from '../components/ConcertDetails';
 import { useAuth } from '../contexts/AuthContext';
+import '../styles/profile.css';
 
 export default function GroupProfile() {
   const navigate = useNavigate();
@@ -38,12 +39,12 @@ export default function GroupProfile() {
     <>
       {!loading && 
       <>
-        <div className='profile-info'>
+        <div className='container profile-info'>
           <div className='container-left'>
             <h1>Profile</h1>
-            <h2>Name: <span>{group.name}</span></h2>
-            <h2>Location: <span>{group.location + ' (' + group.region + ')'}</span></h2>
-            <h2>Email: <span>{group.email}</span></h2>
+            <span className='profile-name'>{group.name}</span>
+            <span>{group.location + ' (' + group.region + ')'}</span>
+            <span>Email: {group.email}</span>
             {group.phone && <h2>Phone: <span>{group.phone}</span></h2>}
           </div>
           <div className='container-right'>
@@ -53,7 +54,7 @@ export default function GroupProfile() {
               </>
             }
           </div>
-          <button className='btn update-btn' disabled>Update your information</button>
+          <button className='btn update-btn' disabled>Update</button>
         </div>
 
         {!loading && 

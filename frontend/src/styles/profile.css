@@ -1,0 +1,46 @@
+.profile-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+}
+.profile-info h1 {
+    margin-bottom: 20px;
+}
+.profile-info span {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+.profile-info h2 {
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+.group-concert-container {
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-template-rows: 1fr repeat(auto, 1fr);
+}
+
+.group-concert-title {
+    font-weight: 400;
+    font-size: 1.6rem;
+    grid-column: 1 / 3;
+}
+
+.group-concert-container span {
+    border: none;
+    border-radius: 10px;
+    color: #00000089;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    align-self: center;
+    max-width: 100px;
+    height: 50px;
+}
+
+.group-del {
+    margin-top: 20px;
+    margin-left: 20px;
+}
