@@ -67,10 +67,10 @@ export default function GroupProfile() {
             >Add a concert</button>
             {group.concerts && group.concerts.map((concert) => (
               <>
-              <div className='group-concert' onClick={() => navigate(`/concerts/edit/${concert._id}`, {state: {...concert} })}>
+              <div className='group-concert' onClick={() => navigate(`/concerts/edit/${concert._id}`)}>
                 <ConcertDetails key={concert._id} concert={concert} />
               </div>
-              <span onClick={() => navigate(`/concerts/edit/${concert._id}`, {state: {...concert} })}>Edit</span>
+              <span onClick={() => navigate(`/concerts/edit/${concert._id}`)}>Edit</span>
               </>
             ))}
           </div>

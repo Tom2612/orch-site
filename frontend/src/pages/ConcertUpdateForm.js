@@ -98,7 +98,7 @@ export default function ConcertUpdateForm() {
     setPieces(pieces.filter(a => a !== piece));
   }
 
-  const handleUpdateConcert = async (e, id) => {
+  const handleUpdateConcert = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -146,7 +146,7 @@ export default function ConcertUpdateForm() {
     }
   }
 
-  const handleDeleteConcert = async (e, id) => {
+  const handleDeleteConcert = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -281,8 +281,8 @@ export default function ConcertUpdateForm() {
             ))}
           </div>
 
-          <button disabled={loading} className='btn update-btn' onClick={(e) => handleUpdateConcert(e, id)} type='button'>Update Concert</button>
-          <button disabled={loading} className='btn delete-btn' onClick={(e) => handleDeleteConcert(e, id)} type='button'>Delete Concert</button>
+          <button disabled={loading} className='btn update-btn' onClick={handleUpdateConcert} type='button'>Update Concert</button>
+          <button disabled={loading} className='btn delete-btn' onClick={handleDeleteConcert} type='button'>Delete Concert</button>
 
           {error && <span className='error-message'>Error: {error}</span>}
         </form>
