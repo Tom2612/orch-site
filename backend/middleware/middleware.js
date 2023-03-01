@@ -38,7 +38,7 @@ const isAuthor = async (req, res, next) => {
         const concert = await Concert.findById(id).populate('group');
 
         if (!concert.group.equals(_id)) {
-            return res.status(401).json({error: 'Not authorized'});
+            return res.status(401).json({error: 'You are not authorized to do that.'});
         }
 
         next();
