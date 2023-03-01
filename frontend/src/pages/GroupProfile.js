@@ -55,7 +55,7 @@ export default function GroupProfile() {
               </>
             }
           </div>
-          <button className='btn update-btn' disabled>Update</button>
+          <button className='btn update-btn' onClick={navigate(`/groups/edit/${group._id}`)}>Update</button>
         </div>
 
         {!loading && 

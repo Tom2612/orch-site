@@ -13,6 +13,7 @@ import GroupProfile from './pages/GroupProfile';
 import ConcertUpdateForm from './pages/ConcertUpdateForm';
 import GroupLogin from './pages/GroupLogin';
 import PrivateRoute from './hooks/useProtect';
+import GroupUpdateForm from './pages/GroupUpdateForm';
 
 function App() {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ function App() {
           <Route path='/login-group' element={!user ? <GroupLogin /> : <Navigate to='/groups/profile' />} />
           <Route path='/all-groups' element={<Groups />} />
           <Route path='/groups/profile' element={<PrivateRoute><GroupProfile /></PrivateRoute>} />
+          <Route path='/groups/edit/:id' element={<PrivateRoute><GroupUpdateForm /></PrivateRoute>} />
         </Routes>
       </div>
      </BrowserRouter>

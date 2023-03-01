@@ -31,6 +31,10 @@ const getGroup = async (req, res) => {
     res.status(200).json(group);
 }
 
+const updateGroup = async (req, res) => {
+    console.log('Updated group!');
+}
+
 const signupGroup = async (req, res) => {
     const { email, password, name, region, location, phone = null, description = null } = req.body;
 
@@ -85,5 +89,6 @@ module.exports = {
     getGroups,
     getGroup,
     signupGroup,
-    loginGroup
+    loginGroup,
+    updateGroup
 }
