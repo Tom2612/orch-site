@@ -50,8 +50,6 @@ export default function ConcertUpdateForm() {
 
   }, [id, navigate, user])
 
-  
-
   const handleAddInstrument = (e) => {
     e.preventDefault();
     if (!instrument) {
@@ -102,6 +100,7 @@ export default function ConcertUpdateForm() {
 
   const handleUpdateConcert = async (e, id) => {
     e.preventDefault();
+    setLoading(true);
 
     // Concert validtors frontend
     if (!date) {
@@ -134,11 +133,13 @@ export default function ConcertUpdateForm() {
     const json = await response.json();
 
     if (!response.ok) {
+      setLoading(false);
       setError(json.error);
       setEmptyFields(json.emptyFields);
     } 
 
     if (response.ok) {
+      setLoading(false);
       setError(null);
       setEmptyFields([]);
       navigate('/groups/profile');
@@ -147,6 +148,7 @@ export default function ConcertUpdateForm() {
 
   const handleDeleteConcert = async (e, id) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch(`http://localhost:4000/api/concerts/${id}`, {
@@ -159,8 +161,10 @@ export default function ConcertUpdateForm() {
       const json = await response.json();
 
       if (!response.ok){
+        setLoading(false);
         setError(json.error);
       }
+
       navigate('/groups/profile');
     } catch(e) {
       setError(e.message);
@@ -277,8 +281,8 @@ export default function ConcertUpdateForm() {
             ))}
           </div>
 
-          <button className='btn update-btn' onClick={(e) => handleUpdateConcert(e, id)} type='button'>Update Concert</button>
-          <button className='btn delete-btn' onClick={(e) => handleDeleteConcert(e, id)} type='button'>Delete Concert</button>
+          <button disabled={loading} className='btn update-btn' onClick={(e) => handleUpdateConcert(e, id)} type='button'>Update Concert</button>
+          <button disabled={loading} className='btn delete-btn' onClick={(e) => handleDeleteConcert(e, id)} type='button'>Delete Concert</button>
 
           {error && <span className='error-message'>Error: {error}</span>}
         </form>

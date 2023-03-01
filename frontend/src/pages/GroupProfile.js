@@ -23,6 +23,7 @@ export default function GroupProfile() {
       if (!response.ok) {
         console.log('error getting group');
         console.log(json.error);
+        navigate(-1);
       }
 
       if (response.ok) {
@@ -33,7 +34,7 @@ export default function GroupProfile() {
 
     getGroupInfo();
 
-  }, [user.token]);
+  }, [navigate, user.token]);
 
   return (
     <>
@@ -76,7 +77,7 @@ export default function GroupProfile() {
         }
 
       </>}
-      <button className='btn delete-btn group-del'>Delete group</button>
+      <button disabled={loading} className='btn delete-btn group-del'>Delete group</button>
     </>
   )
 }

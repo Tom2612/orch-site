@@ -19,9 +19,11 @@ export default function ConcertForm() {
 
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!user) {
       setError('You must be logged in to do that');
@@ -59,11 +61,13 @@ export default function ConcertForm() {
     const json = await response.json();
 
     if (!response.ok) {
+      setLoading(false);
       setError(json.error);
       setEmptyFields(json.emptyFields);
     }
     if (response.ok) {
       setEmptyFields([]);
+      setLoading(false);
       setError(null);
       setDate('');
       setLocation('');
@@ -236,7 +240,7 @@ export default function ConcertForm() {
           </div>
         ))}
       </div>
-      <button className='btn create-btn'>Create Concert</button>
+      <button className='btn create-btn' disabled={loading}>Create Concert</button>
       {error && <span className='error-message'>Error: {error}</span>}
     </form>
   )
