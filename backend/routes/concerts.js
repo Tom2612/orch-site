@@ -7,7 +7,10 @@ const { isAuthor, isValid } = require('../middleware/middleware.js');
 router.get('/', getConcerts);
 
 // get a single concert
-router.get('/:id', getConcert);
+router.get('/view/:id', getConcert);
+
+// get a single concert with editing
+router.get('/edit/:id', isValid, isAuthor, getConcert);
 
 // create a concert
 router.post('/', isValid, createConcert);

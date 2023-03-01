@@ -9,7 +9,7 @@ export default function ConcertPage() {
 
     useEffect(() => {
         const fetchConcert = async () => {
-            const response = await fetch(`http://localhost:4000/api/concerts/${id}`);
+            const response = await fetch(`http://localhost:4000/api/concerts/view/${id}`);
             const json = await response.json();
 
             if (response.ok) {

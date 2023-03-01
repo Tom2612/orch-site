@@ -8,7 +8,7 @@ export default function Concerts() {
 
     useEffect(() => {
         const fetchConcerts = async () => {
-            const response = await fetch('http://localhost:4000/api/concerts');
+            const response = await fetch('http://localhost:4000/api/concerts/');
             const json = await response.json();
 
             if (response.ok) {

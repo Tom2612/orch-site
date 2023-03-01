@@ -34,6 +34,7 @@ const isAuthor = async (req, res, next) => {
         const { _id } = jwt.verify(token, process.env.SECRET);
 
         const { id } = req.params;
+        
         const concert = await Concert.findById(id).populate('group');
 
         if (!concert.group.equals(_id)) {
