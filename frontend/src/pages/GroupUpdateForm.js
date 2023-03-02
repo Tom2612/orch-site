@@ -43,7 +43,7 @@ export default function GroupUpdateForm() {
         }
 
         getGroupInfo();
-    }, [])
+    }, [navigate, user])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,11 +52,11 @@ export default function GroupUpdateForm() {
         const updatedGroup = { name, region, location, phone, description };
 
         const response = await fetch(`http://localhost:4000/api/groups/edit/${id}`, { 
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify(updatedGroup),
             headers : {
                 'Content-Type': 'application/json',
-                
+                'Authorization': `Bearer ${user.token}`
             }
         });
         const json = await response.json();
