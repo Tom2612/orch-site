@@ -9,7 +9,7 @@ router.get('/', getGroups);
 router.get('/profile', isValid, getGroup);
 
 // Update and Delete groups routes here with validation checks
-router.post('/:id', isValid, isAuthor, updateGroup);
+router.post('/edit/:id', updateGroup);
 
 // Group login/signup routes here
 router.post('/signup', signupGroup);

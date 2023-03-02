@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function GroupUpdateForm() {
 
     const navigate = useNavigate();
     const { id } = useParams();
+    const { user } = useAuth();
 
     const [name, setName] = useState('');
     const [region, setRegion] = useState('');
@@ -13,17 +15,48 @@ export default function GroupUpdateForm() {
     const [description, setDescription] = useState('');
     const [error, setError] = useState(null);
     const [emptyFields, setEmptyFields] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getGroupInfo = async () => {
+            const response = await fetch(`http://localhost:4000/api/groups/profile`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
+            const json = await response.json();
+            
+            if (!response.ok) {
+                navigate('/groups/profile');
+            }
+
+            if (response.ok) {
+                setLoading(false);
+                setError(null);
+                setEmptyFields([]);
+                setName(json.name);
+                setRegion(json.region);
+                setLocation(json.location);
+                setPhone(json.phone);
+                setDescription(json.description);
+            }
+        }
+
+        getGroupInfo();
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         const updatedGroup = { name, region, location, phone, description };
 
-        const response = await fetch(`https://localhost:4000/api/groups/${id}`, {
+        const response = await fetch(`http://localhost:4000/api/groups/edit/${id}`, { 
             method: 'POST',
             body: JSON.stringify(updatedGroup),
             headers : {
                 'Content-Type': 'application/json',
+                
             }
         });
         const json = await response.json();
@@ -34,13 +67,13 @@ export default function GroupUpdateForm() {
         }
 
         if (response.ok) {
-            navigate('/profile');
+            navigate('/groups/profile');
         }
         
     }
 
     return (
-        <form className='group-form' onSubmit={handleSubmit}>
+        <form className='group-form'>
         <h1>Update your information here</h1>
         
         <div>
@@ -50,7 +83,7 @@ export default function GroupUpdateForm() {
             name='group-name'
             onChange={(e) => setName(e.target.value)}
             value={name}
-            //   className={emptyFields.includes('name') ? 'error' : 'input'}
+              className={emptyFields.includes('name') ? 'error' : 'input'}
             />
         </div>
 
@@ -59,7 +92,7 @@ export default function GroupUpdateForm() {
             <select name='region' 
             onChange={(e) => setRegion(e.target.value)}
             value={!region ? '' : region}
-            //   className={emptyFields.includes('location') ? 'error' : 'input'}
+              className={emptyFields.includes('location') ? 'error' : 'input'}
             >
             <option value={''}>-- Select Region --</option>
             <option value={'East Midlands'}>East Midlands</option>
@@ -81,7 +114,7 @@ export default function GroupUpdateForm() {
                 name='group-location'
                 onChange={(e) => setLocation(e.target.value)}
                 value={location}
-                // className={emptyFields.includes('location') ? 'error' : 'input'}
+                className={emptyFields.includes('location') ? 'error' : 'input'}
                 placeholder='City'
             />
             }
@@ -111,11 +144,13 @@ export default function GroupUpdateForm() {
         </div>
 
         <button 
-            // disabled={loading} 
-            className='btn create-btn'>
-                Create Group
+            disabled={loading} 
+            className='btn create-btn'
+            onClick={handleSubmit}
+            >
+                Update Group
             </button>
-        {/* {error && <p className="error-message">{error}</p>} */}
+        {error && <p className="error-message">{error}</p>}
         </form>
     )
 }

@@ -32,7 +32,19 @@ const getGroup = async (req, res) => {
 }
 
 const updateGroup = async (req, res) => {
-    console.log('Updated group!');
+    
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such group'})
+    }
+
+    const group = await Group.findOneAndUpdate({ _id: id}, {...req.body});
+
+    if (!group) {
+        return res.status(404).json({error: 'No such group'});
+    }
+
+    res.status(200).json(group);
 }
 
 const signupGroup = async (req, res) => {
