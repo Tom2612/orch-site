@@ -90,7 +90,7 @@ const updateConcert = async (req, res) => {
         return res.status(404).json({error: 'No such concert'})
     }
     
-    const concert = await Concert.findOneAndUpdate({_id : id}, {...req.body});
+    const concert = await Concert.findOneAndUpdate({_id : id}, {...req.body}, {runValidators: true});
 
     if (!concert) {
         return res.status(404).json({error: 'No such concert'});
