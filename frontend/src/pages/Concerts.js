@@ -24,7 +24,7 @@ export default function Concerts() {
         <h2>Concerts</h2>
         
             {concerts && concerts.map((concert) => (
-                <div className='concerts' onClick={() => {navigate(`/concerts/${concert._id}`)}}>
+                <div key={concert._id} className='concerts' onClick={() => {navigate(`/concerts/${concert._id}`)}}>
                     <ConcertDetails key={concert._id} concert={concert} />
                 </div>
             ))}
