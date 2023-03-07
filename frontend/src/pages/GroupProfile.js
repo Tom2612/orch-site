@@ -36,6 +36,10 @@ export default function GroupProfile() {
 
   }, [navigate, user.token]);
 
+  const handleDelete = async () => {
+    alert('Not quite working yet!');
+  }
+
   return (
     <>
       {!loading && 
@@ -49,7 +53,7 @@ export default function GroupProfile() {
             {group.phone && <h2>Phone: <span>{group.phone}</span></h2>}
           </div>
           <div className='container-right'>
-            {group.desciption && <>
+            {group.description && <>
                 <h2>Description</h2>
                 <p>{group.description}</p>
               </>
@@ -74,7 +78,7 @@ export default function GroupProfile() {
         }
 
       </>}
-      <button disabled={loading} className='btn delete-btn group-del'>Delete group</button>
+      <button onClick={handleDelete} disabled={loading} className='btn delete-btn group-del'>Delete group</button>
     </>
   )
 }
