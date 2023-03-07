@@ -32,19 +32,38 @@ const getGroup = async (req, res) => {
 }
 
 const updateGroup = async (req, res) => {
+
+    const { name, region, location } = req.body;
+
+    // Backend validators
+    let emptyFields = [];
+
+    if (!name) {
+        emptyFields.push('name');
+    }
+    if (!region) {
+        emptyFields.push('region');
+    }
+    if (!location) {
+        emptyFields.push('location');
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
+    }
     
     const { id } = req.params;
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such group'})
     }
 
-    const group = await Group.findOneAndUpdate({ _id: id}, {...req.body});
-
-    if (!group) {
-        return res.status(404).json({error: 'No such group'});
+    try {
+        const group = await Group.findOneAndUpdate({ _id: id}, {...req.body}, {runValidators: true});
+        return res.status(200).json(group);
+    } catch (e) {
+        console.log(e.message);
+        return res.status(404).json({error: 'Could not update group', message: e.message});
     }
-
-    res.status(200).json(group);
 }
 
 const signupGroup = async (req, res) => {
