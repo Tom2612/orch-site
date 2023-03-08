@@ -25,22 +25,31 @@ export default function ConcertPage() {
     <div className='container'>
         {!loading && 
             <>
-                <h2>Name: {concert.group.name}</h2>
-                <h2>Location: {concert.group.location}</h2>
+                <h2>{concert.group.name}</h2>
                 <h3>Date: {concert.date}</h3>
-                <p>Contact {concert.group.name}: {concert.group.contact}</p>
-                <p>This is {concert.payStatus ? 'a paid' : 'an unpaid'} concert</p>
-                <ul>
-                    {concert.pieces.map(piece => {
-                        return <li>{piece.composer}: {piece.title}</li>
-                    })}
-                </ul>
-                <p>Instruments required:</p>
-                <ul>
-                    {concert.instruments.map(instrument => {
-                        return <li>{instrument}</li>
-                    })}
-                </ul>
+                <h3>Location: {concert.group.region}, {concert.group.location}, {concert.location}</h3>
+                <div><span>contact details:</span>
+                    {' ' + concert.group.phone + ' ' + concert.group.email} 
+                </div>
+                <p>We are {concert.payStatus ? 'able' : 'not able'} to offer financial support.</p>
+                <div>
+                    <h4>Playing:</h4>
+                    <ul>
+                        {concert.pieces.map((piece, index) => {
+                            return <li key={index}>{piece.composer}: {piece.title}</li>
+                        })}
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>Requirements:</h4>
+                    <ul>
+                        {concert.instruments.map((instrument, index) => {
+                            return <li>{instrument}</li>
+                        })}
+                    </ul>
+                </div>
+                
             </>
         }
     </div>
