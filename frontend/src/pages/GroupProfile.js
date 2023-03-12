@@ -50,7 +50,7 @@ export default function GroupProfile() {
             <span className='profile-name'>{group.name}</span>
             <span>{group.location + ' (' + group.region + ')'}</span>
             <span>Email: {group.email}</span>
-            {group.phone && <h2>Phone: <span>{group.phone}</span></h2>}
+            {group.phone && <h2>Phone: {group.phone}</h2>}
           </div>
           <div className='container-right'>
             {group.description && <>
