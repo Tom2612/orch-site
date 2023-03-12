@@ -24,15 +24,24 @@ export default function ConcertPage() {
   return (
     <div className='container'>
         {!loading && 
-            <>
-                <h2>{concert.group.name}</h2>
-                <h3>Date: {concert.date}</h3>
-                <h3>Location: {concert.group.region}, {concert.group.location}, {concert.location}</h3>
-                <div><span>contact details:</span>
-                    {' ' + concert.group.phone + ' ' + concert.group.email} 
-                </div>
-                <p>We are {concert.payStatus ? 'able' : 'not able'} to offer financial support.</p>
+            <div className='card-layout'>
                 <div>
+                    <h2>{concert.group.name}</h2>
+                    <h3>Date: {concert.date}</h3>
+                    
+                </div>
+                
+                <div>
+                    <h3>Location: {concert.location}, {concert.group.location}, {concert.group.region}</h3>
+                    <div>Please contact:
+                    {concert.group.phone && <span className='contact'>Phone number: {concert.group.phone}</span>}
+                    {concert.group.email && <span className='contact'>Email: {concert.group.email}</span>}
+                    
+                    </div>
+                    <p>We are {concert.payStatus ? 'able' : 'not able'} to offer financial support.</p>
+                </div>
+
+                <div className='playing'>
                     <h4>Playing:</h4>
                     <ul>
                         {concert.pieces.map((piece, index) => {
@@ -41,16 +50,15 @@ export default function ConcertPage() {
                     </ul>
                 </div>
                 
-                <div>
-                    <h4>Requirements:</h4>
+                <div className='required'>
+                    <h4>Looking for:</h4>
                     <ul>
                         {concert.instruments.map((instrument, index) => {
-                            return <li>{instrument}</li>
+                            return <li key={index}>{instrument}</li>
                         })}
                     </ul>
                 </div>
-                
-            </>
+            </div>
         }
     </div>
   )

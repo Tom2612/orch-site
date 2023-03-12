@@ -1,0 +1,12 @@
+.card-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10px;
+}
+.playing li, .required li {
+    list-style: none;
+}
+.contact {
+    display: block;
+}
