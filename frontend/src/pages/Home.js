@@ -5,7 +5,7 @@ import '../styles/home.css';
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <div className='container'>
+    <div className='ontainer'>
         <div className='open-message'>
           <h3>Welcome to OpenGroups.</h3>
           <p>Connecting musicians to groups who require your help for upcoming concerts!</p>
