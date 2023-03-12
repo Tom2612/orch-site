@@ -14,7 +14,7 @@ const Navbar = () => {
     return (
         <header>
             <div className="container">
-                <Link to='/'><h1>Orchestra Site</h1></Link>
+                <Link to='/'><h1>OpenGroups</h1></Link>
 
                 <div className='nav--links'>
                     <Link to='/concerts'>Concerts</Link>
