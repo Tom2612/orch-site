@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useGroupSignup } from '../hooks/useGroupSignup';
+import '../styles/groupSignupForm.css';
 
 export default function GroupForm() {
 

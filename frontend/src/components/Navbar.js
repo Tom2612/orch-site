@@ -17,7 +17,7 @@ const Navbar = () => {
                 <Link to='/'><h1>OpenGroups</h1></Link>
 
                 <div className='nav--links'>
-                    <Link to='/concerts'>Concerts</Link>
+                    <Link to='/concerts'>Browse Concerts</Link>
                     <Link to='/all-groups'>All groups</Link>
                     {user && <Link to='/new-concert'>New Concert</Link>}
                 </div>

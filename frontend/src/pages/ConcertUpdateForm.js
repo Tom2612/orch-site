@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import '../styles/concertForm.css';
 
 export default function ConcertUpdateForm() {
   const navigate = useNavigate();
