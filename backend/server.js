@@ -24,6 +24,9 @@ app.use('/api/pieces', pieceRoutes);
 app.use('/api/concerts', concertRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/user', userRouters);
+app.use('*', (req, res) => {
+    res.json({error: 'Looks like we cannot find that one!'});
+})
 
 // connect to db and start listening
 mongoose.connect(process.env.MONGO_URI)
