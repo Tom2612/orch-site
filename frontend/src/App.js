@@ -8,7 +8,6 @@ import Concerts from './pages/Concerts';
 import ConcertPage from './pages/ConcertPage';
 import ConcertForm from './pages/ConcertForm';
 import GroupSignupForm from './pages/GroupSignupForm';
-import Groups from './pages/Groups';
 import GroupProfile from './pages/GroupProfile';
 import ConcertUpdateForm from './pages/ConcertUpdateForm';
 import GroupLogin from './pages/GroupLogin';
@@ -30,7 +29,6 @@ function App() {
           <Route path='/new-concert' element={<PrivateRoute><ConcertForm /></PrivateRoute>} />
           <Route path='/new-group' element={!user ? <GroupSignupForm /> : <Navigate to='/groups/profile' />} />
           <Route path='/login-group' element={!user ? <GroupLogin /> : <Navigate to='/groups/profile' />} />
-          <Route path='/all-groups' element={<Groups />} />
           <Route path='/groups/profile' element={<PrivateRoute><GroupProfile /></PrivateRoute>} />
           <Route path='/groups/edit/:id' element={<PrivateRoute><GroupUpdateForm /></PrivateRoute>} />
         </Routes>

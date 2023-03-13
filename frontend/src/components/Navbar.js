@@ -18,7 +18,6 @@ const Navbar = () => {
 
                 <div className='nav--links'>
                     <Link to='/concerts'>Browse Concerts</Link>
-                    <Link to='/all-groups'>All groups</Link>
                     {user && <Link to='/new-concert'>New Concert</Link>}
                 </div>
 
