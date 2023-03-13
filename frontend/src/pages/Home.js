@@ -21,7 +21,7 @@ const Home = () => {
             <h4><span className='material-symbols-outlined'>group</span>Group login</h4>
             <p>Groups can advertise their concerts, what pieces are being performed and what help they require. If they want, they are able to offer
             financial support (e.g. travel expenses) for players who want to help out!</p>
-            <button className='btn update-btn' onClick={() => navigate('/login-group')}>Group</button>
+            <button data-cy='group-login' className='btn update-btn' onClick={() => navigate('/login-group')}>Group</button>
           </div>
         </div>
     </div>

@@ -25,6 +25,7 @@ export default function GroupLogin() {
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              data-cy='email'
           />
 
           <label>Password:</label>
@@ -32,6 +33,7 @@ export default function GroupLogin() {
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            data-cy='password'
           />
 
           <button disabled={loading} className='btn update-btn'>Log in</button>
