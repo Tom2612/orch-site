@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/concertDetails.css';
 
 export default function ConcertDetails({ concert }) {
 

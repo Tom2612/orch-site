@@ -1,63 +1,33 @@
 .group-form {
-    width: 90%;
-    padding: 20px;
-    background: white;
-    border-radius: 5px;
     display: flex;
     flex-direction: column;
 }
-
-.group-form h1 {
-    font-weight: 400;
-    margin-bottom: 20px;
-}
-
 .group-form-email-password {
     display: flex;
     align-items: flex-start;
 }
-
 .group-form-email-password label {
     margin-right: 10px;
 }
-
 .group-form-email-password label:nth-of-type(2) {
     margin-left: 10px;
 }
-
 .group-form-email-password input {
     width: 200px;
 }
-
 .group-form label {
     display: block;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 5px;
 }
-
 .group-form input,
 select {
     width: 300px;
-    font-family: inherit;
-    font-size: inherit;
-    border-radius: 3px;
-    padding: 5px;
-    margin-bottom: 20px;
 }
-
 .group-form select {
     margin-right: 20px;
 }
-
 .group-form button {
     margin-top: 20px;
 }
-
 .group-form textarea {
-    border: 1px solid black;
-    border-radius: 3px;
-    padding: 5px;
-    font-family: inherit;
-    font-size: inherit;
+    width: 70%;
 }

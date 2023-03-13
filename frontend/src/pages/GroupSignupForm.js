@@ -103,7 +103,6 @@ export default function GroupForm() {
         <label>Provide a description of your group</label>
         <textarea 
           name='group-description'
-          cols={70}
           rows={5}
           onChange={(e) => setDescription(e.target.value)}
           value={description}

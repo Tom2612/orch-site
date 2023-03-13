@@ -34,7 +34,7 @@ export default function GroupLogin() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button disabled={loading}>Log in</button>
+          <button disabled={loading} className='btn update-btn'>Log in</button>
           <p>Need an account? <Link to='/new-group'>Sign up here</Link></p>
       </form>
       {error && <p className="error-message">{error}</p>}
