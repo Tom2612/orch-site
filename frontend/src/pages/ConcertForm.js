@@ -136,7 +136,11 @@ export default function ConcertForm() {
         <input 
           type='date' 
           name='concert-date'
+          min={new Date().toISOString().split('T')[0]}
           onChange={(e) => {
+            // console.log(e.target.valueAsDate);
+            let input = new Date(e.target.value);
+            console.log(input)
             setDate(e.target.value)
             return setEmptyFields(emptyFields.filter(field => field !== 'date'))
           }}
@@ -187,7 +191,7 @@ export default function ConcertForm() {
           name='composer'
           onChange={(e) => {
             setComposer(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'composer'))
+            setEmptyFields(emptyFields.filter(field => field !== 'composer'))
           }}
           value={composer}
           className={emptyFields.includes('composer') || emptyFields.includes('pieces') ? 'error' : 'input'}
@@ -199,12 +203,12 @@ export default function ConcertForm() {
           name='piece-title' 
           onChange={(e) => {
             setTitle(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'title'))
+            setEmptyFields(emptyFields.filter(field => field !== 'title'))
           }}
           value={title}
           className={emptyFields.includes('title') || emptyFields.includes('pieces') ? 'error' : 'input'}
         />
-        <button className='btn add-btn' onClick={handleAddPiece}>Add</button>
+        <button className='btn add-btn' onClick={(e) => handleAddPiece(e)}>Add</button>
       </div>
       
       <div className='pieces-container'>
