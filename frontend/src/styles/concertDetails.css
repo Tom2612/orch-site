@@ -1,9 +1,12 @@
+.concerts {
+    max-width: 1000px;
+}
 .concert-details {
     max-width: 1000px;
     background: #fff;
     border-radius: 4px;
     margin: 20px;
-    padding: 20px 20px 20px 40px;
+    padding: 20px 0px 20px 40px;
     position: relative;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
     display: grid;

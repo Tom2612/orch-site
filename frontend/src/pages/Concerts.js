@@ -31,7 +31,7 @@ export default function Concerts() {
                 .sort((a, b) => new Date(a.createdAt.split('T')[0]) - new Date(b.createdAt.split('T')[0]));
             setConcerts(sortedConcerts.reverse());
         }
-    }
+    };
 
   return (
     <>
