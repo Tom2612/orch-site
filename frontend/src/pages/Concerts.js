@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConcertDetails from '../components/ConcertDetails';
+import '../styles/concerts.css';
 
 export default function Concerts() {
     const navigate = useNavigate();
-    const [concerts, setConcerts] = useState(null);
+    const [allConcerts, setAllConcerts] = useState(null);
+    const [concerts, setConcerts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [filters, setFilters] = useState('');
 
     useEffect(() => {
         const fetchConcerts = async () => {
@@ -13,6 +16,7 @@ export default function Concerts() {
             const json = await response.json();
 
             if (response.ok) {
+                setAllConcerts(json);
                 setConcerts(json);
                 setLoading(false);
             }
@@ -33,17 +37,63 @@ export default function Concerts() {
         }
     };
 
+    const handleFilter = (e) => {
+        if (filters === 'instruments') {
+            if (e.target.value !== ''){
+                let filteredConcerts = allConcerts.filter(concert => {
+                    return concert['instruments'].includes(e.target.value);
+                })
+                setConcerts(filteredConcerts);
+            } else {
+                setConcerts(allConcerts);
+            }
+            
+        } else if (filters === 'payStatus') {
+            let filteredConcerts = allConcerts.filter(concert => {
+                if (e.target.value === 'true') {
+                    return concert['payStatus']
+                } else if (e.target.value === 'false') {
+                    return !concert['payStatus']
+                } else return concert;
+            })
+            setConcerts(filteredConcerts);
+        }
+    }
+
   return (
     <>
         {!loading && 
             <div className='concerts-container'>
                 <h2>Concerts</h2>
-                    <div className='container'>
+                    <div className='container filters'>
                         <label>Sort by:</label>
                         <select name='sort' onChange={(e) => {handleSort(e)}}>
                             <option value='close'>Closest</option>
                             <option value='new'>Newest</option>
                         </select>
+
+                        <label>Find by:</label>
+                        <select name='find' onChange={(e) => setFilters(e.target.value)}>
+                            <option value=''>----</option>
+                            <option value='instruments'>Instrument</option>
+                            <option value='payStatus'>Paid/Unpaid</option>
+                            <option value='region'>Region</option>
+                        </select>
+                        {filters === 'instruments' && 
+                            <select onChange={(e) => handleFilter(e)}>
+                                <option value=''></option>
+                                <option value='violin'>violin</option>
+                                <option value='trumpet'>trumpet</option>
+                                <option value='cello'>cello</option>
+                            </select>
+                        }
+                        {filters === 'payStatus' && 
+                            <select onChange={(e) => handleFilter(e)}>
+                                <option value=''>----</option>
+                                <option value='true'>Paid</option>
+                                <option value='false'>Unpaid</option>
+                            </select>
+                        }
                     </div>
 
                     {concerts && concerts.map((concert) => (
