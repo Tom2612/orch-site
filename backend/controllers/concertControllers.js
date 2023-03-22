@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 // get all concerts
 const getConcerts = async (req, res) => {
-    const concerts = await Concert.find({}).populate('group').sort({createdAt: -1});
+    const concerts = await Concert.find({}).populate('group').sort({date: 1});
 
     res.status(200).json(concerts);
 }
