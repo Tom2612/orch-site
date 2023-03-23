@@ -102,7 +102,7 @@ form h1 {
   font-weight: 400;
   margin-bottom: 20px;
 }
-form input, form select, form textarea {
+input, select, form textarea {
   font-family: inherit;
   font-size: inherit;
   border-radius: 3px;

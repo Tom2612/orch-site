@@ -44,27 +44,18 @@ export default function Concerts() {
                 return regex.test(concert['instruments']) ? concert : null;
 
             })
-            setConcerts(filteredConcerts);
-            // if (e.target.value !== ''){
-            //     console.log(e.target.value)
-            //     let filteredConcerts = allConcerts.filter(concert => {
-            //         let regex = new RegExp(e.target.value, 'gi')
-            //         return regex.test(concert['instruments']) ? concert : null;
-
-            //     })
-            //     setConcerts(filteredConcerts);
-            // } else {
-            //     setConcerts(allConcerts);
-            // }
-            
+            setConcerts(filteredConcerts);            
         } else if (filters === 'payStatus') {
             let filteredConcerts = allConcerts.filter(concert => {
                 if (e.target.value === 'true') {
-                    return concert['payStatus']
+                    return concert['payStatus'];
                 } else if (e.target.value === 'false') {
-                    return !concert['payStatus']
+                    return !concert['payStatus'];
                 } else return concert;
             })
+            setConcerts(filteredConcerts);
+        } else if (filters === 'region') {
+            let filteredConcerts = allConcerts.filter(concert => concert.group.region === e.target.value)
             setConcerts(filteredConcerts);
         }
     }
@@ -88,19 +79,29 @@ export default function Concerts() {
                             <option value='payStatus'>Paid/Unpaid</option>
                             <option value='region'>Region</option>
                         </select>
-                        {filters === 'instruments' && <input onChange={(e)=>handleFilter(e)} type='text'></input>
-                            // <select onChange={(e) => handleFilter(e)}>
-                            //     <option value=''></option>
-                            //     <option value='violin'>violin</option>
-                            //     <option value='trumpet'>trumpet</option>
-                            //     <option value='cello'>cello</option>
-                            // </select>
-                        }
+                        {filters === 'instruments' && <input onChange={(e)=>handleFilter(e)} type='text' placeholder='Begin typing'></input>}
                         {filters === 'payStatus' && 
                             <select onChange={(e) => handleFilter(e)}>
                                 <option value=''>----</option>
                                 <option value='true'>Paid</option>
                                 <option value='false'>Unpaid</option>
+                            </select>
+                        }
+                        {filters === 'region' && 
+                            <select onChange={(e) => handleFilter(e)}>
+                                <option value={''}>----</option>
+                                <option value={'East Midlands'}>East Midlands</option>
+                                <option value={'East of England'}>East of England</option>
+                                <option value={'London'}>London</option>
+                                <option value={'North East'}>North East</option>
+                                <option value={'North West'}>North West</option>
+                                <option value={'Northern Ireland'}>Northern Ireland</option>
+                                <option value={'Scotland'}>Scotland</option>
+                                <option value={'South East'}>South East</option>
+                                <option value={'South West'}>South West</option>
+                                <option value={'Wales'}>Wales</option>
+                                <option value={'West Midlands'}>West Midlands</option>
+                                <option value={'Yorkshire and The Humber'}>Yorkshire and The Humber</option>
                             </select>
                         }
                     </div>
