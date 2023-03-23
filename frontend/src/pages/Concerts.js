@@ -40,8 +40,12 @@ export default function Concerts() {
     const handleFilter = (e) => {
         if (filters === 'instruments') {
             if (e.target.value !== ''){
+                console.log(e.target.value)
                 let filteredConcerts = allConcerts.filter(concert => {
-                    return concert['instruments'].includes(e.target.value);
+                    let regex = new RegExp(e.target.value, 'gi')
+                    console.log('here', concert['instruments'].map(instrument => instrument.match(regex)))
+                    return concert['instruments'].map(instrument => (instrument.match(regex))) ? concert : false;
+
                 })
                 setConcerts(filteredConcerts);
             } else {
@@ -79,13 +83,13 @@ export default function Concerts() {
                             <option value='payStatus'>Paid/Unpaid</option>
                             <option value='region'>Region</option>
                         </select>
-                        {filters === 'instruments' && 
-                            <select onChange={(e) => handleFilter(e)}>
-                                <option value=''></option>
-                                <option value='violin'>violin</option>
-                                <option value='trumpet'>trumpet</option>
-                                <option value='cello'>cello</option>
-                            </select>
+                        {filters === 'instruments' && <input onChange={(e)=>handleFilter(e)} type='text'></input>
+                            // <select onChange={(e) => handleFilter(e)}>
+                            //     <option value=''></option>
+                            //     <option value='violin'>violin</option>
+                            //     <option value='trumpet'>trumpet</option>
+                            //     <option value='cello'>cello</option>
+                            // </select>
                         }
                         {filters === 'payStatus' && 
                             <select onChange={(e) => handleFilter(e)}>
