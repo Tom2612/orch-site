@@ -39,18 +39,23 @@ export default function Concerts() {
 
     const handleFilter = (e) => {
         if (filters === 'instruments') {
-            if (e.target.value !== ''){
-                console.log(e.target.value)
-                let filteredConcerts = allConcerts.filter(concert => {
-                    let regex = new RegExp(e.target.value, 'gi')
-                    console.log('here', concert['instruments'].map(instrument => instrument.match(regex)))
-                    return concert['instruments'].map(instrument => (instrument.match(regex))) ? concert : false;
+            let filteredConcerts = allConcerts.filter(concert => {
+                let regex = new RegExp(e.target.value, 'gi')
+                return regex.test(concert['instruments']) ? concert : null;
 
-                })
-                setConcerts(filteredConcerts);
-            } else {
-                setConcerts(allConcerts);
-            }
+            })
+            setConcerts(filteredConcerts);
+            // if (e.target.value !== ''){
+            //     console.log(e.target.value)
+            //     let filteredConcerts = allConcerts.filter(concert => {
+            //         let regex = new RegExp(e.target.value, 'gi')
+            //         return regex.test(concert['instruments']) ? concert : null;
+
+            //     })
+            //     setConcerts(filteredConcerts);
+            // } else {
+            //     setConcerts(allConcerts);
+            // }
             
         } else if (filters === 'payStatus') {
             let filteredConcerts = allConcerts.filter(concert => {
