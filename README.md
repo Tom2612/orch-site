@@ -53,3 +53,11 @@ Next steps:
 - Create updateGroup info form.
 - Display concert details on concert page - CSS here!
 - Delete group button.
+
+#### 26-Mar
+
+V1 may be complete. All routes handled and authenticated. CSS has been broken down. UpdateGroupForm is made and working. The concert pages will need further styling but display the bare minimum. I am keeping the delete group button inactive for now to make sure I don't remove any dummy data.
+
+Next steps for the app will be final security stuff, getting ready for deployment and completing end-to-end testing using Cypress. I wanted to use Cypress as it does the whole show and mimics user interaction - and it is a new tech that I haven't tried before, so that's a win!
+
+On the side, i'm looking at Mantine as a potential framework to further clean styles up. This will be a complete overhaul and a long term goal so not on the cards yet. I don't think it looks terrible at the minute - I first wanted to get a working prototype into production.
