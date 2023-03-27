@@ -48,7 +48,8 @@
     border-left-color: var(--red-primary);
 }
 .date {
-    grid-column: 4 / 5;
+    font-weight: 700;
+    grid-column: 7 / 8;
     grid-row: 3 / 4;
     font-style: italic;
 }
@@ -58,6 +59,7 @@
     border-bottom: 1px solid black;
     display: flex;
     padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 .composers li {
     list-style: none;
@@ -68,11 +70,19 @@
     grid-column: 1 / 7;
     grid-row: 5 / 6;
     display: flex;
-    margin-top: 10px;
 }
 .instruments li {
+    height: 100%;
+    align-self: center;
     list-style: none;
     font-style: italic;
     margin-right: 2rem;
     color: rgb(0, 0, 0, 0.7);
+}
+.posted {
+    align-self: center;
+    color: rgba(0, 0, 0, 0.544);
+    grid-column: 7 / 9;
+    grid-row: 5 / 6;
+    font-size: 0.95rem;
 }
