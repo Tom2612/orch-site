@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useGroupSignup } from '../hooks/useGroupSignup';
+// import { useGroupSignup } from '../hooks/useGroupSignup';
 import '../styles/groupSignupForm.css';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function GroupForm() {
 
-  const { groupSignup, loading, error, emptyFields } = useGroupSignup();
+  // const { groupSignup, loading, error, emptyFields } = useGroupSignup();
+  const { dispatch } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,15 +15,48 @@ export default function GroupForm() {
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [emptyFields, setEmptyFields] = useState([]);
 
-  const handleSubmit = async (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   await groupSignup(email, password, name, region, location, phone, description);
+  // }
+
+  const handleSignUpGroup = async (e) => {
     e.preventDefault();
 
-    await groupSignup(email, password, name, region, location, phone, description);
+    setLoading(true);
+    setError(null);
+    setEmptyFields([]);
+
+    const response = await fetch('http://localhost:4000/api/groups/signup', {
+        method: 'POST',
+        body: JSON.stringify({ email, password, name, region, location, phone, description }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    const json = await response.json();
+
+    if (!response.ok) {
+        setLoading(false);
+        setError(json.error);
+        setEmptyFields(json.emptyFields ? json.emptyFields : []);
+    }
+
+    if (response.ok) {
+        localStorage.setItem('user', JSON.stringify(json));
+        dispatch({type: 'LOGIN', payload: json});
+        setLoading(false);
+    }
   }
 
   return (
-    <form className='group-form' onSubmit={handleSubmit}>
+    <form className='group-form' onSubmit={handleSignUpGroup}>
       <h1>Sign up your group here</h1>
       <div className='group-form-email-password'>
         <label>Email</label>
@@ -51,6 +86,7 @@ export default function GroupForm() {
           onChange={(e) => setName(e.target.value)}
           value={name}
           className={emptyFields.includes('name') ? 'error' : 'input'}
+          data-cy='group-name'
         />
       </div>
 
@@ -60,6 +96,7 @@ export default function GroupForm() {
           onChange={(e) => setRegion(e.target.value)}
           value={!region ? '' : region}
           className={emptyFields.includes('location') ? 'error' : 'input'}
+          data-cy='group-region'
         >
           <option value={''}>-- Select Region --</option>
           <option value={'East Midlands'}>East Midlands</option>
@@ -83,6 +120,7 @@ export default function GroupForm() {
             value={location}
             className={emptyFields.includes('location') ? 'error' : 'input'}
             placeholder='City'
+            data-cy='group-city'
           />
         }
         

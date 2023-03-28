@@ -87,7 +87,7 @@ const signupGroup = async (req, res) => {
         emptyFields.push('password');
     }
     if (emptyFields.length > 0) {
-        return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
+        return res.status(400).json({error: 'Please fill in all the fields.', emptyFields});
     }
 
     try {

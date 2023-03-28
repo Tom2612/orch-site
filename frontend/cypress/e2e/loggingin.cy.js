@@ -1,3 +1,5 @@
+// const { Cypress, cy } = require('cypress');
+
 describe('logs in', () => {
     it('using UI', () => {
         cy.visit('/');
@@ -43,5 +45,20 @@ describe('logs in', () => {
 
         cy.location('pathname').should('equal', '/login-group');
         cy.get('.error-message').should('exist');
+    })
+
+    it('tries signing up with taken username', () => {
+        cy.visit('/new-group');
+
+        cy.get('[type="email"]').type(Cypress.env('testUsername'))
+        cy.get('[type="password"]').type('654321')
+
+        cy.get('[data-cy="group-name"]').type('Cypress Test')
+        cy.get('[data-cy="group-region"]').select('London')
+        cy.get('[data-cy="group-city"]').should('be.visible')
+        cy.get('[data-cy="group-city"]').type('London')
+
+        cy.get('.btn').click()
+        cy.get('.error-message').should('exist').should('have.text', 'Email already in use.');
     })
 })

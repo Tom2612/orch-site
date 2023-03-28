@@ -23,7 +23,7 @@ export const useGroupSignup = () => {
         const json = await response.json();
 
         if (!response.ok) {
-            setLoading(false)
+            setLoading(false);
             setError(json.error);
             setEmptyFields(json.emptyFields);
         }
