@@ -38,11 +38,11 @@ export default function Concerts() {
     };
 
     const handleFilter = (e) => {
+        setConcerts(allConcerts);
         if (filters === 'instruments') {
             let filteredConcerts = allConcerts.filter(concert => {
                 let regex = new RegExp(e.target.value, 'gi')
                 return regex.test(concert['instruments']) ? concert : null;
-
             })
             setConcerts(filteredConcerts);            
         } else if (filters === 'payStatus') {
@@ -55,8 +55,10 @@ export default function Concerts() {
             })
             setConcerts(filteredConcerts);
         } else if (filters === 'region') {
-            let filteredConcerts = allConcerts.filter(concert => concert.group.region === e.target.value)
-            setConcerts(filteredConcerts);
+            if (e.target.value !== '') {
+                let filteredConcerts = allConcerts.filter(concert => concert.group.region === e.target.value);
+                setConcerts(filteredConcerts);
+            }
         }
     }
 
