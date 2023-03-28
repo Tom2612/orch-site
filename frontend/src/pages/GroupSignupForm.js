@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-// import { useGroupSignup } from '../hooks/useGroupSignup';
 import '../styles/groupSignupForm.css';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function GroupForm() {
 
-  // const { groupSignup, loading, error, emptyFields } = useGroupSignup();
   const { dispatch } = useAuth();
 
   const [email, setEmail] = useState('');
@@ -18,12 +16,6 @@ export default function GroupForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [emptyFields, setEmptyFields] = useState([]);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   await groupSignup(email, password, name, region, location, phone, description);
-  // }
 
   const handleSignUpGroup = async (e) => {
     e.preventDefault();
