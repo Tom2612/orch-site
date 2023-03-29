@@ -18,8 +18,9 @@ let limiter = RateLimit({
 
 const app = express();
 
-app.use(limiter);
 app.use(helmet());
+app.use(limiter);
+app.use(compression());
 
 // middleware
 app.use(express.json());
@@ -29,8 +30,6 @@ app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
 });
-
-app.use(compression());
 
 // routes
 app.use('/api/pieces', pieceRoutes);
