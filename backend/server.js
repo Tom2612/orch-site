@@ -7,8 +7,19 @@ const groupRoutes = require('./routes/groups');
 const userRouters = require('./routes/user');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const compression = require('compression');
+const helmet = require('helmet');
+const RateLimit = require('express-rate-limit');
+
+let limiter = RateLimit({
+    windowMs: 15*60*1000,
+    max: 100
+});
 
 const app = express();
+
+app.use(limiter);
+app.use(helmet());
 
 // middleware
 app.use(express.json());
@@ -17,7 +28,9 @@ app.use(cors());
 app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
-})
+});
+
+app.use(compression());
 
 // routes
 app.use('/api/pieces', pieceRoutes);
