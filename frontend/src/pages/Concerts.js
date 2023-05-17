@@ -15,12 +15,6 @@ export default function Concerts() {
             const response = await fetch('http://localhost:4000/api/concerts/');
             const json = await response.json();
 
-            console.log(new Date(json[1].date) < new Date());
-
-            console.log(json.filter(concert => {
-                return (new Date(concert.date) > new Date());
-            }))
-
             if (response.ok) {
                 setAllConcerts(json);
                 setConcerts(json);
@@ -81,7 +75,13 @@ export default function Concerts() {
                         </select>
 
                         <label>Find by:</label>
-                        <select name='find' onChange={(e) => setFilters(e.target.value)}>
+                        <select name='find' onChange={(e) => {
+                            if(e.target.value === '') {
+                                handleFilter(e);
+                                setFilters(e.target.value);
+                            } else {
+                                setFilters(e.target.value);
+                            }}}>
                             <option value=''>----</option>
                             <option value='instruments'>Instrument</option>
                             <option value='payStatus'>Paid/Unpaid</option>
