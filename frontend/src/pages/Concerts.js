@@ -66,7 +66,7 @@ export default function Concerts() {
     <>
         {!loading && 
             <div className='concerts-container'>
-                <h2>Concerts</h2>
+                <h2>Browse Concerts</h2>
                     <div className='container filters'>
                         <label>Sort by:</label>
                         <select name='sort' onChange={(e) => {handleSort(e)}}>

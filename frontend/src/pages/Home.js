@@ -8,7 +8,7 @@ const Home = () => {
     <div className='ontainer'>
         <div className='open-message'>
           <h3>Welcome to OpenGroups.</h3>
-          <p>Connecting musicians to groups who require your help for upcoming concerts!</p>
+          <p>Connecting musicians to groups who need you!</p>
         </div>
         <div className='blocks'>
           {/* <div className='block'>
