@@ -15,6 +15,12 @@ export default function Concerts() {
             const response = await fetch('http://localhost:4000/api/concerts/');
             const json = await response.json();
 
+            console.log(new Date(json[1].date) < new Date());
+
+            console.log(json.filter(concert => {
+                return (new Date(concert.date) > new Date());
+            }))
+
             if (response.ok) {
                 setAllConcerts(json);
                 setConcerts(json);
