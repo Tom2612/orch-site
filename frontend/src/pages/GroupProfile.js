@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ConcertDetails from '../components/ConcertDetails';
+import GroupConcertDetails from '../components/GroupConcertDetails';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/profile.css';
 
@@ -71,7 +71,7 @@ export default function GroupProfile() {
             >Add a concert</button>
             {group.concerts && group.concerts.map((concert) => (
               <div className='group-concert' key={concert._id} onClick={() => navigate(`/concerts/edit/${concert._id}`)}>
-                  <ConcertDetails concert={concert} />
+                  <GroupConcertDetails group={group} concert={concert} />
               </div>
             ))}
           </div>
