@@ -77,3 +77,9 @@
     font-size: 1.1rem;
     margin-right: 10px;
 }
+.btn-container .add-btn {
+    max-width: none;
+    padding: 10px;
+    margin-right: 20px;
+    margin-left: 0px;
+}
