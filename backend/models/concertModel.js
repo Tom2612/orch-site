@@ -7,7 +7,7 @@ const concertSchema = new Schema({
         type: Schema.Types.ObjectId, ref: 'Group',
     },
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     location: {

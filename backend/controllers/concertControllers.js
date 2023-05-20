@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 // get all concerts
 const getConcerts = async (req, res) => {
-    const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (new Date(concert.date) > new Date()));
+    const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
 
     res.status(200).json(concerts);
 }
@@ -15,7 +15,7 @@ const getConcert = async (req, res) => {
         return res.status(404).json({error: 'No such concert'});
     }
 
-    const concert = await Concert.findById(id).populate('group');
+    const concert = await Concert.findById(id).populate('group');;
 
     if (!concert) {
         return res.status(404).json({error: 'No such concert'});
@@ -55,7 +55,7 @@ const createConcert = async (req, res) => {
     const user_id = req.user._id;
 
     try {
-        const concert = await Concert.create({ group: user_id, date, location, payStatus, pieces, instruments });
+        const concert = await Concert.create({ group: user_id, date: new Date(date), location, payStatus, pieces, instruments });
         res.status(200).json(concert);
     } catch (e) {
         res.status(400).json({error: e.message});

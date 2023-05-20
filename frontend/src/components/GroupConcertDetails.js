@@ -2,13 +2,13 @@ import React from 'react';
 import '../styles/concertDetails.css';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-export default function ConcertDetails({ group, concert }) {
+export default function GroupConcertDetails({ group, concert }) {
 
   return (
     <div className='concert-details'>
         <h4 className='orchestra'>{group.name}</h4>
         <p className='location'>{concert.location}, {group.region}, {group.location}</p>
-        <p className='date'>{concert.date.split('-').reverse().join('/')}</p>
+        <p className='date'>{concert.date.split('T')[0]}</p>
         {concert.payStatus ? 
           <div className='status paid'>paid</div> : 
           <div className='status unpaid'>unpaid</div>

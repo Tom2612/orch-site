@@ -27,7 +27,7 @@ export default function ConcertPage() {
             <div className='card-layout'>
                 <div>
                     <h2>{concert.group.name}</h2>
-                    <h3>Date: {concert.date}</h3>
+                    <h3>Date: {concert.date.split('T')[0]}</h3>
                     
                 </div>
                 

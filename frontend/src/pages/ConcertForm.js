@@ -139,7 +139,6 @@ export default function ConcertForm() {
           min={new Date().toISOString().split('T')[0]}
           onChange={(e) => {
             setDate(e.target.value);
-            console.log(new Date(e.target.value));
             return setEmptyFields(emptyFields.filter(field => field !== 'date'))
           }}
           value={date}

@@ -38,7 +38,7 @@ export default function ConcertUpdateForm() {
       }
 
       if (response.ok) {
-        setDate(json.date.split('/').reverse().join('-'));
+        setDate(json.date.split('T')[0]);
         setLocation(json.location);
         setPayStatus(json.payStatus);
         setPieces(json.pieces);
