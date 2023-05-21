@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className='ontainer'>
         <div className='open-message'>
-          <h3>Welcome to OpenGroups.</h3>
+          <h3>Welcome to MusicalChairs.</h3>
           <p>Connecting musicians to groups who need you!</p>
         </div>
         <div className='blocks'>
