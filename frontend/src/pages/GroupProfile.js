@@ -22,8 +22,7 @@ export default function GroupProfile() {
 
       if (!response.ok) {
         console.log('error getting group');
-        console.log(json.error);
-        navigate(-1);
+        navigate('/');
       }
 
       if (response.ok) {
