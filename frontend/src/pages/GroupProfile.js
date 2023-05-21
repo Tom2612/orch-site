@@ -22,7 +22,7 @@ export default function GroupProfile() {
 
       if (!response.ok) {
         console.log('error getting group');
-        navigate('/');
+        navigate('/unauthorised');
       }
 
       if (response.ok) {

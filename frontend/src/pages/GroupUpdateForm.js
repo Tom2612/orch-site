@@ -25,8 +25,11 @@ export default function GroupUpdateForm() {
                 }
             });
             const json = await response.json();
+            console.log(response)
             
-            if (!response.ok) {
+            if (response.status === 401) {
+                navigate('/unauthorised');
+            } else if (!response.ok) {
                 navigate('/groups/profile');
             }
 

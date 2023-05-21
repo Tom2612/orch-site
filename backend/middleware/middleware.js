@@ -16,7 +16,6 @@ const isValid = async (req, res, next) => {
         req.user = await Group.findOne({ _id }).select('_id');
         next();
     } catch (error) {
-        console.log(error);
         return res.status(401).json({error: 'Request is not valid'});
     }
 }

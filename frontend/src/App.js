@@ -14,6 +14,7 @@ import GroupLogin from './pages/GroupLogin';
 import PrivateRoute from './hooks/useProtect';
 import GroupUpdateForm from './pages/GroupUpdateForm';
 import ErrorPage from './components/ErrorPage';
+import Unauthorized from './pages/Unauthorized';
 
 function App() {
   const { user } = useAuth();
@@ -32,6 +33,7 @@ function App() {
           <Route path='/login-group' element={!user ? <GroupLogin /> : <Navigate to='/groups/profile' />} />
           <Route path='/groups/profile' element={<PrivateRoute><GroupProfile /></PrivateRoute>} />
           <Route path='/groups/edit/:id' element={<PrivateRoute><GroupUpdateForm /></PrivateRoute>} />
+          <Route path='/unauthorised' element={<Unauthorized />} />
           <Route path='*' element={<ErrorPage />} />
         </Routes>
       </div>

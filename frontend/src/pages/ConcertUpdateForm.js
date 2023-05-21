@@ -33,8 +33,8 @@ export default function ConcertUpdateForm() {
       const json = await response.json();
 
       if (!response.ok) {
-        alert('You are not authorised to edit this content.');
-        navigate(-1);
+        // alert('You are not authorised to edit this content.');
+        navigate('/unauthorised');
       }
 
       if (response.ok) {
