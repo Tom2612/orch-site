@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import '../styles/concertPage.css';
+import { format } from 'date-fns';
 
 export default function ConcertPage() {
     const [concert, setConcert] = useState(null);
@@ -27,7 +28,7 @@ export default function ConcertPage() {
             <div className='card-layout'>
                 <div>
                     <h2>{concert.group.name}</h2>
-                    <h3>Date: {concert.date.split('T')[0]}</h3>
+                    <h3>Date: {format(new Date(concert.date), 'PP')}</h3>
                     
                 </div>
                 
