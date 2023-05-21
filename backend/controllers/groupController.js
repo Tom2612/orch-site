@@ -6,7 +6,7 @@ const createToken = (_id) => {
     return jwt.sign({_id, }, process.env.SECRET, {expiresIn: '3d'})
 }
 
-// Mainly for admin view of all groups
+// Admin view of all groups
 const getGroups = async (req, res) => {
     const allGroups = await Group.find({}).populate({ path: 'concerts'});
 

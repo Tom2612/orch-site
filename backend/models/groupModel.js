@@ -39,7 +39,7 @@ const groupSchema = new Schema({
     toObject: { virtuals: true }
 })
 
-// Statis signup method
+// Static signup method
 groupSchema.statics.signup = async function(email, password, name, region, location, phone, description) {
 
     if (!email || !password) {
