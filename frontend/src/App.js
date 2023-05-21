@@ -15,6 +15,7 @@ import PrivateRoute from './hooks/useProtect';
 import GroupUpdateForm from './pages/GroupUpdateForm';
 import ErrorPage from './components/ErrorPage';
 import Unauthorized from './pages/Unauthorized';
+import NewConcertForm from './pages/NewConcertForm';
 
 function App() {
   const { user } = useAuth();
@@ -35,6 +36,7 @@ function App() {
           <Route path='/groups/edit/:id' element={<PrivateRoute><GroupUpdateForm /></PrivateRoute>} />
           <Route path='/unauthorised' element={<Unauthorized />} />
           <Route path='*' element={<ErrorPage />} />
+          <Route path='/new' element={<NewConcertForm />} />
         </Routes>
       </div>
      </BrowserRouter>
