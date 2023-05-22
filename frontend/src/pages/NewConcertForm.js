@@ -1,15 +1,73 @@
 import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function NewConcertForm() {
+    const { user } = useAuth();
     const [concert, setConcert] = useState({
         date: '',
         location: '',
         payStatus: false,
-        pieces: [{composer: 'Mahler', title: 'Symphony no. 2'}],
+        pieces: [],
         instruments: [],
     });
     const [piece, setPiece] = useState({composer: '', title: ''});
     const [instrument, setInstrument] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [emptyFields, setEmptyFields] = useState([]);
+    const [error, setError] = useState(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(false);
+        if (!user) {
+            return setError('You must be logged in to do that.');
+        }
+        if (!concert.date) {
+            setEmptyFields(emptyFields.concat('date'));
+        }
+        if (!concert.location) {
+            setEmptyFields(emptyFields.concat('location'));
+        }
+        if (concert.pieces.length === 0) {
+            setEmptyFields(emptyFields.concat('pieces'));
+        }
+        if (concert.instruments.length === 0) {
+            setEmptyFields(emptyFields.concat('instruments'));
+        }
+        if (emptyFields.length > 1) {
+            return setError('Please fill in the required fields');
+        }
+
+        const response = await fetch('http://localhost:4000/api/concerts', {
+            method: 'POST',
+            body: JSON.stringify(concert),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`,
+            }
+        })
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setLoading(false);
+            setError(json.error);
+            setEmptyFields(json.emptyFields);
+        }
+        if (response.ok) {
+            setEmptyFields([]);
+            setLoading(false);
+            setError(null);
+            setConcert({
+                date: '',
+                location: '',
+                payStatus: false,
+                pieces: [],
+                instruments: [],
+            });
+            
+        }
+    }
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -17,7 +75,7 @@ export default function NewConcertForm() {
         setConcert(prev => ({
             ...prev,
             [name]: value
-        }))
+        }));
     }
 
     const handleChangePiece = (e) => {
@@ -26,8 +84,9 @@ export default function NewConcertForm() {
         setPiece(prev => ({
             ...prev,
             [name]: value
-        }))
+        }));
     }
+
     const handleChangeInstrument = (e) => {
         setInstrument(e.target.value);
     }
@@ -46,6 +105,24 @@ export default function NewConcertForm() {
             instruments: [...prev.instruments, instrument]
         }));
         setInstrument('');
+    }
+
+    const handleDeletePiece = (composer, title) => {
+        setConcert(prev => ({
+            ...prev,
+            pieces: prev.pieces.filter(piece => {
+                return piece.composer !== composer && piece.title !== title;
+            })
+        }));        
+    }
+
+    const handleDeleteInstrument = (instrument) => {
+        setConcert(prev => ({
+            ...prev,
+            instruments: prev.instruments.filter(instr => {
+                return instr !== instrument;
+            })
+        }));
     }
 
   return (
@@ -72,6 +149,8 @@ export default function NewConcertForm() {
             <label>Instruments:</label>
             <input type='text' name='instrument' value={instrument} onChange={handleChangeInstrument}></input>
             <button type='button' onClick={handleAddInstrument}>Add Instrument</button>
+            <br></br>
+            <button onClick={handleSubmit} disabled={loading}>Submit</button>
         </form>
 
         <div>
@@ -81,11 +160,11 @@ export default function NewConcertForm() {
             <p>Pay Status: {concert.payStatus.toString()}</p>
             <p>Piece: {piece.composer} - {piece.title}</p>
             {concert.pieces.map(piece => {
-                return <p>{piece.composer} - {piece.title}</p>
+                return <p onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
             })}
             <p>Instrument: {instrument}</p>
             {concert.instruments.map(instrument => {
-                return <p>{instrument}</p>
+                return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
             })}
         </div>
     </>
