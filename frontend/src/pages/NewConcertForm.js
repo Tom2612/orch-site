@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewConcertForm() {
     const { user } = useAuth();
+    const navigate = useNavigate();
+
     const [concert, setConcert] = useState({
         date: '',
         location: '',
@@ -12,6 +15,7 @@ export default function NewConcertForm() {
     });
     const [piece, setPiece] = useState({composer: '', title: ''});
     const [instrument, setInstrument] = useState('');
+
     const [loading, setLoading] = useState(false);
     const [emptyFields, setEmptyFields] = useState([]);
     const [error, setError] = useState(null);
@@ -55,17 +59,7 @@ export default function NewConcertForm() {
             setEmptyFields(json.emptyFields);
         }
         if (response.ok) {
-            setEmptyFields([]);
-            setLoading(false);
-            setError(null);
-            setConcert({
-                date: '',
-                location: '',
-                payStatus: false,
-                pieces: [],
-                instruments: [],
-            });
-            
+            navigate('/concerts');
         }
     }
 
@@ -167,7 +161,7 @@ export default function NewConcertForm() {
                 return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
             })}
         </div>
-        
+
         <div>
             {error && <p>{error}</p>}
         </div>
