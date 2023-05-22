@@ -129,7 +129,7 @@ export default function NewConcertForm() {
     <>
         <form>
             <label>Date:</label>
-            <input type='date' name='date' value={concert.date} onChange={handleChange}></input>
+            <input type='date' name='date' value={concert.date} onChange={handleChange} min={new Date().toISOString().split('T')[0]}></input>
 
             <label>Location</label>
             <input type='text' name='location' value={concert.location} onChange={handleChange}></input>
@@ -166,6 +166,10 @@ export default function NewConcertForm() {
             {concert.instruments.map(instrument => {
                 return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
             })}
+        </div>
+        
+        <div>
+            {error && <p>{error}</p>}
         </div>
     </>
   )
