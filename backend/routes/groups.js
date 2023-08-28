@@ -6,7 +6,9 @@ const router = express.Router();
 
 // group routes
 router.get('/', getGroups);
-router.get('/profile', isValid, getGroup);
+router.get('/profile', 
+isValid, 
+getGroup);
 
 // Update and Delete groups routes here with validation checks
 router.patch('/edit/:id', isValid, isGroupAuthor, updateGroup);

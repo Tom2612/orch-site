@@ -9,6 +9,7 @@ export default function GroupProfile() {
   const { user } = useAuth();
 
   const [group, setGroup] = useState(null);
+  const [concerts, setConcerts] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +27,8 @@ export default function GroupProfile() {
       }
 
       if (response.ok) {
-        setGroup(json);
+        setGroup(json.group);
+        setConcerts(json.concerts);
         setLoading(false);
       }
     }
@@ -68,7 +70,7 @@ export default function GroupProfile() {
               className='btn create-btn group-concert-btn'
               onClick={() => navigate('/new-concert')}
             >Add a concert</button>
-            {group.concerts && group.concerts.map((concert) => (
+            {concerts && concerts.map((concert) => (
               <div className='group-concert' key={concert._id} onClick={() => navigate(`/concerts/edit/${concert._id}`)}>
                   <GroupConcertDetails group={group} concert={concert} />
               </div>

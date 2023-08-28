@@ -1,4 +1,5 @@
 const Group = require('../models/groupModel');
+const Concert = require('../models/concertModel');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -6,29 +7,35 @@ const createToken = (_id) => {
     return jwt.sign({_id, }, process.env.SECRET, {expiresIn: '3d'})
 }
 
-// Admin view of all groups
+// Admin view of all groups - not currently used
 const getGroups = async (req, res) => {
-    const allGroups = await Group.find({}).populate({ path: 'concerts'});
+    const allGroups = await Group.find({});
+    const allConcerts = await Concert.find({});
 
-    res.status(200).json(allGroups);
+    res.status(200).json({allGroups, allConcerts});
 }
 
 // Need to display specific group info here
 const getGroup = async (req, res) => {
 
     const user_id = req.user._id;
+    // const user_id = '642185048fd33ec09b007b87';
 
     if (!mongoose.Types.ObjectId.isValid(user_id)) {
         return res.status(404).json({error: 'No such group'});
     }
 
-    const group = await Group.findById(user_id).populate('concerts');
+    // Want to change this to two separate searches - One for the group, one for the Concerts
+    // const group = await Group.findById(user_id).populate('concerts');
+
+    const group = await Group.findById(user_id);
+    const concerts = await Concert.find({group: user_id}).populate('group');
 
     if (!group) {
         return res.status(400).json({error: 'No such group'});
     }
 
-    res.status(200).json(group);
+    res.status(200).json({group, concerts});
 }
 
 const updateGroup = async (req, res) => {
