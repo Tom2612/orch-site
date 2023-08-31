@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ConcertDetails from '../../components/ConcertDetails';
 import ConcertCard from './ConcertCard';
+import ConcertsController from './ConcertsController';
 import '../../styles/concerts.css';
 
 export default function Concerts() {
-    const navigate = useNavigate();
     const [allConcerts, setAllConcerts] = useState(null);
 
     const [loading, setLoading] = useState(true);
@@ -67,6 +65,10 @@ export default function Concerts() {
         {!loading && 
             <div className='concerts-container'>
                 <h2>Browse Concerts</h2>
+
+                {
+                // Space here for the controller component 
+                }
                 <div>
                     {
                         // Grid layout for cards
@@ -76,11 +78,11 @@ export default function Concerts() {
                     }
                 </div> 
 
-                    {allConcerts && allConcerts.map((concert) => (
+                    {/* {allConcerts && allConcerts.map((concert) => (
                         <div key={concert._id} className='concerts' onClick={() => {navigate(`/concerts/${concert._id}`)}}>
                             <ConcertDetails key={concert._id} concert={concert} />
                         </div>
-                    ))}
+                    ))} */}
                 {allConcerts.length === 0 && <h1>Sorry, we have no new concerts to show!</h1>}
             </div>
         }
