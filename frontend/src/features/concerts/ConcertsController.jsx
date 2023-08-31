@@ -1,37 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 export default function ConcertsController() {
-  return (
-    <div className='container filters'>
-        <label>Sort by:</label>
-        <select name='sort' onChange={(e) => {handleSort(e)}}>
-            <option value='close'>Closest</option>
-            <option value='new'>Newest</option>
-        </select>
+    const [queries, setQueries] = useState({
+        location: '',
+        payStatus: '',
+        instruments: '',
+        pieces: ''
+    });
 
-        <label>Find by:</label>
-        <select name='find' onChange={(e) => {
-            if(e.target.value === '') {
-                handleFilter(e);
-                setFilters(e.target.value);
-            } else {
-                setFilters(e.target.value);
-            }}}>
-            <option value=''>----</option>
-            <option value='instruments'>Instrument</option>
-            <option value='payStatus'>Paid/Unpaid</option>
-            <option value='region'>Region</option>
-        </select>
-        {filters === 'instruments' && <input onChange={(e)=>handleFilter(e)} type='text' placeholder='Begin typing'></input>}
-        {filters === 'payStatus' && 
-            <select onChange={(e) => handleFilter(e)}>
+    const handleChange = (e) => {
+        setQueries({
+            ...queries,
+            [e.target.name]: e.target.value
+        });
+        console.log(queries);
+    }
+
+    return (
+        <form className='container filters'>
+            {/* <label>Sort by:</label>
+            <select name='sort' onChange={handleChange}>
+                <option value='close'>Closest</option>
+                <option value='new'>Newest</option>
+            </select> */}
+
+            <label>Find by:</label>
+            {/* <select name='find' onChange={handleChange}>
+                <option value=''>----</option>
+                <option value='instruments'>Instrument</option>
+                <option value='payStatus'>Paid/Unpaid</option>
+                <option value='region'>Region</option>
+            </select> */}
+            <input onChange={handleChange} type='text' placeholder='Begin typing'></input>
+            
+            <select name='payStatus' onChange={handleChange}>
                 <option value=''>----</option>
                 <option value='true'>Paid</option>
                 <option value='false'>Unpaid</option>
             </select>
-        }
-        {filters === 'region' && 
-            <select onChange={(e) => handleFilter(e)}>
+            
+            
+            <select name='location' onChange={handleChange}>
                 <option value={''}>----</option>
                 <option value={'East Midlands'}>East Midlands</option>
                 <option value={'East of England'}>East of England</option>
@@ -46,7 +55,8 @@ export default function ConcertsController() {
                 <option value={'West Midlands'}>West Midlands</option>
                 <option value={'Yorkshire and The Humber'}>Yorkshire and The Humber</option>
             </select>
-        }
-    </div>
-  )
+            
+            <button type='button'>Apply</button>
+        </form>
+    )
 }

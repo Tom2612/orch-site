@@ -39,7 +39,6 @@ function App() {
           <Route path='/unauthorised' element={<Unauthorized />} />
           <Route path='*' element={<ErrorPage />} />
           <Route path='/new' element={<NewConcertForm />} />
-          {/* <Route path='/new' element={<NewConcertForm />} /> */}
         </Routes>
       </div>
      </BrowserRouter>

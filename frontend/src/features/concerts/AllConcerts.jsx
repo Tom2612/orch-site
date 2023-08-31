@@ -23,6 +23,8 @@ export default function Concerts() {
         fetchConcerts();
     }, []);
 
+    // Want to filter by: Location, Paid, Instruments, Pieces
+
     // const handleSort = (e) => {
     //     if (e.target.value === 'close') {
     //         let sortedConcerts = [].concat(concerts)
@@ -68,6 +70,7 @@ export default function Concerts() {
 
                 {
                 // Space here for the controller component 
+                <ConcertsController />
                 }
                 <div>
                     {
