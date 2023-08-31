@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import runValidation from '../features/concerts/formValidator';
 
 export default function NewConcertForm() {
     const { user } = useAuth();
@@ -13,6 +14,7 @@ export default function NewConcertForm() {
         pieces: [],
         instruments: [],
     });
+
     const [piece, setPiece] = useState({composer: '', title: ''});
     const [instrument, setInstrument] = useState('');
 
@@ -23,23 +25,15 @@ export default function NewConcertForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(false);
+
+        const missingFields = runValidation(concert);
+        if (missingFields.length > 0) {
+            setError('Please fill in all required fields');
+            return setEmptyFields(emptyFields);
+        }
+        
         if (!user) {
             return setError('You must be logged in to do that.');
-        }
-        if (!concert.date) {
-            setEmptyFields(emptyFields.concat('date'));
-        }
-        if (!concert.location) {
-            setEmptyFields(emptyFields.concat('location'));
-        }
-        if (concert.pieces.length === 0) {
-            setEmptyFields(emptyFields.concat('pieces'));
-        }
-        if (concert.instruments.length === 0) {
-            setEmptyFields(emptyFields.concat('instruments'));
-        }
-        if (emptyFields.length > 1) {
-            return setError('Please fill in the required fields');
         }
 
         const response = await fetch('http://localhost:4000/api/concerts', {
@@ -86,6 +80,11 @@ export default function NewConcertForm() {
     }
 
     const handleAddPiece = () => {
+        if (!piece.composer.length > 0 || !piece.title.length > 0) {
+            setEmptyFields(prev => [...prev, 'composer', 'title']);
+            return setError('Please type something first.');
+        }
+
         setConcert(prev => ({
             ...prev,
             pieces: [...prev.pieces, piece]
@@ -94,6 +93,10 @@ export default function NewConcertForm() {
     }
 
     const handleAddInstrument = () => {
+        if (!instrument.length > 0) {
+            setEmptyFields(prev => [...prev, 'instruments']);
+            return setError('Please type something first.');
+        }
         setConcert(prev => ({
             ...prev,
             instruments: [...prev.instruments, instrument]

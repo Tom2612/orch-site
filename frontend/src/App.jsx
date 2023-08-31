@@ -5,6 +5,7 @@ import { useAuth } from './contexts/AuthContext';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Concerts from './pages/Concerts';
+import AllConcerts from './features/concerts/AllConcerts';
 import ConcertPage from './pages/ConcertPage';
 import ConcertForm from './pages/ConcertForm';
 import GroupSignupForm from './pages/GroupSignupForm';
@@ -27,7 +28,7 @@ function App() {
       <div className='pages'>
         <Routes>
           <Route index path='/' element={<Home />} />
-          <Route path='/concerts' element={<Concerts />} />
+          <Route path='/concerts' element={<AllConcerts />} />
           <Route path='/concerts/:id' element={<ConcertPage />} />
           <Route path='/concerts/edit/:id' element={<PrivateRoute><ConcertUpdateForm /></PrivateRoute>} />
           <Route path='/new-concert' element={<PrivateRoute><ConcertForm /></PrivateRoute>} />
@@ -37,8 +38,8 @@ function App() {
           <Route path='/groups/edit/:id' element={<PrivateRoute><GroupUpdateForm /></PrivateRoute>} />
           <Route path='/unauthorised' element={<Unauthorized />} />
           <Route path='*' element={<ErrorPage />} />
-          {/* <Route path='/new' element={<NewConcertForm />} /> */}
           <Route path='/new' element={<NewConcertForm />} />
+          {/* <Route path='/new' element={<NewConcertForm />} /> */}
         </Routes>
       </div>
      </BrowserRouter>

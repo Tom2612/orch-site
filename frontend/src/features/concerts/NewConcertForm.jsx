@@ -1,269 +1,173 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import '../../styles/concertForm.css';
+import { useNavigate } from 'react-router-dom';
 import runValidation from './formValidator';
 
 export default function NewConcertForm() {
-  const navigate = useNavigate();
-  const { user } = useAuth();
+    const { user } = useAuth();
+    const navigate = useNavigate();
 
-  const [concert, setConcert] = useState({
-    date: '',
-    location: '',
-    payStatus: '',
-    pieces: [],
-    instruments: []
-  });
-    
-  const [date, setDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [payStatus, setPayStatus] = useState(false);
-
-  const [composer, setComposer] = useState('');
-  const [title, setTitle] = useState('');
-  const [pieces, setPieces] = useState([]);
-
-  const [instrument, setInstrument] = useState('');
-  const [instruments, setInstruments] = useState([]);
-
-  const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // setLoading(true);
-
-    setConcert({
-        date: date,
-        location:location,
-        payStatus: payStatus,
-        pieces:pieces,
-        instruments:instruments
+    const [concert, setConcert] = useState({
+        date: '',
+        location: '',
+        payStatus: false,
+        pieces: [],
+        instruments: [],
     });
 
-    console.log(concert);
-    console.log('validation result', runValidation(concert))
+    const [piece, setPiece] = useState({composer: '', title: ''});
+    const [instrument, setInstrument] = useState('');
 
-    // if (!user) {
-    //   setError('You must be logged in to do that');
-    //   return
-    // }
+    const [loading, setLoading] = useState(false);
+    const [emptyFields, setEmptyFields] = useState([]);
+    const [error, setError] = useState(null);
 
-    // // Concert validtors frontend
-    // if (!date) {
-    //   setEmptyFields(emptyFields.concat('date'));
-    // }
-    // if (!location) {
-    //   setEmptyFields(emptyFields.concat('location'));
-    // }
-    // if (pieces.length === 0) {
-    //   setEmptyFields(emptyFields.concat('pieces'));
-    // }
-    // if (instruments.length === 0) {
-    //   setEmptyFields(emptyFields.concat('instruments'));
-    // }
-    // if (emptyFields.length > 1) {
-    //   return setError('Please fill in the required fields');
-    // }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(false);
 
-    // const concert = { date, location, payStatus, pieces, instruments }
+        const missingFields = runValidation(concert);
+        if (missingFields.length > 0) {
+            setError('Please fill in all required fields');
+            return setEmptyFields(emptyFields);
+        }
+        
+        if (!user) {
+            return setError('You must be logged in to do that.');
+        }
 
-    // const response = await fetch('http://localhost:4000/api/concerts', {
-    //   method: 'POST',
-    //   body: JSON.stringify(concert),
-    //   headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${user.token}`
-    //   }
-    // })
+        const response = await fetch('http://localhost:4000/api/concerts', {
+            method: 'POST',
+            body: JSON.stringify(concert),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`,
+            }
+        })
 
-    // const json = await response.json();
+        const json = await response.json();
 
-    // if (!response.ok) {
-    //   setLoading(false);
-    //   setError(json.error);
-    //   setEmptyFields(json.emptyFields);
-    // }
-    // if (response.ok) {
-    //   setEmptyFields([]);
-    //   setLoading(false);
-    //   setError(null);
-    //   setDate('');
-    //   setLocation('');
-    //   setPayStatus(false);
-    //   setPieces([]);
-    //   setInstruments([]);
-    //   navigate('/concerts');
-    // }
-  }
-
-  const handleAddInstrument = (e) => {
-    e.preventDefault();
-    if (!instrument) {
-      setError('Please add an instrument');
-      setEmptyFields(emptyFields.concat('instrument'));
-      return 
-    }
-    setInstruments(instruments.concat(instrument));
-    setInstrument('');
-    setError(null);
-    setEmptyFields(emptyFields.filter(field => {
-      return field !== 'instruments' && field !== 'instrument';
-    }));
-  }
-
-  const handleRemoveInstrument = (e, instrument) => {
-    e.preventDefault();
-    setInstruments(instruments.filter(a => a !== instrument));
-  }
-
-  const handleAddPiece = (e) => {
-    e.preventDefault()
-    if (!composer) {
-      setError(`Please add a composer`);
-      setEmptyFields(emptyFields.concat('composer'));
-      return;
+        if (!response.ok) {
+            setLoading(false);
+            setError(json.error);
+            setEmptyFields(json.emptyFields);
+        }
+        if (response.ok) {
+            navigate('/concerts');
+        }
     }
 
-    if(!title) {
-      setError('Please add a title');
-      setEmptyFields(emptyFields.concat('title'));
-      return;
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+
+        setConcert(prev => ({
+            ...prev,
+            [name]: value
+        }));
     }
 
-    setPieces(pieces.concat({composer: composer.trim(), title: title.trim()}));
-    setTitle('');
-    setComposer('');
-    setError(null);
-    setEmptyFields(emptyFields.filter(field => {
-      return field !== 'pieces';
-    }));
-  }
+    const handleChangePiece = (e) => {
+        const { name, value } = e.target;
 
-  const handleRemovePiece = (e, piece) => {
-    e.preventDefault();
-    setPieces(pieces.filter(a => a !== piece));
-  }
+        setPiece(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    }
+
+    const handleChangeInstrument = (e) => {
+        setInstrument(e.target.value);
+    }
+
+    const handleAddPiece = () => {
+        if (!piece.composer.length > 0 || !piece.title.length > 0) {
+            setEmptyFields(prev => [...prev, 'composer', 'title']);
+            return setError('Please type something first.');
+        }
+
+        setConcert(prev => ({
+            ...prev,
+            pieces: [...prev.pieces, piece]
+        }));
+        setPiece({composer: '', title: ''});
+    }
+
+    const handleAddInstrument = () => {
+        if (!instrument.length > 0) {
+            setEmptyFields(prev => [...prev, 'instruments']);
+            return setError('Please type something first.');
+        }
+        setConcert(prev => ({
+            ...prev,
+            instruments: [...prev.instruments, instrument]
+        }));
+        setInstrument('');
+    }
+
+    const handleDeletePiece = (composer, title) => {
+        setConcert(prev => ({
+            ...prev,
+            pieces: prev.pieces.filter(piece => {
+                return piece.composer !== composer && piece.title !== title;
+            })
+        }));        
+    }
+
+    const handleDeleteInstrument = (instrument) => {
+        setConcert(prev => ({
+            ...prev,
+            instruments: prev.instruments.filter(instr => {
+                return instr !== instrument;
+            })
+        }));
+    }
 
   return (
-    <form className='concert-form' onSubmit={handleSubmit}>
-      <h1>Create your concert here</h1>
+    <>
+        <form>
+            <label>Date:</label>
+            <input type='date' name='date' value={concert.date} onChange={handleChange} min={new Date().toISOString().split('T')[0]}></input>
 
-      <div className='form-top'>
-        <label>Date</label>
-        <input 
-          type='date' 
-          name='concert-date'
-          min={new Date().toISOString().split('T')[0]}
-          onChange={(e) => {
-            setDate(e.target.value);
-            return setEmptyFields(emptyFields.filter(field => field !== 'date'))
-          }}
-          value={date}
-          className={emptyFields.includes('date') ? 'error' : 'input'}
-        />
+            <label>Location</label>
+            <input type='text' name='location' value={concert.location} onChange={handleChange}></input>
 
-        <label>Venue Name</label>
-        <input 
-          type='text' 
-          name='concert-location'
-          onChange={(e) => {
-            setLocation(e.target.value)
-            return setEmptyFields(emptyFields.filter(field => field !== 'location'))
-          }}
-          value={location}
-          className={emptyFields.includes('location') ? 'error concert-location' : 'input concert-location'}
-        />
-      </div>
+            <label>Financial support?</label>
+            <input type='radio' name='payStatus' value='true' onChange={handleChange}></input><label>Paid</label>
+            <input type='radio' name='payStatus' value='false' onChange={handleChange}></input><label>Unpaid</label>
+            <br></br>
 
-      <div className='pay-container'>
-        <h3>Are you offering financial help to players?</h3>
-        <div className='radio-container'>
-          <input 
-            type='radio' 
-            value='true' 
-            name='concert-pay'
-            onChange={() => setPayStatus(true)}
-          />
-          <label>Paid</label>
+            <label>Composer:</label>
+            <input type='text' name='composer' value={piece.composer} onChange={handleChangePiece}></input>
+            <label>Piece:</label>
+            <input type='text' name='title' value={piece.title} onChange={handleChangePiece}></input>
+            <button type='button' onClick={handleAddPiece}>Add piece</button>
 
-          <input 
-            type='radio' 
-            value='false' 
-            name='concert-pay'
-            onChange={() => setPayStatus(false)}
-          />
-          <label>Unpaid</label>
+            <br></br>
+            <label>Instruments:</label>
+            <input type='text' name='instrument' value={instrument} onChange={handleChangeInstrument}></input>
+            <button type='button' onClick={handleAddInstrument}>Add Instrument</button>
+            <br></br>
+            <button onClick={handleSubmit} disabled={loading}>Submit</button>
+        </form>
+
+        <div>
+            <h2>Your concert</h2>
+            <p>Date: {concert.date}</p>
+            <p>Location: {concert.location}</p>
+            <p>Pay Status: {concert.payStatus.toString()}</p>
+            <p>Piece: {piece.composer} - {piece.title}</p>
+            {concert.pieces.map(piece => {
+                return <p onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
+            })}
+            <p>Instrument: {instrument}</p>
+            {concert.instruments.map(instrument => {
+                return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
+            })}
         </div>
-      </div>
 
-      <div className='pieces'>
-        <h3>What pieces are being performed?</h3>
-        
-        <label>Composer: </label>
-        <input 
-          type='text' 
-          name='composer'
-          onChange={(e) => {
-            setComposer(e.target.value)
-            setEmptyFields(emptyFields.filter(field => field !== 'composer'))
-          }}
-          value={composer}
-          className={emptyFields.includes('composer') || emptyFields.includes('pieces') ? 'error' : 'input'}
-        />
-
-        <label>Title: </label>
-        <input 
-          type='text' 
-          name='piece-title' 
-          onChange={(e) => {
-            setTitle(e.target.value)
-            setEmptyFields(emptyFields.filter(field => field !== 'title'))
-          }}
-          value={title}
-          className={emptyFields.includes('title') || emptyFields.includes('pieces') ? 'error' : 'input'}
-        />
-        <button className='btn add-btn' onClick={(e) => handleAddPiece(e)}>Add</button>
-      </div>
-      
-      <div className='pieces-container'>
-        {pieces.length > 0 && pieces.map((piece, index) => (
-          <div key={index} className='piece'>
-            <p><span className='composer'>{piece.composer}</span> - {piece.title}</p>
-            <span 
-              className='material-symbols-outlined' 
-              onClick={(e) => handleRemovePiece(e, piece)}>
-                Close
-              </span>
-          </div>
-        ))}
-      </div>
-
-      <label>What instruments are required?</label>
-      <input 
-        type='text' 
-        name='concert-instr'
-        onChange={(e) => {
-          setInstrument(e.target.value)
-          return setEmptyFields(emptyFields.filter(field => field !== 'instruments'))
-        }}
-        value={instrument}
-        className={emptyFields.includes('instrument') || emptyFields.includes('instruments') ? 'error' : 'input'}
-      />
-      <button className='btn add-btn' onClick={handleAddInstrument}>Add</button>
-      
-      <div className='instruments-container'>
-        {instruments.length > 0 && instruments.map((instrument) => (
-          <div className='instrument' key={instrument}>
-            <p>{instrument}</p>
-            <span className='material-symbols-outlined' onClick={(e) => handleRemoveInstrument(e, instrument)}>Close</span>
-          </div>
-        ))}
-      </div>
-      <button className='btn create-btn' disabled={loading}>Create Concert</button>
-      {error && <span className='error-message'>Error: {error}</span>}
-    </form>
+        <div>
+            {error && <p>{error}</p>}
+        </div>
+    </>
   )
 }
