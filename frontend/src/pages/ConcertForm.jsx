@@ -50,7 +50,7 @@ export default function ConcertForm() {
 
     const concert = { date, location, payStatus, pieces, instruments }
 
-    const response = await fetch('http://localhost:4000/api/concerts', {
+    const response = await fetch('http://localhost:4000/api/concerts/new', {
       method: 'POST',
       body: JSON.stringify(concert),
       headers: {

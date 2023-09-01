@@ -3,9 +3,40 @@ const mongoose = require('mongoose');
 
 // get all concerts
 const getConcerts = async (req, res) => {
-    const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
+    const { location, payStatus, composer, instrument } = req.body;
+    let filteredConcerts;
+    // const concert = (await Concert.find({ pieces: { composer: { $in: composer} } }))
+    const concerts = (await Concert.find({}).populate('group', 'name region location'));
+    // console.log(concerts);
+    
+    // if (location) {
+    //     concerts.filter(concert => {
+    //         return concert.group.region !== location;
+    //     });
+    // }
+    
+    if (instrument) {
+        filteredConcerts = concerts.filter(concert => {
+            return concert.instruments.includes(instrument);
+        });
+    }
 
-    res.status(200).json(concerts);
+    if (composer) {
+        filteredConcerts.filter(concert => {
+            console.log('result', concert.pieces.filter(piece => piece.composer === composer))
+            return concert.pieces.filter(piece => piece.composer === composer)
+        })
+    }
+
+    // console.log(concerts)
+
+    res.send({queries: {location, payStatus, composer, instrument}, filteredConcerts});
+
+    // res.send(location)
+    
+    // const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
+
+    // res.status(200).json(concerts);
 }
 
 // get a single concert

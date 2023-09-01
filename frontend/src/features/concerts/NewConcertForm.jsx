@@ -9,6 +9,7 @@ export default function NewConcertForm() {
 
     const [concert, setConcert] = useState({
         date: '',
+        region: user.region,
         location: '',
         payStatus: false,
         pieces: [],
@@ -36,7 +37,7 @@ export default function NewConcertForm() {
             return setError('You must be logged in to do that.');
         }
 
-        const response = await fetch('http://localhost:4000/api/concerts', {
+        const response = await fetch('http://localhost:4000/api/concerts/new', {
             method: 'POST',
             body: JSON.stringify(concert),
             headers: {

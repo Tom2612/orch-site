@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-export default function ConcertsController() {
+export default function ConcertsController({ handleSubmitFilters }) {
     const [queries, setQueries] = useState({
         location: '',
         payStatus: '',
-        instruments: '',
+        instrument: '',
         composer: ''
     });
 
@@ -18,13 +18,13 @@ export default function ConcertsController() {
     return (
         <form className='container filters'>
 
-            <label htmlFor='instruments'>Find by looking for:</label>
+            <label htmlFor='instrument'>Find by looking for:</label>
             <input 
                 type='text'
-                id='instruments'
-                name='instruments' 
+                id='instrument'
+                name='instrument' 
                 onChange={handleChange} 
-                value={queries.instruments} 
+                value={queries.instrument} 
                 placeholder='Type instrument' 
             />
 
@@ -62,7 +62,7 @@ export default function ConcertsController() {
                 <option value={'Yorkshire and The Humber'}>Yorkshire and The Humber</option>
             </select>
             
-            <button type='button'>Apply</button>
+            <button type='button' onClick={() => handleSubmitFilters(queries)}>Apply</button>
         </form>
     )
 }

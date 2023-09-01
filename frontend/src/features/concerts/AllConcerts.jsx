@@ -23,6 +23,19 @@ export default function Concerts() {
         fetchConcerts();
     }, []);
 
+    const handleSubmitFilters = async (queries) => {
+        const response = await fetch('http://localhost:4000/api/concerts/', {
+            method: 'POST',
+            body: JSON.stringify(queries),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+
+        console.log(json);
+    }
+
     // Want to filter by: Location, Paid, Instruments, Pieces
 
     // const handleSort = (e) => {
@@ -70,7 +83,7 @@ export default function Concerts() {
 
                 {
                 // Space here for the controller component 
-                <ConcertsController />
+                <ConcertsController handleSubmitFilters={handleSubmitFilters}/>
                 }
                 <div>
                     {
