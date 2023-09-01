@@ -5,7 +5,7 @@ export default function ConcertsController() {
         location: '',
         payStatus: '',
         instruments: '',
-        pieces: ''
+        composer: ''
     });
 
     const handleChange = (e) => {
@@ -13,34 +13,40 @@ export default function ConcertsController() {
             ...queries,
             [e.target.name]: e.target.value
         });
-        console.log(queries);
-    }
+    };
 
     return (
         <form className='container filters'>
-            {/* <label>Sort by:</label>
-            <select name='sort' onChange={handleChange}>
-                <option value='close'>Closest</option>
-                <option value='new'>Newest</option>
-            </select> */}
 
-            <label>Find by:</label>
-            {/* <select name='find' onChange={handleChange}>
-                <option value=''>----</option>
-                <option value='instruments'>Instrument</option>
-                <option value='payStatus'>Paid/Unpaid</option>
-                <option value='region'>Region</option>
-            </select> */}
-            <input onChange={handleChange} type='text' placeholder='Begin typing'></input>
+            <label htmlFor='instruments'>Find by looking for:</label>
+            <input 
+                type='text'
+                id='instruments'
+                name='instruments' 
+                onChange={handleChange} 
+                value={queries.instruments} 
+                placeholder='Type instrument' 
+            />
+
+            <label htmlFor='composer'>Find by composer:</label>
+            <input 
+                type='text'
+                id='composer'
+                name='composer' 
+                onChange={handleChange} 
+                value={queries.composer} 
+                placeholder='Type composer name' 
+            />            
             
-            <select name='payStatus' onChange={handleChange}>
+            <label htmlFor='payStatus'>Find by paid/unpaid:</label>
+            <select name='payStatus' id='payStatus' onChange={handleChange}>
                 <option value=''>----</option>
                 <option value='true'>Paid</option>
                 <option value='false'>Unpaid</option>
             </select>
             
-            
-            <select name='location' onChange={handleChange}>
+            <label htmlFor='location'>Find by location:</label>
+            <select name='location' id='location' value={queries.location} onChange={handleChange}>
                 <option value={''}>----</option>
                 <option value={'East Midlands'}>East Midlands</option>
                 <option value={'East of England'}>East of England</option>
