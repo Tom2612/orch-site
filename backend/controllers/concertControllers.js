@@ -4,39 +4,47 @@ const mongoose = require('mongoose');
 // get all concerts
 const getConcerts = async (req, res) => {
     const { location, payStatus, composer, instrument } = req.body;
-    let filteredConcerts;
-    // const concert = (await Concert.find({ pieces: { composer: { $in: composer} } }))
-    const concerts = (await Concert.find({}).populate('group', 'name region location'));
-    // console.log(concerts);
+
+    let filteredConcerts=[];
+    let secondFilter = [];
+
+    // const concerts = (await Concert.find({payStatus, instruments: { $in: instrument } }).populate('group', 'name region location'));
+    // Get all concerts
+    const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
+    // const concerts = (await Concert.find({}).populate('group', 'name region location'));
+
+    // Apply filters if present
+    if (payStatus) {
+        filteredConcerts = concerts.filter(concert => concert.payStatus === Boolean(payStatus));
+    }
+
+    // This looks to be working for composer filtering
+    if (composer) {
+        // console.log('composer present', composer)
+        for (let i = 0; i < filteredConcerts.length; i++ ) {
+            // console.log(filteredConcerts[i].pieces.length > 1)
+            for (let j = 0; j < filteredConcerts[i].pieces.length; j++) {
+                // console.log(filteredConcerts[i].pieces[j])
+                if (filteredConcerts[i].pieces[j].composer == composer) {
+                    // console.log(filteredConcerts[i])
+                    // filteredConcerts.slice(filteredConcerts[i], 1);
+                    secondFilter.push(filteredConcerts[i]);
+                    console.log('second', secondFilter)
+                }
+            }
+        }
+        // console.log('filtered', filteredConcerts)
+    }
     
     // if (location) {
-    //     concerts.filter(concert => {
-    //         return concert.group.region !== location;
-    //     });
+    //     filteredConcerts.filter(concert => concert.group.region !== location)
     // }
-    
-    if (instrument) {
-        filteredConcerts = concerts.filter(concert => {
-            return concert.instruments.includes(instrument);
-        });
-    }
 
-    if (composer) {
-        filteredConcerts.filter(concert => {
-            console.log('result', concert.pieces.filter(piece => piece.composer === composer))
-            return concert.pieces.filter(piece => piece.composer === composer)
-        })
-    }
-
-    // console.log(concerts)
-
-    res.send({queries: {location, payStatus, composer, instrument}, filteredConcerts});
-
-    // res.send(location)
+    // res.send({queries: {location, payStatus, composer, instrument}, concerts});
     
     // const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
 
-    // res.status(200).json(concerts);
+    res.status(200).json(concerts);
 }
 
 // get a single concert

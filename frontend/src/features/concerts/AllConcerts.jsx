@@ -23,7 +23,9 @@ export default function Concerts() {
         fetchConcerts();
     }, []);
 
-    const handleSubmitFilters = async (queries) => {
+    const handleSubmitFilters = async (e, queries) => {
+        e.preventDefault();
+        
         const response = await fetch('http://localhost:4000/api/concerts/', {
             method: 'POST',
             body: JSON.stringify(queries),

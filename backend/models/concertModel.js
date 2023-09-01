@@ -20,6 +20,7 @@ const concertSchema = new Schema({
     },
     pieces: [
         {
+            _id: false,
             composer: String,
             title: String
         }

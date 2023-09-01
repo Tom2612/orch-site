@@ -62,7 +62,7 @@ export default function ConcertsController({ handleSubmitFilters }) {
                 <option value={'Yorkshire and The Humber'}>Yorkshire and The Humber</option>
             </select>
             
-            <button type='button' onClick={() => handleSubmitFilters(queries)}>Apply</button>
+            <button type='submit' onClick={(e) => handleSubmitFilters(e, queries)}>Apply</button>
         </form>
     )
 }
