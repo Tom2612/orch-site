@@ -18,7 +18,8 @@ const getConcerts = async (req, res) => {
     }
 
     if (composer) {
-        // PROBLEM: if no payStatus, this is just filtering an empty array.
+        // PROBLEM: if no payStatus, this is just filtering an empty array - for now i've made filteredConcerts = concerts prior to filtering.
+        // Problem: Returning even if payStatus is not matching
         console.log('hit at Composer: ', composer)
         filteredConcerts = filteredConcerts.filter(concert => {
             return concert.pieces.some(piece => piece.composer === composer);
