@@ -6,35 +6,30 @@ const getConcerts = async (req, res) => {
     const { location, payStatus, composer, instrument } = req.body;
 
     let filteredConcerts=[];
-    let secondFilter = [];
 
-    // const concerts = (await Concert.find({payStatus, instruments: { $in: instrument } }).populate('group', 'name region location'));
     // Get all concerts
     const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
-    // const concerts = (await Concert.find({}).populate('group', 'name region location'));
+    filteredConcerts = concerts;
 
     // Apply filters if present
     if (payStatus) {
+        console.log('Hit at PayStatus')
         filteredConcerts = concerts.filter(concert => concert.payStatus === Boolean(payStatus));
     }
 
-    // This looks to be working for composer filtering
     if (composer) {
-        // console.log('composer present', composer)
-        for (let i = 0; i < filteredConcerts.length; i++ ) {
-            // console.log(filteredConcerts[i].pieces.length > 1)
-            for (let j = 0; j < filteredConcerts[i].pieces.length; j++) {
-                // console.log(filteredConcerts[i].pieces[j])
-                if (filteredConcerts[i].pieces[j].composer == composer) {
-                    // console.log(filteredConcerts[i])
-                    // filteredConcerts.slice(filteredConcerts[i], 1);
-                    secondFilter.push(filteredConcerts[i]);
-                    console.log('second', secondFilter)
-                }
-            }
-        }
-        // console.log('filtered', filteredConcerts)
-    }
+        // PROBLEM: if no payStatus, this is just filtering an empty array.
+        console.log('hit at Composer: ', composer)
+        filteredConcerts = filteredConcerts.filter(concert => {
+            return concert.pieces.some(piece => piece.composer === composer);
+        })
+
+        console.log('Current Filter', filteredConcerts)
+
+        // if (filteredConcerts.length === 0) {
+        //     res.status(200).json({"error": "No concerts to show!"})
+        // }
+    };
     
     // if (location) {
     //     filteredConcerts.filter(concert => concert.group.region !== location)
@@ -44,7 +39,9 @@ const getConcerts = async (req, res) => {
     
     // const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
 
-    res.status(200).json(concerts);
+    // This is returning all concerts when filters have failed to find any, instead of returning none.
+
+    res.status(200).json(filteredConcerts.length > 0 ? filteredConcerts : concerts);
 }
 
 // get a single concert
