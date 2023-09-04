@@ -9,7 +9,7 @@ export default function NewConcertForm() {
 
     const [concert, setConcert] = useState({
         date: '',
-        region: user.region,
+        region: '',
         location: '',
         payStatus: false,
         pieces: [],
@@ -132,6 +132,23 @@ export default function NewConcertForm() {
             <label>Location</label>
             <input type='text' name='location' value={concert.location} onChange={handleChange}></input>
 
+            <label htmlFor='region'>Region</label>
+            <select name='region' id='region' onChange={handleChange} value={concert.region}>
+                <option value={''}>-- Select Region --</option>
+                <option value={'East Midlands'}>East Midlands</option>
+                <option value={'East of England'}>East of England</option>
+                <option value={'London'}>London</option>
+                <option value={'North East'}>North East</option>
+                <option value={'North West'}>North West</option>
+                <option value={'Northern Ireland'}>Northern Ireland</option>
+                <option value={'Scotland'}>Scotland</option>
+                <option value={'South East'}>South East</option>
+                <option value={'South West'}>South West</option>
+                <option value={'Wales'}>Wales</option>
+                <option value={'West Midlands'}>West Midlands</option>
+                <option value={'Yorkshire and The Humber'}>Yorkshire and The Humber</option>
+            </select>
+
             <label>Financial support?</label>
             <input type='radio' name='payStatus' value='true' onChange={handleChange}></input><label>Paid</label>
             <input type='radio' name='payStatus' value='false' onChange={handleChange}></input><label>Unpaid</label>
@@ -155,6 +172,7 @@ export default function NewConcertForm() {
             <h2>Your concert</h2>
             <p>Date: {concert.date}</p>
             <p>Location: {concert.location}</p>
+            <p>Region: {concert.region}</p>
             <p>Pay Status: {concert.payStatus.toString()}</p>
             <p>Piece: {piece.composer} - {piece.title}</p>
             {concert.pieces.map(piece => {

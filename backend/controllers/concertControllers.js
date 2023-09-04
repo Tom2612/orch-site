@@ -19,7 +19,8 @@ const getConcerts = async (req, res) => {
 
     // Not yet working
     // if (region) {
-    //     filters['group.region'] = region;
+        // filters['group.region'] = region;
+    //     filters.region = region;
     // }
 
     const currentDate = new Date();
@@ -51,7 +52,7 @@ const getConcert = async (req, res) => {
 
 // create a concert
 const createConcert = async (req, res) => {
-    const { date, location, payStatus, pieces, instruments } = req.body;
+    const { date, location, payStatus, pieces, instruments, region } = req.body;
     // Backend validators
     let emptyFields = [];
 
@@ -89,7 +90,7 @@ const createConcert = async (req, res) => {
     // }
 
     try {
-        const concert = await Concert.create({ group: user_id, date: new Date(date), location, payStatus, pieces, instruments });
+        const concert = await Concert.create({ group: user_id, date: new Date(date), location, payStatus, pieces, instruments, region });
         res.status(200).json(concert);
     } catch (e) {
         res.status(400).json({error: e.message});
