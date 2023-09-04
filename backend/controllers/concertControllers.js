@@ -3,46 +3,34 @@ const mongoose = require('mongoose');
 
 // get all concerts
 const getConcerts = async (req, res) => {
-    const { location, payStatus, composer, instrument } = req.body;
+    const { region, payStatus, composer, instrument } = req.body;
 
-    let filteredConcerts=[];
+    const filters = {};
 
-    // Get all concerts
-    const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
-    filteredConcerts = concerts;
-
-    // Apply filters if present
     if (payStatus) {
-        console.log('Hit at PayStatus')
-        filteredConcerts = concerts.filter(concert => concert.payStatus === Boolean(payStatus));
+        filters.payStatus = payStatus;
+    }
+    if (instrument) {
+        filters.instruments = instrument
+    }
+    if (composer) {
+        filters['pieces.composer'] = composer
     }
 
-    if (composer) {
-        // PROBLEM: if no payStatus, this is just filtering an empty array - for now i've made filteredConcerts = concerts prior to filtering.
-        // Problem: Returning even if payStatus is not matching
-        console.log('hit at Composer: ', composer)
-        filteredConcerts = filteredConcerts.filter(concert => {
-            return concert.pieces.some(piece => piece.composer === composer);
-        })
-
-        console.log('Current Filter', filteredConcerts)
-
-        // if (filteredConcerts.length === 0) {
-        //     res.status(200).json({"error": "No concerts to show!"})
-        // }
-    };
-    
-    // if (location) {
-    //     filteredConcerts.filter(concert => concert.group.region !== location)
+    // Not yet working
+    // if (region) {
+    //     filters['group.region'] = region;
     // }
 
-    // res.send({queries: {location, payStatus, composer, instrument}, concerts});
-    
-    // const concerts = (await Concert.find({}).populate('group', 'name region location',).sort({date: 1})).filter(concert => (concert.date >= new Date()));
+    const currentDate = new Date();
+    filters.date = { $gte: currentDate }
 
-    // This is returning all concerts when filters have failed to find any, instead of returning none.
+    const concerts = await Concert.find(filters)
+        .populate('group', 'name location region')
+        .sort({date: 1})
 
-    res.status(200).json(filteredConcerts.length > 0 ? filteredConcerts : concerts);
+    res.status(200).json(concerts);
+
 }
 
 // get a single concert
@@ -90,6 +78,15 @@ const createConcert = async (req, res) => {
     }
 
     const user_id = req.user._id;
+
+    // const concert = {
+    //     group: user_id,
+    //     date: new Date(date),
+    //     location: location.toLowerCase(),
+    //     payStatus: payStatus.toLowerCase(),
+    //     pieces: pieces.toLowerCase(),
+    //     instruments: instruments.toLowerCase()
+    // }
 
     try {
         const concert = await Concert.create({ group: user_id, date: new Date(date), location, payStatus, pieces, instruments });

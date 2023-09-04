@@ -36,6 +36,7 @@ export default function Concerts() {
         const json = await response.json();
 
         console.log(json);
+        setAllConcerts(json);
     }
 
     // Want to filter by: Location, Paid, Instruments, Pieces

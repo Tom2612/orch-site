@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export default function ConcertsController({ handleSubmitFilters }) {
     const [queries, setQueries] = useState({
-        location: '',
+        region: '',
         payStatus: '',
         instrument: '',
         composer: ''
@@ -45,8 +45,8 @@ export default function ConcertsController({ handleSubmitFilters }) {
                 <option value='false'>Unpaid</option>
             </select>
             
-            <label htmlFor='location'>Find by location:</label>
-            <select name='location' id='location' value={queries.location} onChange={handleChange}>
+            <label htmlFor='region'>Find by region:</label>
+            <select name='region' id='region' value={queries.region} onChange={handleChange}>
                 <option value={''}>----</option>
                 <option value={'East Midlands'}>East Midlands</option>
                 <option value={'East of England'}>East of England</option>
@@ -54,7 +54,7 @@ export default function ConcertsController({ handleSubmitFilters }) {
                 <option value={'North East'}>North East</option>
                 <option value={'North West'}>North West</option>
                 <option value={'Northern Ireland'}>Northern Ireland</option>
-                <option value={'Scotland'}>Scotland</option>
+                <option value='Scotland'>Scotland</option>
                 <option value={'South East'}>South East</option>
                 <option value={'South West'}>South West</option>
                 <option value={'Wales'}>Wales</option>
