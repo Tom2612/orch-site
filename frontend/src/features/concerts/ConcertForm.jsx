@@ -3,17 +3,17 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import runValidation from './formValidator';
 
-export default function NewConcertForm() {
+export default function NewConcertForm(props) {
     const { user } = useAuth();
     const navigate = useNavigate();
 
     const [concert, setConcert] = useState({
-        date: '',
-        region: '',
-        location: '',
-        payStatus: false,
-        pieces: [],
-        instruments: [],
+        date: props.date || '',
+        region: props.region || '',
+        location: props.location || '',
+        payStatus: props.payStatus || false,
+        pieces: props.pieces || [],
+        instruments: props.instruments || [],
     });
 
     const [piece, setPiece] = useState({composer: '', title: ''});
@@ -160,15 +160,26 @@ export default function NewConcertForm() {
             <input type='text' name='title' value={piece.title} onChange={handleChangePiece}></input>
             <button type='button' onClick={handleAddPiece}>Add piece</button>
 
+            <div>
+                {concert.pieces.map(piece => {
+                    return <p onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
+                })}
+            </div>
+
             <br></br>
             <label>Instruments:</label>
             <input type='text' name='instrument' value={instrument} onChange={handleChangeInstrument}></input>
             <button type='button' onClick={handleAddInstrument}>Add Instrument</button>
-            <br></br>
+            <div>
+                {concert.instruments.map(instrument => {
+                    return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
+                })}
+            </div>
+            
             <button onClick={handleSubmit} disabled={loading}>Submit</button>
         </form>
 
-        <div>
+        {/* <div>
             <h2>Your concert</h2>
             <p>Date: {concert.date}</p>
             <p>Location: {concert.location}</p>
@@ -182,7 +193,7 @@ export default function NewConcertForm() {
             {concert.instruments.map(instrument => {
                 return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
             })}
-        </div>
+        </div> */}
 
         <div>
             {error && <p>{error}</p>}
