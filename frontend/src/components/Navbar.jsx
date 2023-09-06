@@ -18,7 +18,7 @@ const Navbar = () => {
 
                 <div className='nav--links'>
                     <Link to='/concerts'>Browse Concerts</Link>
-                    {user && <Link to='/new-concert'>New Concert</Link>}
+                    {user && <Link to='/new'>New Concert</Link>}
                 </div>
 
                 {user && 

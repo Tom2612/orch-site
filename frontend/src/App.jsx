@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Concerts from './pages/Concerts';
 import AllConcerts from './features/concerts/AllConcerts';
 import ConcertPage from './pages/ConcertPage';
-import ConcertForm from './pages/ConcertForm';
+// import ConcertForm from './pages/ConcertForm';
 import GroupSignupForm from './pages/GroupSignupForm';
 import GroupProfile from './pages/GroupProfile';
 import ConcertUpdateForm from './pages/ConcertUpdateForm';
@@ -17,7 +17,8 @@ import GroupUpdateForm from './pages/GroupUpdateForm';
 import ErrorPage from './components/ErrorPage';
 import Unauthorized from './pages/Unauthorized';
 // import NewConcertForm from './pages/NewConcertForm';
-import NewConcertForm from './features/concerts/NewConcertForm';
+import ConcertForm from './features/concerts/ConcertForm';
+import NewConcert from './features/concerts/NewConcert';
 
 function App() {
   const { user } = useAuth();
@@ -31,14 +32,14 @@ function App() {
           <Route path='/concerts' element={<AllConcerts />} />
           <Route path='/concerts/:id' element={<ConcertPage />} />
           <Route path='/concerts/edit/:id' element={<PrivateRoute><ConcertUpdateForm /></PrivateRoute>} />
-          <Route path='/new-concert' element={<PrivateRoute><ConcertForm /></PrivateRoute>} />
+          {/* <Route path='/new-concert' element={<PrivateRoute><ConcertForm /></PrivateRoute>} /> */}
           <Route path='/new-group' element={!user ? <GroupSignupForm /> : <Navigate to='/groups/profile' />} />
           <Route path='/login-group' element={!user ? <GroupLogin /> : <Navigate to='/groups/profile' />} />
           <Route path='/groups/profile' element={<PrivateRoute><GroupProfile /></PrivateRoute>} />
           <Route path='/groups/edit/:id' element={<PrivateRoute><GroupUpdateForm /></PrivateRoute>} />
           <Route path='/unauthorised' element={<Unauthorized />} />
           <Route path='*' element={<ErrorPage />} />
-          <Route path='/new' element={<NewConcertForm />} />
+          <Route path='/new' element={<NewConcert />} />
         </Routes>
       </div>
      </BrowserRouter>

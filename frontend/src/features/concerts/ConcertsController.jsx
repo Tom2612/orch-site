@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 export default function ConcertsController({ handleSubmitFilters }) {
+    
     const [queries, setQueries] = useState({
         region: '',
         payStatus: '',

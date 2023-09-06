@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import runValidation from './formValidator';
 
-export default function NewConcertForm(props) {
+export default function ConcertForm(props) {
     const { user } = useAuth();
     const navigate = useNavigate();
 
