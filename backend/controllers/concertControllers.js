@@ -11,10 +11,10 @@ const getConcerts = async (req, res) => {
         filters.payStatus = payStatus;
     }
     if (instrument) {
-        filters.instruments = instrument.toLowerCase()
+        filters.instruments = instrument.toLowerCase().trim()
     }
     if (composer) {
-        filters['pieces.composer'] = composer.toLowerCase()
+        filters['pieces.composer'] = composer.toLowerCase().trim()
     }
 
     // Not yet working
