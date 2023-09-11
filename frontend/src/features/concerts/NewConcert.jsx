@@ -29,6 +29,7 @@ export default function NewConcert () {
         const missingFields = runValidation(concert);
         if (missingFields.length > 0) {
             setError('Please fill in all required fields');
+            setLoading(false);
             return setEmptyFields(emptyFields);
         }
         

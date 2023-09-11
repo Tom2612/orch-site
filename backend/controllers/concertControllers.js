@@ -11,17 +11,17 @@ const getConcerts = async (req, res) => {
         filters.payStatus = payStatus;
     }
     if (instrument) {
-        filters.instruments = instrument
+        filters.instruments = instrument.toLowerCase()
     }
     if (composer) {
-        filters['pieces.composer'] = composer
+        filters['pieces.composer'] = composer.toLowerCase()
     }
 
     // Not yet working
-    // if (region) {
+    if (region) {
         // filters['group.region'] = region;
-    //     filters.region = region;
-    // }
+        filters.region = region;
+    }
 
     const currentDate = new Date();
     filters.date = { $gte: currentDate }
@@ -81,17 +81,20 @@ const createConcert = async (req, res) => {
 
     const user_id = req.user._id;
 
-    // const concert = {
-    //     group: user_id,
-    //     date: new Date(date),
-    //     location: location.toLowerCase(),
-    //     payStatus: payStatus.toLowerCase(),
-    //     pieces: pieces.toLowerCase(),
-    //     instruments: instruments.toLowerCase()
-    // }
+    const thisconcert = {
+        group: user_id,
+        date: new Date(date),
+        location: location.toLowerCase(),
+        region,
+        payStatus,
+        pieces: pieces.forEach(piece => {piece.composer = piece.composer.toLowerCase()}),
+        instruments: instruments.map(instrument => instrument.toLowerCase())
+    }
 
     try {
-        const concert = await Concert.create({ group: user_id, date: new Date(date), location, payStatus, pieces, instruments, region });
+        console.log(thisconcert);
+        // const concert = await Concert.create({ group: user_id, date: new Date(date), location, payStatus, pieces, instruments, region });
+        const concert = await Concert.create(thisconcert);
         res.status(200).json(concert);
     } catch (e) {
         res.status(400).json({error: e.message});
