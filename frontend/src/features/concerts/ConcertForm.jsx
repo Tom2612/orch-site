@@ -4,64 +4,64 @@ import { useNavigate } from 'react-router-dom';
 import runValidation from './formValidator';
 
 export default function ConcertForm(props) {
-    const { user } = useAuth();
-    const navigate = useNavigate();
+    // const { user } = useAuth();
+    // const navigate = useNavigate();
 
-    const [concert, setConcert] = useState({
-        date: props.date || '',
-        region: props.region || '',
-        location: props.location || '',
-        payStatus: props.payStatus || false,
-        pieces: props.pieces || [],
-        instruments: props.instruments || [],
-    });
+    // const [concert, setConcert] = useState({
+    //     date: props.date || '',
+    //     region: props.region || '',
+    //     location: props.location || '',
+    //     payStatus: props.payStatus || false,
+    //     pieces: props.pieces || [],
+    //     instruments: props.instruments || [],
+    // });
 
     const [piece, setPiece] = useState({composer: '', title: ''});
     const [instrument, setInstrument] = useState('');
 
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [emptyFields, setEmptyFields] = useState([]);
     const [error, setError] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(false);
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setLoading(false);
 
-        const missingFields = runValidation(concert);
-        if (missingFields.length > 0) {
-            setError('Please fill in all required fields');
-            return setEmptyFields(emptyFields);
-        }
+    //     const missingFields = runValidation(concert);
+    //     if (missingFields.length > 0) {
+    //         setError('Please fill in all required fields');
+    //         return setEmptyFields(emptyFields);
+    //     }
         
-        if (!user) {
-            return setError('You must be logged in to do that.');
-        }
+    //     if (!user) {
+    //         return setError('You must be logged in to do that.');
+    //     }
 
-        const response = await fetch('http://localhost:4000/api/concerts/new', {
-            method: 'POST',
-            body: JSON.stringify(concert),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`,
-            }
-        })
+    //     const response = await fetch('http://localhost:4000/api/concerts/new', {
+    //         method: 'POST',
+    //         body: JSON.stringify(concert),
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${user.token}`,
+    //         }
+    //     })
 
-        const json = await response.json();
+    //     const json = await response.json();
 
-        if (!response.ok) {
-            setLoading(false);
-            setError(json.error);
-            setEmptyFields(json.emptyFields);
-        }
-        if (response.ok) {
-            navigate('/concerts');
-        }
-    }
+    //     if (!response.ok) {
+    //         setLoading(false);
+    //         setError(json.error);
+    //         setEmptyFields(json.emptyFields);
+    //     }
+    //     if (response.ok) {
+    //         navigate('/concerts');
+    //     }
+    // }
 
     const handleChange = (e) => {
         const {name, value} = e.target;
 
-        setConcert(prev => ({
+        props.setConcert(prev => ({
             ...prev,
             [name]: value
         }));
@@ -86,7 +86,7 @@ export default function ConcertForm(props) {
             return setError('Please type something first.');
         }
 
-        setConcert(prev => ({
+        props.setConcert(prev => ({
             ...prev,
             pieces: [...prev.pieces, piece]
         }));
@@ -98,7 +98,7 @@ export default function ConcertForm(props) {
             setEmptyFields(prev => [...prev, 'instruments']);
             return setError('Please type something first.');
         }
-        setConcert(prev => ({
+        props.setConcert(prev => ({
             ...prev,
             instruments: [...prev.instruments, instrument]
         }));
@@ -106,7 +106,7 @@ export default function ConcertForm(props) {
     }
 
     const handleDeletePiece = (composer, title) => {
-        setConcert(prev => ({
+        props.setConcert(prev => ({
             ...prev,
             pieces: prev.pieces.filter(piece => {
                 return piece.composer !== composer && piece.title !== title;
@@ -115,7 +115,7 @@ export default function ConcertForm(props) {
     }
 
     const handleDeleteInstrument = (instrument) => {
-        setConcert(prev => ({
+        props.setConcert(prev => ({
             ...prev,
             instruments: prev.instruments.filter(instr => {
                 return instr !== instrument;
@@ -127,13 +127,13 @@ export default function ConcertForm(props) {
     <>
         <form>
             <label>Date:</label>
-            <input type='date' name='date' value={concert.date} onChange={handleChange} min={new Date().toISOString().split('T')[0]}></input>
+            <input type='date' name='date' value={props.concert.date} onChange={handleChange} min={new Date().toISOString().split('T')[0]}></input>
 
             <label>Location</label>
-            <input type='text' name='location' value={concert.location} onChange={handleChange}></input>
+            <input type='text' name='location' value={props.concert.location} onChange={handleChange}></input>
 
             <label htmlFor='region'>Region</label>
-            <select name='region' id='region' onChange={handleChange} value={concert.region}>
+            <select name='region' id='region' onChange={handleChange} value={props.concert.region}>
                 <option value={''}>-- Select Region --</option>
                 <option value={'East Midlands'}>East Midlands</option>
                 <option value={'East of England'}>East of England</option>
@@ -150,8 +150,8 @@ export default function ConcertForm(props) {
             </select>
 
             <label>Financial support?</label>
-            <input type='radio' name='payStatus' value='true' onChange={handleChange}></input><label>Paid</label>
-            <input type='radio' name='payStatus' value='false' onChange={handleChange}></input><label>Unpaid</label>
+            <input type='radio' name='payStatus' id='paid' value='true' onChange={handleChange}></input><label htmlFor='paid'>Paid</label>
+            <input type='radio' name='payStatus' id='unpaid' value='false' onChange={handleChange}></input><label htmlFor='unpaid'>Unpaid</label>
             <br></br>
 
             <label>Composer:</label>
@@ -161,7 +161,7 @@ export default function ConcertForm(props) {
             <button type='button' onClick={handleAddPiece}>Add piece</button>
 
             <div>
-                {concert.pieces.map(piece => {
+                {props.concert.pieces.map(piece => {
                     return <p onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
                 })}
             </div>
@@ -171,12 +171,12 @@ export default function ConcertForm(props) {
             <input type='text' name='instrument' value={instrument} onChange={handleChangeInstrument}></input>
             <button type='button' onClick={handleAddInstrument}>Add Instrument</button>
             <div>
-                {concert.instruments.map(instrument => {
+                {props.concert.instruments.map(instrument => {
                     return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
                 })}
             </div>
             
-            <button onClick={handleSubmit} disabled={loading}>Submit</button>
+            <button onClick={props.handleSubmit} disabled={props.loading}>Submit</button>
         </form>
 
         {/* <div>
