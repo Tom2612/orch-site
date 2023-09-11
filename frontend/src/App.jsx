@@ -8,12 +8,9 @@ import PrivateRoute from './hooks/useProtect';
 import ErrorPage from './components/ErrorPage';
 import Unauthorized from './pages/Unauthorized';
 
-// OLD Concert Pages
-// import Concerts from './pages/Concerts';
-// import ConcertForm from './pages/ConcertForm';
-// import NewConcertForm from './pages/NewConcertForm';
-// import ConcertUpdateForm from './pages/ConcertUpdateForm';
+// OLD Concert pages
 import ConcertPage from './pages/ConcertPage';
+
 // NEW Concert Pages
 import AllConcerts from './features/concerts/AllConcerts';
 import NewConcert from './features/concerts/NewConcert';
@@ -38,10 +35,8 @@ function App() {
           <Route index path='/' element={<Home />} />
           <Route path='/concerts' element={<AllConcerts />} />
           <Route path='/concerts/:id' element={<ConcertPage />} />
-          <Route path='/new' element={<NewConcert />} />
-          {/* <Route path='/concerts/edit/:id' element={<PrivateRoute><ConcertUpdateForm /></PrivateRoute>} /> */}
-          <Route path='/concerts/edit/:id' element={<EditConcert />} />
-          {/* <Route path='/new-concert' element={<PrivateRoute><ConcertForm /></PrivateRoute>} /> */}
+          <Route path='/new' element={<PrivateRoute><NewConcert /></PrivateRoute>} />
+          <Route path='/concerts/edit/:id' element={<PrivateRoute><EditConcert /></PrivateRoute>} />
 
           <Route path='/new-group' element={!user ? <GroupSignupForm /> : <Navigate to='/groups/profile' />} />
           <Route path='/login-group' element={!user ? <GroupLogin /> : <Navigate to='/groups/profile' />} />
