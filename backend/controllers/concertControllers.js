@@ -37,11 +37,12 @@ const getConcerts = async (req, res) => {
 // get a single concert
 const getConcert = async (req, res) => {
     const { id } = req.params;
+    
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such concert'});
     }
 
-    const concert = await Concert.findById(id).populate('group');;
+    const concert = await Concert.findById(id).populate('group', 'location region name');;
 
     if (!concert) {
         return res.status(404).json({error: 'No such concert'});

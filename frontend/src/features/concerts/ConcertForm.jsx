@@ -18,7 +18,7 @@ export default function ConcertForm(props) {
     const [error, setError] = useState(null);
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
 
         props.setConcert(prev => ({
             ...prev,
@@ -65,11 +65,10 @@ export default function ConcertForm(props) {
     }
 
     const handleDeletePiece = (composer, title) => {
+        console.log(composer, title)
         props.setConcert(prev => ({
             ...prev,
-            pieces: prev.pieces.filter(piece => {
-                return piece.composer !== composer && piece.title !== title;
-            })
+            pieces: prev.pieces.filter(piece => !(piece.composer == composer && piece.title == title))
         }));        
     }
 
@@ -109,8 +108,8 @@ export default function ConcertForm(props) {
             </select>
 
             <label>Financial support?</label>
-            <input type='radio' name='payStatus' id='paid' value='true' onChange={handleChange}></input><label htmlFor='paid'>Paid</label>
-            <input type='radio' name='payStatus' id='unpaid' value='false' onChange={handleChange}></input><label htmlFor='unpaid'>Unpaid</label>
+            <input type='radio' name='payStatus' id='paid' value='true' checked={props.concert.payStatus === 'true'} onChange={handleChange}></input><label htmlFor='paid'>Paid</label>
+            <input type='radio' name='payStatus' id='unpaid' value='false' checked={props.concert.payStatus  === 'false'} onChange={handleChange}></input><label htmlFor='unpaid'>Unpaid</label>
             <br></br>
 
             <label>Composer:</label>

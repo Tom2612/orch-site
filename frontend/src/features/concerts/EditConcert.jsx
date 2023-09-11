@@ -1,18 +1,19 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import ConcertForm from './ConcertForm';
 import runValidation from './formValidator';
 
-export default function NewConcert () {
+export default function EditConcert () {
     const { user } = useAuth();
     const navigate = useNavigate();
+    const { id } = useParams();
     
     const [concert, setConcert] = useState({
         date: '',
         region: '',
         location: '',
-        payStatus: false,
+        payStatus: null,
         pieces: [],
         instruments: [],
     });
@@ -20,6 +21,32 @@ export default function NewConcert () {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [emptyFields, setEmptyFields] = useState(false);
+
+    useEffect(() => {
+        const fetchConcert = async () => {
+        const response = await fetch(`http://localhost:4000/api/concerts/edit/${id}`, {
+            headers: {
+            "Authorization": `Bearer ${user.token}`
+            }
+        });
+        const json = await response.json();
+
+        if (!response.ok) {
+            navigate('/unauthorised');
+        }
+
+        if (response.ok) {
+            setConcert({
+                ...json,
+                date: json.date.split('T')[0]
+            });
+            setLoading(false);
+        }
+        }
+
+        fetchConcert();
+
+    }, [id, navigate, user])
 
 
     const handleSubmit = async (e) => {
@@ -59,7 +86,7 @@ export default function NewConcert () {
 
     return (
         <div>
-            New Concert
+            Edit Concert
             <ConcertForm 
                 handleSubmit={handleSubmit} 
                 concert={concert} 
