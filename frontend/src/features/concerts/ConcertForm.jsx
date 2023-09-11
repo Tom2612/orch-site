@@ -4,7 +4,6 @@ export default function ConcertForm(props) {
 
     const [piece, setPiece] = useState({composer: '', title: ''});
     const [instrument, setInstrument] = useState('');
-
     const [emptyFields, setEmptyFields] = useState([]);
     const [error, setError] = useState(null);
 
@@ -124,7 +123,8 @@ export default function ConcertForm(props) {
                 })}
             </div>
             
-            <button onClick={props.handleSubmit} disabled={props.loading}>Submit</button>
+            <button onClick={props.handleSubmit} disabled={props.loading}>{props.editing ? 'Update Concert' : 'Create Concert'}</button>
+            {props.editing && <button onClick={props.handleDelete} disabled={props.loading}>Delete Concert</button> }
         </form>
 
         <div>

@@ -8,14 +8,14 @@ import PrivateRoute from './hooks/useProtect';
 import ErrorPage from './components/ErrorPage';
 import Unauthorized from './pages/Unauthorized';
 
-// Concert Pages
+// OLD Concert Pages
 // import Concerts from './pages/Concerts';
 // import ConcertForm from './pages/ConcertForm';
 // import NewConcertForm from './pages/NewConcertForm';
+// import ConcertUpdateForm from './pages/ConcertUpdateForm';
 import ConcertPage from './pages/ConcertPage';
-import ConcertUpdateForm from './pages/ConcertUpdateForm';
+// NEW Concert Pages
 import AllConcerts from './features/concerts/AllConcerts';
-// import ConcertForm from './features/concerts/ConcertForm';
 import NewConcert from './features/concerts/NewConcert';
 import EditConcert from './features/concerts/EditConcert';
 

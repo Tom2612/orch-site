@@ -56,6 +56,7 @@ export default function EditConcert () {
         const missingFields = runValidation(concert);
         if (missingFields.length > 0) {
             setError('Please fill in all required fields');
+            setLoading(false);
             return setEmptyFields(emptyFields);
         }
         
@@ -84,14 +85,41 @@ export default function EditConcert () {
         }
     }
 
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const response = await fetch(`http://localhost:4000/api/concerts/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+
+            const json = await response.json();
+
+            if (!response.ok) {
+                setLoading(false);
+                setError(json.error);
+            }
+
+            navigate('/groups/profile');
+        } catch(e) {
+            setError(e.message);
+        }
+    }
+
     return (
         <div>
             Edit Concert
             <ConcertForm 
                 handleSubmit={handleSubmit} 
+                handleDelete={handleDelete}
                 concert={concert} 
                 setConcert={setConcert} 
                 loading={loading}
+                editing={true}
             />
 
             <div>

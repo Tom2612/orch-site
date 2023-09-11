@@ -65,6 +65,7 @@ export default function NewConcert () {
                 concert={concert} 
                 setConcert={setConcert} 
                 loading={loading}
+                editing={false}
             />
 
             <div>
