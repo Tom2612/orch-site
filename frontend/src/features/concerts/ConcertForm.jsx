@@ -2,15 +2,6 @@ import React, { useState } from 'react';
 
 export default function ConcertForm(props) {
 
-    // const [concert, setConcert] = useState({
-    //     date: props.date || '',
-    //     region: props.region || '',
-    //     location: props.location || '',
-    //     payStatus: props.payStatus || false,
-    //     pieces: props.pieces || [],
-    //     instruments: props.instruments || [],
-    // });
-
     const [piece, setPiece] = useState({composer: '', title: ''});
     const [instrument, setInstrument] = useState('');
 
@@ -65,7 +56,6 @@ export default function ConcertForm(props) {
     }
 
     const handleDeletePiece = (composer, title) => {
-        console.log(composer, title)
         props.setConcert(prev => ({
             ...prev,
             pieces: prev.pieces.filter(piece => !(piece.composer == composer && piece.title == title))
@@ -120,7 +110,7 @@ export default function ConcertForm(props) {
 
             <div>
                 {props.concert.pieces.map(piece => {
-                    return <p onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
+                    return <p key={`${piece.composer}.${piece.title}`} onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
                 })}
             </div>
 
@@ -130,28 +120,12 @@ export default function ConcertForm(props) {
             <button type='button' onClick={handleAddInstrument}>Add Instrument</button>
             <div>
                 {props.concert.instruments.map(instrument => {
-                    return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
+                    return <p key={instrument} onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
                 })}
             </div>
             
             <button onClick={props.handleSubmit} disabled={props.loading}>Submit</button>
         </form>
-
-        {/* <div>
-            <h2>Your concert</h2>
-            <p>Date: {concert.date}</p>
-            <p>Location: {concert.location}</p>
-            <p>Region: {concert.region}</p>
-            <p>Pay Status: {concert.payStatus.toString()}</p>
-            <p>Piece: {piece.composer} - {piece.title}</p>
-            {concert.pieces.map(piece => {
-                return <p onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
-            })}
-            <p>Instrument: {instrument}</p>
-            {concert.instruments.map(instrument => {
-                return <p onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
-            })}
-        </div> */}
 
         <div>
             {error && <p>{error}</p>}

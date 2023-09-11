@@ -63,8 +63,8 @@ export default function EditConcert () {
             return setError('You must be logged in to do that.');
         }
 
-        const response = await fetch('http://localhost:4000/api/concerts/new', {
-            method: 'POST',
+        const response = await fetch(`http://localhost:4000/api/concerts/${id}`, {
+            method: 'PATCH',
             body: JSON.stringify(concert),
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function EditConcert () {
             setEmptyFields(json.emptyFields);
         }
         if (response.ok) {
-            navigate('/concerts');
+            navigate('/groups/profile');
         }
     }
 
