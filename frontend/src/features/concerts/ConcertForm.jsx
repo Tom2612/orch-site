@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import runValidation from './formValidator';
 
 export default function ConcertForm(props) {
-    // const { user } = useAuth();
-    // const navigate = useNavigate();
 
     // const [concert, setConcert] = useState({
     //     date: props.date || '',
@@ -19,44 +14,8 @@ export default function ConcertForm(props) {
     const [piece, setPiece] = useState({composer: '', title: ''});
     const [instrument, setInstrument] = useState('');
 
-    // const [loading, setLoading] = useState(false);
     const [emptyFields, setEmptyFields] = useState([]);
     const [error, setError] = useState(null);
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(false);
-
-    //     const missingFields = runValidation(concert);
-    //     if (missingFields.length > 0) {
-    //         setError('Please fill in all required fields');
-    //         return setEmptyFields(emptyFields);
-    //     }
-        
-    //     if (!user) {
-    //         return setError('You must be logged in to do that.');
-    //     }
-
-    //     const response = await fetch('http://localhost:4000/api/concerts/new', {
-    //         method: 'POST',
-    //         body: JSON.stringify(concert),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${user.token}`,
-    //         }
-    //     })
-
-    //     const json = await response.json();
-
-    //     if (!response.ok) {
-    //         setLoading(false);
-    //         setError(json.error);
-    //         setEmptyFields(json.emptyFields);
-    //     }
-    //     if (response.ok) {
-    //         navigate('/concerts');
-    //     }
-    // }
 
     const handleChange = (e) => {
         const {name, value} = e.target;

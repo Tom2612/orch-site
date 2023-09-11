@@ -24,7 +24,7 @@ describe('newFormTests', () => {
 
   it('successfully submits form and navigates away', () => {
     cy.login();
-    cy.visit('/new')
+    cy.contains('New Concert').click()
 
     cy.get('[type="date"]').click().type(new Date().toISOString().split('T')[0]);
 
@@ -42,8 +42,7 @@ describe('newFormTests', () => {
 
     cy.get(':nth-child(24)').click();
 
-    cy.location('pathname').should('equal', '/');
-    cy.contains('All Concerts');
+    cy.location('pathname').should('equal', '/concerts');
 
   })
 })
