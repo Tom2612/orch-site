@@ -79,10 +79,10 @@
     margin-right: 2rem;
     color: rgb(0, 0, 0, 0.7);
 }
-.posted {
+/* .posted {
     align-self: center;
     color: rgba(0, 0, 0, 0.544);
     grid-column: 7 / 9;
     grid-row: 5 / 6;
     font-size: 0.95rem;
-}
+} */

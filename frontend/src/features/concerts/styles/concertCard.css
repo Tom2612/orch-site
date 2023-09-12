@@ -3,9 +3,11 @@
     padding: 1rem;
     max-width: 350px;
     color: white;
-    /* border: 1px solid black; */
     border-radius: 10px 0 10px 10px;
     background: linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+}
+.concert-card:hover {
+    cursor: pointer;
 }
 .card-header {
     display: flex;
@@ -17,6 +19,8 @@
 }
 #small-text {
     color: rgb(151 153 167);
+    display: grid;
+    margin-bottom: 1.5rem;
 }
 li {
     list-style: none;
@@ -34,11 +38,13 @@ li {
     font-size: 1rem;
 }
 .unpaid {
-    /* border: 2px solid var(--red-secondary); */
     background-color: var(--red-primary);
-    /* color: var(--red-primary) */
 }
 .paid {
-    /* border: 2px solid var(--green-secondary); */
     background-color: var(--green-primary);
+}
+.posted {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1rem;
 }

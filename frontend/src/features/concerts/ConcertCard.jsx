@@ -21,7 +21,7 @@ export default function ConcertCard({ concert }) {
                     return <li key={instrument+i}>{instrument}</li>
                 })}
             </ul>
-            <p>Posted: {formatDistanceToNow(new Date(concert.createdAt), {addSuffix: true})}</p>
+            <p className='posted'>Posted: {formatDistanceToNow(new Date(concert.createdAt), {addSuffix: true})}</p>
         </div>
     )
 }
