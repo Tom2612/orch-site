@@ -13,6 +13,7 @@ import ConcertPage from './pages/ConcertPage';
 
 // NEW Concert Pages
 import AllConcerts from './features/concerts/AllConcerts';
+import ConcertDetails from './features/concerts/ConcertDetails';
 import NewConcert from './features/concerts/NewConcert';
 import EditConcert from './features/concerts/EditConcert';
 
@@ -34,7 +35,8 @@ function App() {
         <Routes>
           <Route index path='/' element={<Home />} />
           <Route path='/concerts' element={<AllConcerts />} />
-          <Route path='/concerts/:id' element={<ConcertPage />} />
+          {/* <Route path='/concerts/:id' element={<ConcertPage />} /> */}
+          <Route path='/concerts/:id' element={<ConcertDetails />} />
           <Route path='/new' element={<PrivateRoute><NewConcert /></PrivateRoute>} />
           <Route path='/concerts/edit/:id' element={<PrivateRoute><EditConcert /></PrivateRoute>} />
 

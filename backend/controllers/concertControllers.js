@@ -19,7 +19,6 @@ const getConcerts = async (req, res) => {
 
     // Not yet working
     if (region) {
-        // filters['group.region'] = region;
         filters.region = region;
     }
 
@@ -27,7 +26,7 @@ const getConcerts = async (req, res) => {
     filters.date = { $gte: currentDate }
 
     const concerts = await Concert.find(filters)
-        .populate('group', 'name location region')
+        .populate('group', 'name location')
         .sort({date: 1})
 
     res.status(200).json(concerts);
@@ -39,13 +38,13 @@ const getConcert = async (req, res) => {
     const { id } = req.params;
     
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such concert'});
+        return res.status(404).json({error: 'Unable to find concert'});
     }
 
-    const concert = await Concert.findById(id).populate('group', 'location region name');;
+    const concert = await Concert.findById(id).populate('group', 'location name email phone');
 
     if (!concert) {
-        return res.status(404).json({error: 'No such concert'});
+        return res.status(404).json({error: 'Unable to find concert'});
     }
 
     res.status(200).json(concert);
