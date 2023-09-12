@@ -35,7 +35,7 @@
     text-transform: uppercase;
     text-align: center;
 }
-.paid {
+/* .paid {
     background-color: var(--green-secondary);
     border: 1px solid var(--green-secondary);
     border-left-width: 5px;
@@ -46,7 +46,7 @@
     border: 1px solid var(--red-secondary);
     border-left-width: 5px;
     border-left-color: var(--red-primary);
-}
+} */
 .date {
     font-weight: 700;
     grid-column: 7 / 8;

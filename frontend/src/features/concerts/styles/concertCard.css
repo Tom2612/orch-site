@@ -1,7 +1,44 @@
 .concert-card {
+    position: relative;
     padding: 1rem;
     max-width: 350px;
-    border: 1px solid black;
-    border-radius: 10px;
-    
+    color: white;
+    /* border: 1px solid black; */
+    border-radius: 10px 0 10px 10px;
+    background: linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+}
+.card-header {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+}
+#highlight {
+    color: #488aec;
+}
+#small-text {
+    color: rgb(151 153 167);
+}
+li {
+    list-style: none;
+}
+.banner {
+    width: 75px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50px 0 0 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.624rem 0.75rem;
+    font-size: 1rem;
+}
+.unpaid {
+    /* border: 2px solid var(--red-secondary); */
+    background-color: var(--red-primary);
+    /* color: var(--red-primary) */
+}
+.paid {
+    /* border: 2px solid var(--green-secondary); */
+    background-color: var(--green-primary);
 }
