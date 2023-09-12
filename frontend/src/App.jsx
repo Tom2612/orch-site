@@ -8,9 +8,6 @@ import PrivateRoute from './hooks/useProtect';
 import ErrorPage from './components/ErrorPage';
 import Unauthorized from './pages/Unauthorized';
 
-// OLD Concert pages
-import ConcertPage from './pages/ConcertPage';
-
 // NEW Concert Pages
 import AllConcerts from './features/concerts/AllConcerts';
 import ConcertDetails from './features/concerts/ConcertDetails';
@@ -35,7 +32,6 @@ function App() {
         <Routes>
           <Route index path='/' element={<Home />} />
           <Route path='/concerts' element={<AllConcerts />} />
-          {/* <Route path='/concerts/:id' element={<ConcertPage />} /> */}
           <Route path='/concerts/:id' element={<ConcertDetails />} />
           <Route path='/new' element={<PrivateRoute><NewConcert /></PrivateRoute>} />
           <Route path='/concerts/edit/:id' element={<PrivateRoute><EditConcert /></PrivateRoute>} />

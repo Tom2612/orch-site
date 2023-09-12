@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ConcertCard from './ConcertCard';
 import ConcertsController from './ConcertsController';
-import '../../styles/concerts.css';
+import './styles/allConcerts.css';
 
 export default function Concerts() {
     const [allConcerts, setAllConcerts] = useState(null);
-
     const [loading, setLoading] = useState(true);
-    // const [filters, setFilters] = useState('');
 
     useEffect(() => {
         const fetchConcerts = async () => {
@@ -35,76 +33,28 @@ export default function Concerts() {
         });
         const json = await response.json();
 
-        console.log(json);
         setAllConcerts(json);
     }
 
-    // Want to filter by: Location, Paid, Instruments, Pieces
+    if (loading) return <h1>Loading...</h1>
 
-    // const handleSort = (e) => {
-    //     if (e.target.value === 'close') {
-    //         let sortedConcerts = [].concat(concerts)
-    //             .sort((a, b) => a.date > b.date ? 1 : -1);
-    //         setConcerts(sortedConcerts);
-    //     } else if (e.target.value === 'new') {
-    //         let sortedConcerts = [].concat(concerts)
-    //             .sort((a, b) => new Date(a.createdAt.split('T')[0]) - new Date(b.createdAt.split('T')[0]));
-    //         setConcerts(sortedConcerts.reverse());
-    //     }
-    // };
+    return (
+        <div>
+            <h2>Browse Concerts</h2>
 
-    // const handleFilter = (e) => {
-    //     setConcerts(allConcerts);
-    //     if (filters === 'instruments') {
-    //         let filteredConcerts = allConcerts.filter(concert => {
-    //             let regex = new RegExp(e.target.value, 'gi')
-    //             return regex.test(concert['instruments']) ? concert : null;
-    //         })
-    //         setConcerts(filteredConcerts);            
-    //     } else if (filters === 'payStatus') {
-    //         let filteredConcerts = allConcerts.filter(concert => {
-    //             if (e.target.value === 'true') {
-    //                 return concert['payStatus'];
-    //             } else if (e.target.value === 'false') {
-    //                 return !concert['payStatus'];
-    //             } else return concert;
-    //         })
-    //         setConcerts(filteredConcerts);
-    //     } else if (filters === 'region') {
-    //         if (e.target.value !== '') {
-    //             let filteredConcerts = allConcerts.filter(concert => concert.group.region === e.target.value);
-    //             setConcerts(filteredConcerts);
-    //         }
-    //     }
-    // }
+            {
 
-  return (
-    <>
-        {!loading && 
+            <ConcertsController handleSubmitFilters={handleSubmitFilters}/>
+            }
             <div className='concerts-container'>
-                <h2>Browse Concerts</h2>
-
                 {
-                // Space here for the controller component 
-                <ConcertsController handleSubmitFilters={handleSubmitFilters}/>
+                    allConcerts && allConcerts.map(concert => (
+                        <ConcertCard key={concert._id} concert={concert} />
+                    ))
                 }
-                <div>
-                    {
-                        // Grid layout for cards
-                        allConcerts && allConcerts.map(concert => (
-                            <ConcertCard key={concert._id} concert={concert} />
-                        ))
-                    }
-                </div> 
+            </div> 
 
-                    {/* {allConcerts && allConcerts.map((concert) => (
-                        <div key={concert._id} className='concerts' onClick={() => {navigate(`/concerts/${concert._id}`)}}>
-                            <ConcertDetails key={concert._id} concert={concert} />
-                        </div>
-                    ))} */}
-                {allConcerts.length === 0 && <h1>Sorry, we have no new concerts to show!</h1>}
-            </div>
-        }
-    </>
-  )
+            {allConcerts.length === 0 && <h1>Sorry, we have no new concerts to show!</h1>}
+        </div>
+    )
 }
