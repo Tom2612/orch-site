@@ -5,10 +5,18 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://localhost:5173',
+    baseUrl: "http://localhost:5173",
   },
+
   env: {
-    testUsername: 'four@four.com',
-    testPassword: '123456'
-  }
+    testUsername: "four@four.com",
+    testPassword: "123456",
+  },
+
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "vite",
+    },
+  },
 });

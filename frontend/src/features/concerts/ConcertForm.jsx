@@ -107,7 +107,7 @@ export default function ConcertForm(props) {
             <input type='text' name='title' value={piece.title} onChange={handleChangePiece}></input>
             <button type='button' onClick={handleAddPiece}>Add piece</button>
 
-            <div>
+            <div data-cy='pieces'>
                 {props.concert.pieces.map(piece => {
                     return <p key={`${piece.composer}.${piece.title}`} onClick={() => handleDeletePiece(piece.composer, piece.title)}>{piece.composer} - {piece.title}</p>
                 })}
@@ -117,7 +117,7 @@ export default function ConcertForm(props) {
             <label>Instruments:</label>
             <input type='text' name='instrument' value={instrument} onChange={handleChangeInstrument}></input>
             <button type='button' onClick={handleAddInstrument}>Add Instrument</button>
-            <div>
+            <div data-cy='instruments'>
                 {props.concert.instruments.map(instrument => {
                     return <p key={instrument} onClick={() => handleDeleteInstrument(instrument)}>{instrument}</p>
                 })}
